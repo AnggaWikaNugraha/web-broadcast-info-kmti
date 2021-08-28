@@ -1,17 +1,12 @@
-@extends('layouts.app')
-
-@section('body')
-    <div id="app">
-
-        @include('layouts.components.navbar')
+<div id="app">
 
         <main class="py-4">
             <div class="container">
 
                 {{-- content --}}
-                test
+                  @yield('content')
                 {{-- akhir conten --}}
+
             </div>
         </main>
-    </div>
-@endsection
+</div>
