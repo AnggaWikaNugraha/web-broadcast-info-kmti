@@ -4,7 +4,7 @@
     <div id="app">
 
         <main">
-            <div class="container">
+            <div class="container-fluid">
 
                 {{-- content --}}
                 <div class="row">
