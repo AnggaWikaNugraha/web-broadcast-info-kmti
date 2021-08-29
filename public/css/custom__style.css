@@ -70,3 +70,20 @@
 .icons__ {
     width: 30px;
 }
+
+.wrapper__card {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.form-control::placeholder {
+    color: gray;
+    opacity: 0.5;
+}
+
+.err__fields {
+    color: red;
+    opacity: 0.6;
+    font-size: 11px;
+}

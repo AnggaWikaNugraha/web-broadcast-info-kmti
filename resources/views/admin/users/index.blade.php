@@ -15,12 +15,14 @@
 
                     <div class="col-10 pr-4">
                         <div><h4 class="mt-4 mb-4 font-weight-bold title__admin"">WEB BROADCAST KMTI</h4></div>
-                        @section('navbartitle', 'Dashboard')
+                        @section('navbartitle', 'Create users')
                         @include('layouts.components.navbar')
 
                         {{-- content --}}
-                        <div class="card wrapper__card">
-                            tes
+                        <div class="card wrapper__card shadow-sm">
+
+                           list users
+
                         </div>
                         {{-- akhir conten --}}
                     </div>
