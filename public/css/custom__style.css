@@ -24,3 +24,49 @@
     height: 100vh;
     overflow-x: hidden;
 }
+
+.sidebar-wrapper {
+    height: 100%;
+    width: 100%;
+    background-color: brown;
+}
+
+.sidebar__menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.sidebar__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar__menu > ul {
+    margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    padding-inline-start: 0px;
+    width: 70%;
+}
+
+.sidebar__menu > ul > li {
+    list-style-type: none;
+    width: 100% !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sidebar__menu > ul > li > a {
+    width: 100%;
+}
+
+.sidebar__menu > ul > li > a > span {
+    font-size: 18px;
+}
+
+.icons__ {
+    width: 30px;
+}

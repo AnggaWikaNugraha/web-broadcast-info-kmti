@@ -3,43 +3,55 @@
 @section('body')
     <div id="app">
         <main class="page__Dashboard">
-            <div class="container-fluid">
+            <div class="container-fluid h-100">
 
                 {{-- content --}}
-                <div class="row">
+                <div class="row h-100">
 
-                    <div class="col-2">
+                    <div class="col-2 h-100 w-100 pr-0">
 
                         <nav id="sidebar" class="sidebar-wrapper">
                             <div class="sidebar-content">
-                              <div class="sidebar-menu">
+                              <div class="sidebar__menu">
+
+                                <div class="sidebar__header">
+                                    <img style="width: 70%" src="{{ asset('img/KMTI.png') }}" alt="">
+                                </div>
+
                                 <ul>
 
-                                  <li class="header-menu">
-                                    <span>Extra</span>
-                                  </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="icons__ fas fa-tachometer-alt"></i>
+                                          <span>Dashboard</span>
+                                        </a>
+                                    </li>
                                   <li>
                                     <a href="#">
-                                      <i class="fa fa-book"></i>
-                                      <span>Documentation</span>
-                                      <span class="badge badge-pill badge-primary">Beta</span>
+                                      <i class="icons__ fa fa-book"></i>
+                                      <span>Manage User</span>
                                     </a>
                                   </li>
                                   <li>
                                     <a href="#">
-                                      <i class="fa fa-calendar"></i>
-                                      <span>Calendar</span>
+                                      <i class="icons__ fa fa-calendar"></i>
+                                      <span>Divisi</span>
                                     </a>
                                   </li>
                                   <li>
                                     <a href="#">
-                                      <i class="fa fa-folder"></i>
-                                      <span>Examples</span>
+                                      <i class="icons__ fa fa-folder"></i>
+                                      <span>Broadcast</span>
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href="#">
+                                      <i class="icons__ fa fa-folder"></i>
+                                      <span>Event</span>
                                     </a>
                                   </li>
                                 </ul>
                               </div>
-                              <!-- sidebar-menu  -->
                             </div>
                           </nav>
 
