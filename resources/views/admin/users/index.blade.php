@@ -40,6 +40,24 @@
 
                         </div>
                         {{-- akhir conten --}}
+
+                        <div id="confirmModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirmation</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 align="center" style="margin:0;">Are you sure you want to remove this data?</h6>
+                                    </div>
+                                    <div class="modal-footer">
+                                     <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -69,13 +87,44 @@
               {
                 data: 'action',
                 name: 'action',
-                orderable: true,
-                searchable: true
+                orderable: false,
+                searchable: false
             },
           ]
       });
 
     });
+
+    var user_id;
+
+    $(document).on('click', '.delete', function(){
+
+        user_id = $(this).attr('id');
+
+        $('#confirmModal').modal('show')});
+        $('#ok_button').click(function(){
+
+            var contentType = "application/x-www-form-urlencoded; charset=utf-8";
+            var token = $("meta[name='csrf-token']").attr("content");
+
+            $.ajax({
+                url:"manage-users/"+user_id,
+                type: "POST",
+                data: {
+                    token: token,
+                    _method: 'DELETE',
+                    id: user_id,
+                },
+                contentType: contentType,
+
+                success:function(data)
+                {
+                    $('#confirmModal').modal('hide');
+                    $('.data-table').DataTable().ajax.reload();
+                }
+            })
+        });
+
 </script>
 
 @endpush

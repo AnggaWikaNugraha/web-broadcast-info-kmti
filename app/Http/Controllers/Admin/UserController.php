@@ -26,9 +26,8 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
-
+                    $btn .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="' . $row->id . '" class="delete btn btn-danger btn-sm">Delete</button>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -136,6 +135,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::findOrFail($id);
+        $data->delete();
+
+        return view('admin.users.index')->with('success', 'User successfully deleted');
     }
 }
