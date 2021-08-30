@@ -7,5 +7,6 @@
 
     @yield('body')
 
+    @stack('script')
 </body>
 </html>
