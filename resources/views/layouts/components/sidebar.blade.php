@@ -15,7 +15,7 @@
                 </a>
             </li>
           <li>
-            <a href="{{ route('manage-users.create')}}" class="{{ Request::routeIs('manage-users.create') ? 'active' : '' }}">
+            <a href="{{ route('manage-users.index')}}" class="{{ Request::routeIs('manage-users.index') ? 'active' : '' }}">
               <i class="icons__ fa fa-book"></i>
               <span>Manage User</span>
             </a>

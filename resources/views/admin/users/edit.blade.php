@@ -24,7 +24,7 @@
 
                             @include('layouts.components.flash-message')
 
-                            <form method="post" action="{{ route('manage-users.store') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('manage-users.update') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
                                   <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>

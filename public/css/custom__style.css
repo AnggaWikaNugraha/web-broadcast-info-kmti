@@ -87,3 +87,12 @@
     opacity: 0.6;
     font-size: 11px;
 }
+
+.logout__style {
+    top: 48px;
+    right: -30px;
+}
+
+.data-table {
+    width: 100% !important;
+}

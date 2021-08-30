@@ -16,4 +16,8 @@
 <!-- Styles -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+
+{{-- yajra style datatable --}}
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
+
 <link href="{{ asset('css/custom__style.css') }}" rel="stylesheet">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -14,8 +15,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request);
+        if ($request->ajax()) {
+            $data = User::where('roles', 'mahasiswa')
+                ->orderByDesc('created_at')
+                ->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="/admin/manage-users/' . $row->id . '" class="edit btn btn-primary btn-sm">Edit</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
         return view('admin.users.index');
     }
 
@@ -52,7 +71,7 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        return view('admin.users.index');
+        return redirect()->route('manage-users.create')->with('success', 'Users successfully created');
     }
 
     /**
