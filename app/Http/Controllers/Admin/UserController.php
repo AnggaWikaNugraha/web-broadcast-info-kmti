@@ -27,7 +27,7 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="/admin/manage-users/' . $row->id . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
 
                     return $btn;
                 })
@@ -82,7 +82,6 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -93,7 +92,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.users.edit', [
+            'user' => User::findOrFail($id)
+        ]);
     }
 
     /**
@@ -105,7 +106,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "name" => "required|min:1",
+            "email" => "required|min:1",
+            "roles" => "required|min:1",
+        ])->validate();
+
+        $user = User::findOrFail($id);
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->roles = $request->get('roles');
+
+        if ($request->get('password')) {
+
+            $user->password = Hash::make($request['password']);
+        }
+
+        $user->save();
+
+        return redirect()->route('manage-users.edit', [$user->id])->with('success', 'User successfully updated');
     }
 
     /**

@@ -16,20 +16,21 @@
                     <div class="col-10 pr-4">
 
                         <div><h4 class="mt-4 mb-4 font-weight-bold title__admin"">WEB BROADCAST KMTI</h4></div>
-                        @section('navbartitle', 'Create users')
+                        @section('navbartitle', 'Edit users')
                         @include('layouts.components.navbar')
 
                         {{-- content --}}
                         <div class="card wrapper__card shadow-sm">
 
                             @include('layouts.components.flash-message')
-
-                            <form method="post" action="{{ route('manage-users.update') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('manage-users.update', $user->id)}}" enctype="multipart/form-data">
+                                @method('PATCH')
                                 @csrf
+
                                 <div class="form-group row">
                                   <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>
                                   <div class="col-sm-10">
-                                    <input value="{{old('name')}}" type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Masukan nama">
+                                    <input value="{{ $user->name}}" type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Masukan nama">
                                     <span class="err__fields">{{$errors->first('name')}}</span>
                                   </div>
                                 </div>
@@ -37,7 +38,7 @@
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email :</label>
                                     <div class="col-sm-10">
-                                      <input value="{{old('email')}}" type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Masukan email">
+                                      <input value="{{ $user->email}}" type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Masukan email">
                                       <span class="err__fields">{{$errors->first('email')}}</span>
                                     </div>
                                 </div>
@@ -45,7 +46,7 @@
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-2 col-form-label col-form-label-sm">Password :</label>
                                     <div class="col-sm-10">
-                                      <input value="{{old('password')}}" type="text" class="form-control form-control-sm" id="password" name="password" placeholder="Masukan password">
+                                      <input value="{{old('password')}}" type="text" class="form-control form-control-sm" id="password" name="password" placeholder="password">
                                       <span class="err__fields">{{$errors->first('password')}}</span>
                                     </div>
                                 </div>
