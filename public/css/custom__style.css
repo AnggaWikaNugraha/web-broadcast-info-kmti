@@ -96,3 +96,20 @@
 .data-table {
     width: 100% !important;
 }
+
+.wrapper__delete{
+
+    margin-left: 5px;
+    width: 40px;
+    height: 28px;
+}
+
+.btn__delete{
+    font-size: 11px !important;
+    height: 100%;
+    width: 100%;
+}
+
+.data-table > tbody > tr > td:last-of-type {
+    display: flex !important;
+}

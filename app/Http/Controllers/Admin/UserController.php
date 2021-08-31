@@ -17,7 +17,6 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request);
         if ($request->ajax()) {
             $data = User::where('roles', 'mahasiswa')
                 ->orderByDesc('created_at')
@@ -26,8 +25,18 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
+                    
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '&nbsp;&nbsp;&nbsp;<button type="button" name="edit" id="' . $row->id . '" class="delete btn btn-danger btn-sm">Delete</button>';
+                    $btn .= '
+                    
+                    <form action="manage-users/'. $row->id.'" method="POST" class="wrapper__delete">
+                        '.csrf_field().'
+                        '.method_field("DELETE").'
+                        <button type="submit" class="btn btn-danger btn__delete"
+                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                            style="padding: .0em !important;font-size: xx-small;">Delete</button>
+                    </form>';
+                    
                     return $btn;
                 })
                 ->rawColumns(['action'])
