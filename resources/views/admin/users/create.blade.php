@@ -45,9 +45,16 @@
                                 <div class="form-group row">
                                     <label for="password" class="col-sm-2 col-form-label col-form-label-sm">Password :</label>
                                     <div class="col-sm-10">
-                                      <input value="{{old('password')}}" type="text" class="form-control form-control-sm" id="password" name="password" placeholder="Masukan password">
+                                      <input type="text" value="{{old('password')}}" type="text" class="form-control form-control-sm" id="password" name="password" placeholder="Masukan password">
                                       <span class="err__fields">{{$errors->first('password')}}</span>
                                     </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="password_confirmation" class="col-sm-2 col-form-label col-form-label-sm">Confirm Password :</label>
+                                    <div class="col-sm-10">
+                                      <input type="text" value="{{old('password_confirmation')}}" type="text" class="form-control form-control-sm" id="password_confirmation" name="password_confirmation" placeholder="Confirm password">
+                                      </div>
                                 </div>
 
                                 <div class="form-group row">
