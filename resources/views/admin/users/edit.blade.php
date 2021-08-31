@@ -21,7 +21,7 @@
 
                         {{-- content --}}
                         <div class="card wrapper__card shadow-sm">
-
+                            
                             @include('layouts.components.flash-message')
                             <form method="post" action="{{ route('manage-users.update', $user->id)}}" enctype="multipart/form-data">
                                 @method('PATCH')

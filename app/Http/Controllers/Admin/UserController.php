@@ -124,7 +124,7 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "name" => "required|min:1",
+            "name" => "required|min:2",
             "email" => "required|min:1",
             "roles" => "required|min:1",
         ])->validate();
@@ -135,10 +135,6 @@ class UserController extends Controller
         $user->roles = $request->get('roles');
 
         if ($request->get('password')) {
-
-            // \Illuminate\Support\Facades\Validator::make($request->all(), [
-            //     "password" => "required|confirmed|min:9",
-            // ])->validate();
 
             $request->validate([
                 'password' => 'required|confirmed|min:6'

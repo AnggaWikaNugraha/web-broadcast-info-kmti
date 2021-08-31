@@ -23,4 +23,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
+Route::get('/change-password', [App\Http\Controllers\AdminController::class, 'showChangePasswordForm'])->name('show-change-password');
+Route::patch('/change-password/{id}', [App\Http\Controllers\AdminController::class, 'ChangePassword'])->name('change-password');
 Route::resource('admin/manage-users', UserController::class);
