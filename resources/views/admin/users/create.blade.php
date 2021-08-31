@@ -61,9 +61,9 @@
                                     <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                                     <div class="col-sm-10">
                                         <select class="custom-select custom-select-sm mr-sm-2" name="roles" id="inlineFormCustomSelect">
-                                            <option value="mahasiswa">Mahasiswa</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="superadmin">Super Admin</option>
+                                            <option value='["mahasiswa"]'>Mahasiswa</option>
+                                            <option value='["admin"]''>Admin</option>
+                                            <option value='["superadmin"]'>Super Admin</option>
                                           </select>
                                     </div>
                                 </div>

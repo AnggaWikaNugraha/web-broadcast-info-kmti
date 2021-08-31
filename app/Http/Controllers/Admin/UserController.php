@@ -7,9 +7,22 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function($request, $next){
+
+            if(Gate::allows('Dashboard')) {
+                return $next($request);
+            }
+          
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+          
+        });
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +31,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::where('roles', 'mahasiswa')
+
+            $data = User::where('roles', '["mahasiswa"]')
                 ->orderByDesc('created_at')
                 ->get();
 
