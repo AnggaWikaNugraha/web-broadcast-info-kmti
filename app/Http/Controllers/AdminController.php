@@ -14,21 +14,26 @@ class AdminController extends Controller
 
     public function index()
     {
-        if (Auth::user()->email_verified_at == null) {
-            return redirect(route('show-change-password'));
-         }
-         else{
-            return view('admin.dashboard');
-         }
+        if (Auth::user()) {
+            if (Auth::user()->email_verified_at == null) {
+                return redirect(route('show-change-password'));
+            } else {
+                return view('admin.dashboard');
+            }
+        } else {
+            return redirect('login');
+        }
     }
 
-    public function showChangePasswordForm(){
+    public function showChangePasswordForm()
+    {
 
         $user = Auth::user();
         return view('auth.change-password', compact('user'));
     }
 
-    public function ChangePassword(Request $request, $id){
+    public function ChangePassword(Request $request, $id)
+    {
 
 
         $user = User::findOrFail($id);

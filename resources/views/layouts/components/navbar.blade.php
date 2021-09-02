@@ -1,7 +1,7 @@
 <div class="app-header header-shadow">
 
     <div class="app-header__logo">
-        <img class="logo__mobile" style="width: 40%" src="{{ asset('img/KMTI.png') }}" alt="">
+        <img class="logo__mobile" style="width: 35%" src="{{ asset('img/KMTI.png') }}" alt="">
         <div class="header__pane">
             <div>
                 <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">

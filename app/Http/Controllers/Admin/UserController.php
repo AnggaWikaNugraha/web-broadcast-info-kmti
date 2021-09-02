@@ -13,14 +13,13 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function($request, $next){
+        $this->middleware(function ($request, $next) {
 
-            if(Gate::allows('Dashboard')) {
+            if (Gate::allows('manage-users')) {
                 return $next($request);
             }
-          
+
             abort(403, 'Anda tidak memiliki cukup hak akses');
-          
         });
     }
     /**
@@ -39,18 +38,18 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    
+
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
                     $btn .= '
                     
-                    <form action="manage-users/'. $row->id.'" method="POST" class="wrapper__delete">
-                        '.csrf_field().'
-                        '.method_field("DELETE").'
+                    <form action="manage-users/' . $row->id . '" method="POST" class="wrapper__delete">
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
                         <button type="submit" class="btn btn-danger btn__delete"
                             onclick="return confirm(\'Are You Sure Want to Delete?\')"
                             style="padding: .0em !important;font-size: xx-small;">Delete</button>
                     </form>';
-                    
+
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -86,7 +85,7 @@ class UserController extends Controller
                 'email',
                 function ($attribute, $value, $fail) {
                     if (User::whereEmail($value)->count() > 0) {
-                        $fail($attribute.' is already used.');
+                        $fail($attribute . ' is already used.');
                     }
                 },
             ],
@@ -153,7 +152,7 @@ class UserController extends Controller
             $request->validate([
                 'password' => 'required|confirmed|min:6'
             ]);
-       
+
             $user->password = Hash::make($request['password']);
         }
 

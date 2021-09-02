@@ -38,7 +38,7 @@
             <ul class="vertical-nav-menu">
 
                 <li>
-                    <a href="index.html" class="mm-active">
+                    <a href="{{ route('dashboard') }}" class="mm-active">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
@@ -52,7 +52,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="elements-buttons-standard.html">
+                            <a href="{{ route('manage-users.index') }}">
                                 <i class="metismenu-icon"></i>
                                 List User
                             </a>

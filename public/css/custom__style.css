@@ -59,3 +59,37 @@
     justify-content: center;
     align-items: center;
 }
+
+/* tabke */
+.data-table{
+    width: 100% !important;
+    border: none !important;
+}
+
+.dataTables_length{
+    margin-top: 20px;
+}
+
+.dataTables_filter{
+    margin-top: 20px;
+}
+
+.thead__dark{
+    background-color: #2C061F;
+    color: white;
+}
+
+.btn__create{
+    background-color: black;
+    border-radius: 3px;
+}
+
+.data-table > tbody > tr > td:last-of-type {
+    display: flex !important;
+}
+
+.btn__delete{
+    margin-left: 10px;
+    width: 40px !important;
+    height: 30px !important;
+}
