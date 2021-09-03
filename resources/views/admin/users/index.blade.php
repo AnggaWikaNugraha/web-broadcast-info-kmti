@@ -30,7 +30,6 @@
                                     <thead class="thead__dark">
                                         <tr>
                                             <th>#</th>
-                                            <th>Name</th>
                                             <th>Email</th>
                                             <th>roles</th>
                                             <th>Actions</th>
@@ -66,10 +65,6 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
                     },
                     {
                         data: 'email',

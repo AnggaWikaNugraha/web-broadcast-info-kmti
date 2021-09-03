@@ -71,7 +71,7 @@
                                                 @endif
                                             @else
 
-                                                {{ Auth::user()->name }}
+                                                {{ Auth::user()->roles == '["superadmin"]' ? 'login as superadmin' : nuul }}
 
                                             @endguest
 

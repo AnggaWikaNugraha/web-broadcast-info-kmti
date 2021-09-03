@@ -22,15 +22,6 @@
                                 @csrf
 
                                 <div class="form-group row">
-                                    <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>
-                                    <div class="col-sm-10">
-                                        <input value="{{ $user->name }}" type="text" class="form-control form-control-sm"
-                                            id="name" name="name" placeholder="Masukan nama">
-                                        <span class="err__fields">{{ $errors->first('name') }}</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
                                     <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email :</label>
                                     <div class="col-sm-10">
                                         <input value="{{ $user->email }}" type="email" class="form-control form-control-sm"
@@ -67,7 +58,7 @@
                                             id="inlineFormCustomSelect">
                                             <option value='["mahasiswa"]'>Mahasiswa</option>
                                             <option value='["admin"]''>Admin</option>
-                                                <option value=' ["superadmin"]'>Super Admin</option>
+                                                    <option value=' ["superadmin"]'>Super Admin</option>
                                         </select>
                                     </div>
                                 </div>

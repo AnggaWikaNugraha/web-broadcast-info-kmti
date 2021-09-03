@@ -13,6 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+
         $this->middleware(function ($request, $next) {
 
             if (Gate::allows('manage-users')) {
@@ -79,7 +80,6 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "name" => "required|min:2",
             "email" =>  [
                 'required',
                 'email',
@@ -94,7 +94,6 @@ class UserController extends Controller
         ])->validate();
 
         User::create([
-            'name' => $request['name'],
             'email' => $request['email'],
             'roles' => $request['roles'],
             'password' => Hash::make($request['password']),
@@ -137,13 +136,11 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "name" => "required|min:2",
             "email" => "required|min:1",
             "roles" => "required|min:1",
         ])->validate();
 
         $user = User::findOrFail($id);
-        $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->roles = $request->get('roles');
 
