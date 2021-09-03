@@ -172,6 +172,6 @@ class UserController extends Controller
         $data = User::findOrFail($id);
         $data->delete();
 
-        return view('admin.users.index')->with('success', 'User successfully deleted');
+        return redirect()->route('manage-users.index')->with('success', 'User successfully deleted');
     }
 }

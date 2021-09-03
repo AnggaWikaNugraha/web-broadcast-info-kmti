@@ -58,15 +58,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="elements-dropdowns.html">
+                            <a href=" {{ route('manage-users.create') }}">
                                 <i class="metismenu-icon">
                                 </i>Create User
-                            </a>
-                        </li>
-                        <li>
-                            <a href="elements-icons.html">
-                                <i class="metismenu-icon">
-                                </i>Edit User
                             </a>
                         </li>
                     </ul>
