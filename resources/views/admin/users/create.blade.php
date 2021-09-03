@@ -17,7 +17,8 @@
 
                             @include('layouts.components.flash-message')
 
-                            <form method="post" action="{{ route('manage-users.store') }}" enctype="multipart/form-data">
+                            <form class="form__create" method="post" action="{{ route('manage-users.store') }}"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group row">
                                     <label for="name" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>
@@ -31,8 +32,9 @@
                                 <div class="form-group row">
                                     <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email :</label>
                                     <div class="col-sm-10">
-                                        <input value="{{ old('email') }}" type="email" class="form-control form-control-sm"
-                                            id="email" name="email" placeholder="Masukan email">
+                                        <input value="{{ old('email') }}" type="email"
+                                            class="form-control form-control-sm" id="email" name="email"
+                                            placeholder="Masukan email">
                                         <span class="err__fields">{{ $errors->first('email') }}</span>
                                     </div>
                                 </div>
@@ -41,7 +43,7 @@
                                     <label for="password" class="col-sm-2 col-form-label col-form-label-sm">Password
                                         :</label>
                                     <div class="col-sm-10">
-                                        <input type="text" value="{{ old('password') }}" type="text"
+                                        <input type="password" value="{{ old('password') }}" type="text"
                                             class="form-control form-control-sm" id="password" name="password"
                                             placeholder="Masukan password">
                                         <span class="err__fields">{{ $errors->first('password') }}</span>
@@ -52,7 +54,7 @@
                                     <label for="password_confirmation"
                                         class="col-sm-2 col-form-label col-form-label-sm">Confirm Password :</label>
                                     <div class="col-sm-10">
-                                        <input type="text" value="{{ old('password_confirmation') }}" type="text"
+                                        <input type="password" value="{{ old('password_confirmation') }}" type="text"
                                             class="form-control form-control-sm" id="password_confirmation"
                                             name="password_confirmation" placeholder="Confirm password">
                                     </div>
@@ -65,7 +67,7 @@
                                             id="inlineFormCustomSelect">
                                             <option value='["mahasiswa"]'>Mahasiswa</option>
                                             <option value='["admin"]''>Admin</option>
-                                                <option value=' ["superadmin"]'>Super Admin</option>
+                                                        <option value=' ["superadmin"]'>Super Admin</option>
                                         </select>
                                     </div>
                                 </div>

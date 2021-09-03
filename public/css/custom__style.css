@@ -93,3 +93,18 @@
     width: 40px !important;
     height: 30px !important;
 }
+
+.form__create > .form-group > div > input::placeholder{
+    color: gray;
+    opacity: .6;
+}
+
+.form__create > .form-group > div > .custom-select{
+    color: gray;
+    opacity: .6;
+}
+
+.err__fields{
+    color: red;
+    font-size: 12px;
+}
