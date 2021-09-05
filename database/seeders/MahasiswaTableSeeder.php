@@ -14,13 +14,12 @@ class MahasiswaTableSeeder extends Seeder
     public function run()
     {
         $item = new \App\Models\Mahasiswa();
-        $item->name = "Angga wika Nugraha";
-        $item->nim = "20170140106";
-        $item->no_wa = "0891234567";
-        $item->angkatan = "2017";
-        $item->id_tele = "@anggawika";
-        $item->user_id = 2;
-
+        $item->name = "Iis Aidah ekasari";
+        $item->nim = "20180140101";
+        $item->no_wa = "0891234562";
+        $item->angkatan = "2018";
+        $item->id_tele = "@iis";
+        $item->user_id = 5;
 
         $item->save();
 

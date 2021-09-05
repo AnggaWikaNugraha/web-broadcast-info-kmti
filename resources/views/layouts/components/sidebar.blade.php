@@ -68,6 +68,28 @@
 
                 <li>
                     <a href="#">
+                        <i class="metismenu-icon pe-7s-radio"></i>
+                        Data Mahasiswa
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        <li>
+                            <a href="components-tabs.html">
+                                <i class="metismenu-icon">
+                                </i>List Mahasiswa
+                            </a>
+                        </li>
+                        <li>
+                            <a href="components-accordions.html">
+                                <i class="metismenu-icon">
+                                </i>Create Mahasiswa
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Divisi
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
