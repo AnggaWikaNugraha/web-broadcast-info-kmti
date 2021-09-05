@@ -74,7 +74,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="components-tabs.html">
+                            <a href="{{ route('manage-mahasiswa.index') }}">
                                 <i class="metismenu-icon">
                                 </i>List Mahasiswa
                             </a>
