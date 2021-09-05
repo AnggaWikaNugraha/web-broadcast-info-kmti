@@ -22,10 +22,22 @@
                                 @csrf
 
                                 <div class="form-group row">
+                                    <label for="username" class="col-sm-2 col-form-label col-form-label-sm">Username
+                                        :</label>
+                                    <div class="col-sm-10">
+                                        <input value="{{ $user->username }}" type="text"
+                                            class="form-control form-control-sm" id="username" name="username"
+                                            placeholder="Masukan username">
+                                        <span class="err__fields">{{ $errors->first('username') }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
                                     <label for="email" class="col-sm-2 col-form-label col-form-label-sm">Email :</label>
                                     <div class="col-sm-10">
-                                        <input value="{{ $user->email }}" type="email" class="form-control form-control-sm"
-                                            id="email" name="email" placeholder="Masukan email">
+                                        <input value="{{ $user->email }}" type="email"
+                                            class="form-control form-control-sm" id="email" name="email"
+                                            placeholder="Masukan email">
                                         <span class="err__fields">{{ $errors->first('email') }}</span>
                                     </div>
                                 </div>
@@ -58,7 +70,7 @@
                                             id="inlineFormCustomSelect">
                                             <option value='["mahasiswa"]'>Mahasiswa</option>
                                             <option value='["admin"]''>Admin</option>
-                                                    <option value=' ["superadmin"]'>Super Admin</option>
+                                                            <option value=' ["superadmin"]'>Super Admin</option>
                                         </select>
                                     </div>
                                 </div>

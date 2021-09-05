@@ -78,8 +78,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-
         \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "username" => "required",
             "email" =>  [
                 'required',
                 'email',
@@ -94,6 +94,7 @@ class UserController extends Controller
         ])->validate();
 
         User::create([
+            'username' => $request['username'],
             'email' => $request['email'],
             'roles' => $request['roles'],
             'password' => Hash::make($request['password']),
@@ -136,11 +137,13 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "username" => "required|min:2",
             "email" => "required|min:1",
             "roles" => "required|min:1",
         ])->validate();
 
         $user = User::findOrFail($id);
+        $user->username = $request->get('username');
         $user->email = $request->get('email');
         $user->roles = $request->get('roles');
 
