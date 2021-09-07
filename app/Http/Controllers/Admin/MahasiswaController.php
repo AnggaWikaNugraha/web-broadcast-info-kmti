@@ -33,7 +33,8 @@ class MahasiswaController extends Controller
 
         if ($request->ajax()) {
 
-            $data = Mahasiswa::get();
+            // $data = Mahasiswa::where('angkatan', '2017')->get();
+            $data = Mahasiswa::orderByDesc('created_at')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()

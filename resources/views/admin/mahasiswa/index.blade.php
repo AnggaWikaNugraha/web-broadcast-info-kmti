@@ -30,12 +30,12 @@
                                     <label class="col-6 pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter
                                         berdasarkan angkatan : </label>
 
-                                    <select data-column="1" class="form-control form-select-sm filter-satuan"
-                                        placeholder="Filter Berdasarkan Satuan Product">
-                                        <option value="">2017</option>
-                                        <option value="kg">2018</option>
-                                        <option value="ton">2019</option>
-                                        <option value="ton">2020</option>
+                                    <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
+                                        <option value="">Pilih angkatan</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
                                     </select>
                                     <br /> <br />
                                 </div>
@@ -112,6 +112,16 @@
                 ]
             });
 
+            //filter Berdasarkan satuan product
+            $('#filter-satuan').change(function () {
+
+                table
+                .search( $(this).val() )
+                .draw();
+
+            });
+
+            
         });
 
         var user_id;
@@ -142,6 +152,7 @@
                 }
             })
         });
+        
     </script>
 
 @endpush
