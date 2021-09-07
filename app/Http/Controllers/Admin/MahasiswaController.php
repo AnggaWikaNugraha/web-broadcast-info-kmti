@@ -64,7 +64,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.mahasiswa.create');
     }
 
     /**
@@ -75,7 +75,34 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "name" => "required",
+            "nim" => "required|min:11|max:12",
+            "no_wa" => "required|min:9|max:12",
+            "angkatan" => "required|min:4|max:5",
+            "id_tele" => "required",
+            "user_id" => [
+                "required",
+                function ($attribute, $value, $fail) {
+                    if (Mahasiswa::whereUser_id($value)->count() > 0) {
+                        $fail('Email is already used.');
+                    }
+                },
+            ],
+        ])->validate();
+
+        $new_mahasiswa = new \App\Models\Mahasiswa();
+
+        $new_mahasiswa->name = $request->get('name');
+        $new_mahasiswa->nim = $request->get('nim');
+        $new_mahasiswa->no_wa = $request->get('no_wa');
+        $new_mahasiswa->angkatan = $request->get('angkatan');
+        $new_mahasiswa->id_tele = $request->get('id_tele');
+        $new_mahasiswa->user_id = $request->get('user_id');
+
+        $new_mahasiswa->save();
+
+        return redirect()->route('manage-mahasiswa.create')->with('success', ' Mahasiswa successfully created');
     }
 
     /**
@@ -121,5 +148,14 @@ class MahasiswaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxSearch(Request $request)
+    {
+        $keyword = $request->get('q');
+
+        $username = \App\Models\User::where("email", "LIKE", "%$keyword%")->get();
+
+        return $username;
     }
 }

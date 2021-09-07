@@ -15,7 +15,7 @@
                     <div class="col-md-12">
                         <div class="main-card mb-3 card p-4">
 
-                            <div class="card-header">List Users
+                            <div class="card-header pl-0">List Users
                                 <div class="btn-actions-pane-right">
                                     <div role="group" class="btn-group-sm btn-group">
                                         <a href="{{ route('manage-users.create') }}">
@@ -52,7 +52,6 @@
 
 @push('script')
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 

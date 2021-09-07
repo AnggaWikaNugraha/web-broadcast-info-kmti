@@ -15,16 +15,15 @@
                     <div class="col-md-12">
                         <div class="main-card mb-3 card p-4">
 
-                            <div class="card-header">List Mahasiswa
+                            <div class="card-header pl-0">List Mahasiswa
                                 <div class="btn-actions-pane-right">
                                     <div role="group" class="btn-group-sm btn-group">
-                                        <a href="{{ route('manage-users.create') }}">
+                                        <a href="{{ route('manage-mahasiswa.create') }}">
                                             <button class="btn btn-focus mr-3">Create Mahasiswa</button>
                                         </a>
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="row mt-4">
                                 <div class="col-3 d-flex align-items-center">
@@ -70,8 +69,6 @@
 @endsection
 
 @push('script')
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
 
@@ -118,15 +115,14 @@
         });
 
         var user_id;
-
         $(document).on('click', '.delete', function() {
 
             user_id = $(this).attr('id');
 
             $('#confirmModal').modal('show')
         });
-        $('#ok_button').click(function() {
 
+        $('#ok_button').click(function() {
             var contentType = "application/x-www-form-urlencoded; charset=utf-8";
             var token = $("meta[name='csrf-token']").attr("content");
 

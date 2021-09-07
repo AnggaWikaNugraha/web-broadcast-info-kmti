@@ -28,3 +28,4 @@ Route::get('/change-password', [App\Http\Controllers\AdminController::class, 'sh
 Route::patch('/change-password/{id}', [App\Http\Controllers\AdminController::class, 'ChangePassword'])->name('change-password');
 Route::resource('admin/manage-users', UserController::class);
 Route::resource('admin/manage-mahasiswa', MahasiswaController::class);
+Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);
