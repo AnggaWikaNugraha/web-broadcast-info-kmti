@@ -171,7 +171,11 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Mahasiswa::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('manage-mahasiswa.index')->with('success', 'Mahasiswa successfully deleted');
+ 
     }
 
     public function ajaxSearch(Request $request)
