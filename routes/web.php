@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'in
 Route::get('/change-password', [App\Http\Controllers\AdminController::class, 'showChangePasswordForm'])->name('show-change-password');
 Route::patch('/change-password/{id}', [App\Http\Controllers\AdminController::class, 'ChangePassword'])->name('change-password');
 Route::resource('admin/manage-users', UserController::class);
+Route::resource('admin/manage-mahasiswa', MahasiswaController::class);
+Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);

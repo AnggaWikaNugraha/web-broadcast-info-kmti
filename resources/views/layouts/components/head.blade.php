@@ -20,4 +20,6 @@
 {{-- yajra style datatable --}}
 <link rel="stylesheet" href="http://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css">
 <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
 <link href="{{ asset('css/custom__style.css') }}" rel="stylesheet">
