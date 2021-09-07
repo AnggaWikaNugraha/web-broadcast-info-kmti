@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
+use App\Models\User;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
 
@@ -124,7 +125,11 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $mahasiswa = Mahasiswa::findOrFail($id);
+        $email =  User::findOrFail($mahasiswa->user_id);
+
+        return view('admin.mahasiswa.edit', compact('mahasiswa', 'email'));
     }
 
     /**
@@ -136,7 +141,26 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "name" => "required",
+            "nim" => "required|min:11|max:12",
+            "no_wa" => "required|min:9|max:12",
+            "angkatan" => "required|min:4|max:5",
+            "id_tele" => "required",
+            "user_id" => "required",
+        ])->validate();
+
+        $new_mahasiswa = Mahasiswa::findOrFail($id);
+
+        $new_mahasiswa->name = $request->get('name');
+        $new_mahasiswa->nim = $request->get('nim');
+        $new_mahasiswa->no_wa = $request->get('no_wa');
+        $new_mahasiswa->angkatan = $request->get('angkatan');
+        $new_mahasiswa->id_tele = $request->get('id_tele');
+        $new_mahasiswa->user_id = $request->get('user_id');
+
+        $new_mahasiswa->save();
+        return redirect()->route('manage-mahasiswa.edit', [$new_mahasiswa->id])->with('success', 'Mahasiswa successfully updated');
     }
 
     /**
