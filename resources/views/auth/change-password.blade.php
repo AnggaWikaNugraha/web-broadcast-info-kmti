@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('body')
     <div id="app">
@@ -13,7 +13,8 @@
 
                             <div class="card-body">
 
-                                <h5 class="text-center font-weight-bold mt-4 mb-3" style="color: gray">Fist login, Change Password</h5>
+                                <h5 class="text-center font-weight-bold mt-4 mb-3" style="color: gray">Fist login, Change
+                                    Password</h5>
                                 <form method="POST" action="{{ route('change-password', $user->id) }}">
                                     @method('PATCH')
                                     @csrf
@@ -21,7 +22,9 @@
                                     <div class="form-group row mb-4">
 
                                         <div class="offset-1 col-md-10">
-                                            <input placeholder="Password" id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                            <input placeholder="Password" id="password" type="password"
+                                                class="form-control @error('password') is-invalid @enderror" name="password"
+                                                required autocomplete="current-password">
 
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -34,7 +37,10 @@
                                     <div class="form-group row mb-4">
 
                                         <div class="offset-1 col-md-10">
-                                            <input placeholder="Password confirmation" id="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="current-password-confirmation">
+                                            <input placeholder="Password confirmation" id="password_confirmation"
+                                                type="password" class="form-control @error('password') is-invalid @enderror"
+                                                name="password_confirmation" required
+                                                autocomplete="current-password-confirmation">
 
                                             @error('password_confirmation')
                                                 <span class="invalid-feedback" role="alert">
