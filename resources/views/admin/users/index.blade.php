@@ -1,47 +1,34 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('body')
+@section('content')
 
-    @include('layouts.components.navbar')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="main-card mb-3 card p-4">
 
-    <div class="app-main">
-
-        @include('layouts.components.sidebar')
-
-        <div class="app-main__outer">
-            <div class="app-main__inner">
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="main-card mb-3 card p-4">
-
-                            <div class="card-header pl-0">List Users
-                                <div class="btn-actions-pane-right">
-                                    <div role="group" class="btn-group-sm btn-group">
-                                        <a href="{{ route('manage-users.create') }}">
-                                            <button class="btn btn-focus mr-3">Create user</button>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table class="data-table table-striped">
-                                    <thead class="thead__dark">
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Username</th>
-                                            <th>Email</th>
-                                            <th>roles</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-
+                <div class="card-header pl-0">List Users
+                    <div class="btn-actions-pane-right">
+                        <div role="group" class="btn-group-sm btn-group">
+                            <a href="{{ route('manage-users.create') }}">
+                                <button class="btn btn-focus mr-3">Create user</button>
+                            </a>
                         </div>
                     </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table table-striped">
+                        <thead class="thead__dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>roles</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
 
             </div>

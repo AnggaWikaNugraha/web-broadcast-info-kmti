@@ -18,17 +18,11 @@
 
                 <div class="app-main__outer">
                     <div class="app-main__inner">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="main-card mb-3 card p-4">
 
-                                    @include('layouts.components.flash-message')
+                        @include('layouts.components.flash-message')
 
-                                    @yield('content')
+                        @yield('content')
 
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
