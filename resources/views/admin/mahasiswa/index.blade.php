@@ -108,36 +108,6 @@
 
             });
 
-
-        });
-
-        var user_id;
-        $(document).on('click', '.delete', function() {
-
-            user_id = $(this).attr('id');
-
-            $('#confirmModal').modal('show')
-        });
-
-        $('#ok_button').click(function() {
-            var contentType = "application/x-www-form-urlencoded; charset=utf-8";
-            var token = $("meta[name='csrf-token']").attr("content");
-
-            $.ajax({
-                url: "manage-users/" + user_id,
-                type: "POST",
-                data: {
-                    token: token,
-                    _method: 'DELETE',
-                    id: user_id,
-                },
-                contentType: contentType,
-
-                success: function(data) {
-                    $('#confirmModal').modal('hide');
-                    $('.data-table').DataTable().ajax.reload();
-                }
-            })
         });
     </script>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use DataTables;
 
 class EventController extends Controller
 {
@@ -13,9 +14,39 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+
+            $data = Event::orderByDesc('created_at')->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('foto', function ($row) {
+                    $url = asset('storage/' . $row->foto);
+                    $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
+                    return $img;
+                })
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= '
+                    
+                    <form action="manage-event/' . $row->id . '" method="POST" class="wrapper__delete">
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
+                        <button type="submit" class="btn btn-danger btn__delete"
+                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                            style="padding: .0em !important;font-size: xx-small;">Delete</button>
+                    </form>';
+
+                    return $btn;
+                })
+                ->rawColumns(['foto', 'action'])
+                ->make(true);
+        }
+
+        return view('admin.event.index');
     }
 
     /**

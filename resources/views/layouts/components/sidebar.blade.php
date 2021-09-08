@@ -118,7 +118,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="components-tabs.html">
+                            <a href="{{ route('manage-event.index') }}">
                                 <i class="metismenu-icon">
                                 </i>List Event
                             </a>
