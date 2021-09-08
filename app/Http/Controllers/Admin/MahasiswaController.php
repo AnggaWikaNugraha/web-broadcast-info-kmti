@@ -33,7 +33,6 @@ class MahasiswaController extends Controller
 
         if ($request->ajax()) {
 
-            // $data = Mahasiswa::where('angkatan', '2017')->get();
             $data = Mahasiswa::orderByDesc('created_at')->get();
 
             return Datatables::of($data)
@@ -176,7 +175,6 @@ class MahasiswaController extends Controller
         $data->delete();
 
         return redirect()->route('manage-mahasiswa.index')->with('success', 'Mahasiswa successfully deleted');
- 
     }
 
     public function ajaxSearch(Request $request)

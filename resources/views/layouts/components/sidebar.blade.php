@@ -47,7 +47,7 @@
                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-add-user"></i>
-                        Manage user
+                        Manage User
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
@@ -107,10 +107,26 @@
                                 </i>Create Divisi
                             </a>
                         </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-note2"></i>
+                        Manage Event
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
                         <li>
-                            <a href="components-notifications.html">
+                            <a href="components-tabs.html">
                                 <i class="metismenu-icon">
-                                </i>Edit Divisi
+                                </i>List Event
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('manage-event.create') }}">
+                                <i class="metismenu-icon">
+                                </i>Create Event
                             </a>
                         </li>
                     </ul>
