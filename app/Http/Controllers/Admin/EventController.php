@@ -123,7 +123,6 @@ class EventController extends Controller
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
-            "foto" => "required",
             "tanggal" => "required",
         ])->validate();
 
