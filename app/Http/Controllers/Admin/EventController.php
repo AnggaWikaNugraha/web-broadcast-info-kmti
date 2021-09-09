@@ -139,13 +139,13 @@ class EventController extends Controller
                 \Storage::delete('public/'. $new_event->foto);
             }
 
-             $foto_path = $foto->store('photos', 'public');
-             $new_event->foto = $foto_path;
-         }
+            $foto_path = $foto->store('photos', 'public');
+            $new_event->foto = $foto_path;
+        }
 
-         $new_event->save();
+        $new_event->save();
 
-         return redirect()->route('manage-event.edit', [$new_event->id])->with('success', 'Event successfully updated');
+        return redirect()->route('manage-event.edit', [$new_event->id])->with('success', 'Event successfully updated');
     }
 
     /**
@@ -156,6 +156,9 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Event::findOrFail($id);
+        $data->delete();
+
+        return redirect()->route('manage-event.index')->with('success', 'Event successfully deleted');
     }
 }
