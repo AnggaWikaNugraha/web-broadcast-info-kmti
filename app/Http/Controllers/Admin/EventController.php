@@ -97,7 +97,7 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -108,7 +108,8 @@ class EventController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        return view('admin.event.edit', compact('event'));
     }
 
     /**
@@ -120,7 +121,31 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "nama" => "required",
+            "foto" => "required",
+            "tanggal" => "required",
+        ])->validate();
+
+        $new_event = Event::findOrFail($id);
+        $new_event->nama = $request->get('nama');
+        $new_event->tanggal = $request->get('tanggal');
+
+         // handle image
+         $foto = $request->file('foto');
+         if ($foto) {
+
+            if($new_event->foto && file_exists(storage_path('app/public/' . $new_event->foto))){
+                \Storage::delete('public/'. $new_event->foto);
+            }
+
+             $foto_path = $foto->store('photos', 'public');
+             $new_event->foto = $foto_path;
+         }
+
+         $new_event->save();
+
+         return redirect()->route('manage-event.edit', [$new_event->id])->with('success', 'Event successfully updated');
     }
 
     /**
