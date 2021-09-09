@@ -33,7 +33,6 @@ class MahasiswaController extends Controller
 
         if ($request->ajax()) {
 
-            // $data = Mahasiswa::where('angkatan', '2017')->get();
             $data = Mahasiswa::orderByDesc('created_at')->get();
 
             return Datatables::of($data)
@@ -80,9 +79,7 @@ class MahasiswaController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             "nim" => "required|min:11|max:12",
-            "no_wa" => "required|min:9|max:12",
             "angkatan" => "required|min:4|max:5",
-            "id_tele" => "required",
             "user_id" => [
                 "required",
                 function ($attribute, $value, $fail) {
@@ -145,9 +142,7 @@ class MahasiswaController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             "nim" => "required|min:11|max:12",
-            "no_wa" => "required|min:9|max:12",
             "angkatan" => "required|min:4|max:5",
-            "id_tele" => "required",
             "user_id" => "required",
         ])->validate();
 
@@ -176,7 +171,6 @@ class MahasiswaController extends Controller
         $data->delete();
 
         return redirect()->route('manage-mahasiswa.index')->with('success', 'Mahasiswa successfully deleted');
- 
     }
 
     public function ajaxSearch(Request $request)
