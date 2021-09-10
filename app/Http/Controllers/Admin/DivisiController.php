@@ -94,7 +94,8 @@ class DivisiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $divisi = Divisi::findOrFail($id);
+        return view('admin.divisi.edit', compact('divisi'));
     }
 
     /**
@@ -106,7 +107,16 @@ class DivisiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "nama_divisi" => "required",
+        ])->validate();
+
+        $new_divisi = Divisi::findOrFail($id);
+        $new_divisi->nama_divisi = $request->get('nama_divisi');
+
+        $new_divisi->save();
+        
+        return redirect()->route('manage-divisi.edit', [$new_divisi->id])->with('success', 'Divisi successfully updated');
     }
 
     /**
@@ -117,6 +127,9 @@ class DivisiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $divisi = Divisi::findOrFail($id);
+        $divisi->delete();
+
+        return redirect()->route('manage-divisi.index')->with('success', 'Divisi successfully deleted');
     }
 }
