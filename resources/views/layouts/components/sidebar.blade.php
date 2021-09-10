@@ -96,13 +96,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="components-tabs.html">
+                            <a href="{{ route('manage-divisi.index')}}">
                                 <i class="metismenu-icon">
                                 </i>List Divisi
                             </a>
                         </li>
                         <li>
-                            <a href="components-accordions.html">
+                            <a href="{{ route('manage-divisi.create')}}">
                                 <i class="metismenu-icon">
                                 </i>Create Divisi
                             </a>
