@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBroadcastTable extends Migration
+class AddKeteranganToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateBroadcastTable extends Migration
      */
     public function up()
     {
-        Schema::create('broadcast', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('divisi', function (Blueprint $table) {
+            $table-> string('keterangan');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateBroadcastTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('broadcast');
+        Schema::table('divisi', function (Blueprint $table) {
+            $table->dropColumn('keterangan');
+        });
     }
 }

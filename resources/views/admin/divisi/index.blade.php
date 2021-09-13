@@ -22,6 +22,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama Divisi</th>
+                                <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -53,6 +54,10 @@
                     {
                         data: 'nama_divisi',
                         name: 'nama_divisi'
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan'
                     },
                     {
                         data: 'action',
