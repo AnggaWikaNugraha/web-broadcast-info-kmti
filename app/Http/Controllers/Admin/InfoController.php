@@ -3,18 +3,45 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Info;
 use Illuminate\Http\Request;
+use DataTables;
 
-class BroadcastController extends Controller
+class InfoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $data = Info::orderByDesc('created_at')->get();
+     
+        if ($request->ajax()) {
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= '
+                    
+                    <form action="manage-info/' . $row->id . '" method="POST" class="wrapper__delete">
+                        ' . csrf_field() . '
+                        ' . method_field("DELETE") . '
+                        <button type="submit" class="btn btn-danger btn__delete"
+                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                            style="padding: .0em !important;font-size: xx-small;">Delete</button>
+                    </form>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.info.index');
     }
 
     /**

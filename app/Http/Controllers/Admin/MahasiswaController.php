@@ -97,7 +97,9 @@ class MahasiswaController extends Controller
         $new_mahasiswa->no_wa = $request->get('no_wa');
         $new_mahasiswa->angkatan = $request->get('angkatan');
         $new_mahasiswa->id_tele = $request->get('id_tele');
-        $new_mahasiswa->user_id = $request->get('user_id');
+
+        // insert relasi one to onte belongsto
+        $new_mahasiswa->user()->associate($request->get('user_id'));
 
         $new_mahasiswa->save();
 
