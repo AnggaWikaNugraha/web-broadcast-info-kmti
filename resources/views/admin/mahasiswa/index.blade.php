@@ -42,6 +42,7 @@
                                 <th>Angkatan</th>
                                 <th>No_wa</th>
                                 <th>Id_tele</th>
+                                <th>Email</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -89,6 +90,10 @@
                     {
                         data: 'id_tele',
                         name: 'id_tele'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
                     },
                     {
                         data: 'action',

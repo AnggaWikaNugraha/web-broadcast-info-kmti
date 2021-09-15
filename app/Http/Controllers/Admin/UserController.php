@@ -30,11 +30,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+        $data = User::where('roles', '["mahasiswa"]')
+        ->orderByDesc('created_at')
+        ->get();
 
-            $data = User::where('roles', '["mahasiswa"]')
-                ->orderByDesc('created_at')
-                ->get();
+        if ($request->ajax()) {
 
             return Datatables::of($data)
                 ->addIndexColumn()

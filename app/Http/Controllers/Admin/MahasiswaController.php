@@ -30,13 +30,17 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
-
+        $data = Mahasiswa::orderByDesc('created_at')->get();
+        
         if ($request->ajax()) {
 
-            $data = Mahasiswa::orderByDesc('created_at')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                // get relasi one to one belongsto
+                ->addColumn('email', function ($row) {
+                   return $row->user->email;
+                })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-mahasiswa/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
@@ -52,7 +56,7 @@ class MahasiswaController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','email'])
                 ->make(true);
         }
         return view('admin.mahasiswa.index');

@@ -37,7 +37,7 @@ class DivisiController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
