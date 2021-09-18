@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -187,28 +188,30 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "username" => "required|min:2",
-            "email" => "required|min:1",
-            "roles" => "required|min:1",
+            "name" => "required",
+            "email" =>  "required",
+            "status" =>  "required",
         ])->validate();
 
-        $user = User::findOrFail($id);
-        $user->username = $request->get('username');
-        $user->email = $request->get('email');
-        $user->roles = $request->get('roles');
+        try {
 
-        if ($request->get('password')) {
-
-            $request->validate([
-                'password' => 'required|confirmed|min:6'
+            $user = User::findOrFail($id);
+            
+            $user->update([
+                'email' => $request['email'],
             ]);
 
-            $user->password = Hash::make($request['password']);
+            $user->mahasiswa()->update([
+                'name' => $request['name'],
+                'status' => $request['status'],
+
+            ]);
+
+        } catch (\Throwable $th) {
+            return false;
         }
 
-        $user->save();
-
-        return redirect()->route('manage-users.edit', [$user->id])->with('success', 'User successfully updated');
+        return redirect()->route('manage-users.index')->with('success', ' user successfully updated');
     }
 
     /**
