@@ -44,6 +44,7 @@
                                 <th>Whatsapp</th>
                                 <th>Telegram</th>
                                 <th>Status</th>
+                                <th>Jenis kelamin</th>
                                 <th>roles</th>
                                 <th>Actions</th>
                             </tr>
@@ -101,6 +102,10 @@
                     {
                         data: 'status',
                         name: 'status'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
                     },
                     {
                         data: 'roles',

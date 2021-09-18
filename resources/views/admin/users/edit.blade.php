@@ -6,6 +6,8 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
+                <div class="card-header pl-0 mb-4">Edit User</div>
+
                 <form method="post" action="{{ route('manage-users.update', $user->id) }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
@@ -45,6 +47,16 @@
                             <input disabled value="{{ $user->mahasiswa->angkatan }}" type="text" class="form-control form-control-sm"
                                 id="angkatan" name="angkatan" placeholder="Masukan angkatan">
                             <span class="err__fields">{{ $errors->first('angkatan') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Jenis kelamin :</label>
+                        <div class="col-sm-10">
+                            <select class="custom-select custom-select-sm mr-sm-2" name="jenis_kelamin" >
+                                <option {{ $user->mahasiswa->jenis_kelamin === 'laki-laki' ? 'selected' : '' }} value='laki-laki' >Laki-Laki</option>
+                                <option {{ $user->mahasiswa->jenis_kelamin === 'perempuan' ? 'selected' : '' }} value='perempuan' >Perempuan</option>
+                            </select>
                         </div>
                     </div>
 

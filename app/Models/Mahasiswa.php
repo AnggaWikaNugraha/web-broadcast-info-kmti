@@ -16,7 +16,9 @@ class Mahasiswa extends Model
         'nim',
         'no_wa',
         'angkatan',
-        'id_tele'
+        'id_tele',
+        'status',
+        'jenis_kelamin'
     ];
 
     public function user()

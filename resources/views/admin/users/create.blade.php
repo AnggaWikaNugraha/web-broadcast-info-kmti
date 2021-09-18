@@ -53,9 +53,19 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Jenis kelamin :</label>
+                        <div class="col-sm-10">
+                            <select class="custom-select custom-select-sm mr-sm-2" name="jenis_kelamin" >
+                                <option value='laki-laki' >Laki-Laki</option>
+                                <option value='perempuan' >Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                         <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="roles" id="inlineFormCustomSelect">
+                            <select class="custom-select custom-select-sm mr-sm-2" name="roles" >
                                 <option value='["mahasiswa"]'>Mahasiswa</option>
                                 <option value='["admin"]''>Admin</option>
                                 <option value=' ["superadmin"]'>Super Admin</option>
@@ -66,7 +76,7 @@
                     <div class="form-group row">
                         <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Status :</label>
                         <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="status" id="inlineFormCustomSelect">
+                            <select class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
                                 <option value='["anggota", "pengurus"]''>Pengurus KMTI</option>
                             </select>

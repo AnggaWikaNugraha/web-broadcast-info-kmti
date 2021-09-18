@@ -43,6 +43,9 @@ class UserController extends Controller
                 ->addColumn('name', function ($row) {
                     return $row->mahasiswa->name;
                 })
+                ->addColumn('jenis_kelamin', function ($row) {
+                    return $row->mahasiswa->jenis_kelamin;
+                })
                 ->addColumn('nim', function ($row) {
                     return $row->mahasiswa->nim;
                 })
@@ -73,7 +76,7 @@ class UserController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action', 'nim', 'whatsapp', 'telegram', 'status', 'angkatan'])
+                ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan'])
                 ->make(true);
         }
 
@@ -136,6 +139,7 @@ class UserController extends Controller
             $new_user->user_id = $new_user->id;
             $new_user->name = $request['name'];
             $new_user->nim = $request['nim'];
+            $new_user->jenis_kelamin = $request['jenis_kelamin'];
             $new_user->angkatan = $request['angkatan'];
             $new_user->status = $request['status'];
 
@@ -143,6 +147,7 @@ class UserController extends Controller
             $new_mahasiswa = new \App\Models\Mahasiswa();
             $new_mahasiswa->name = $new_user->name;
             $new_mahasiswa->nim = $new_user->nim;
+            $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
             $new_mahasiswa->angkatan = $new_user->angkatan;
             $new_mahasiswa->status = $new_user->status;
             $new_mahasiswa->user()->associate($new_user->id);
@@ -202,6 +207,7 @@ class UserController extends Controller
             ]);
 
             $user->mahasiswa()->update([
+                'jenis_kelamin' => $request['jenis_kelamin'],
                 'name' => $request['name'],
                 'status' => $request['status'],
 
