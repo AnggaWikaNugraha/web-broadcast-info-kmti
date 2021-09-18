@@ -21,8 +21,13 @@
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
-                                <th>Username</th>
+                                <th>name</th>
+                                <th>nim</th>
+                                <th>angkatan</th>
                                 <th>Email</th>
+                                <th>Whatsapp</th>
+                                <th>Telegram</th>
+                                <th>Status</th>
                                 <th>roles</th>
                                 <th>Actions</th>
                             </tr>
@@ -54,12 +59,32 @@
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'username',
-                        name: 'username'
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'nim',
+                        name: 'nim'
+                    },
+                    {
+                        data: 'angkatan',
+                        name: 'angkatan'
                     },
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'whatsapp',
+                        name: 'whatsapp'
+                    },
+                    {
+                        data: 'telegram',
+                        name: 'telegram'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'roles',
