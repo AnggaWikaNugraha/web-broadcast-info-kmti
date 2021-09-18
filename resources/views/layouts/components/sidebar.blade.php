@@ -47,26 +47,26 @@
                 <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-add-user"></i>
-                        Manage User
+                        Data Angkatan
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
                             <a href="{{ route('manage-users.index') }}">
                                 <i class="metismenu-icon"></i>
-                                List User
+                                Daftar Angkatan
                             </a>
                         </li>
                         <li>
                             <a href=" {{ route('manage-users.create') }}">
                                 <i class="metismenu-icon">
-                                </i>Create User
+                                </i>Buat User
                             </a>
                         </li>
                     </ul>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="#">
                         <i class="metismenu-icon pe-7s-radio"></i>
                         Data Angkatan
@@ -86,7 +86,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li>
                     <a href="#">

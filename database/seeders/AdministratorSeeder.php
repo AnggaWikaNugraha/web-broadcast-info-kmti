@@ -14,8 +14,6 @@ class AdministratorSeeder extends Seeder
     public function run()
     {
         $administrator = new \App\Models\User;
-
-        $administrator->username = 'superadminkmti';
         $administrator->email = "superadmin@gmail.com";
         $administrator->roles = json_encode(["superadmin"]);
         $administrator->password = \Hash::make("234234234");

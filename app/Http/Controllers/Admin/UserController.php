@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -79,7 +80,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "username" => "required",
+            "name" => "required",
+            "nim" => "required",
             "email" =>  [
                 'required',
                 'email',
@@ -89,16 +91,30 @@ class UserController extends Controller
                     }
                 },
             ],
-            "roles" => "required",
-            "password" => "required|confirmed|min:9",
+            "angkatan" => "required",
         ])->validate();
 
-        User::create([
-            'username' => $request['username'],
-            'email' => $request['email'],
-            'roles' => $request['roles'],
-            'password' => Hash::make($request['password']),
-        ]);
+        // create user
+        $new_user = new \App\Models\User();
+        $new_user -> email = $request['email'];
+        $new_user -> roles = $request['roles'];
+        $new_user -> password = Hash::make($request['nim']);
+        $new_user -> save();
+
+        $new_user -> user_id = $new_user->id;
+        $new_user -> name = $request['name'];
+        $new_user -> nim = $request['nim'];
+        $new_user -> angkatan = $request['angkatan'];
+        $new_user -> status = $request['status'];
+        
+        // create mahasiswa using foreign user_id on users
+        $new_mahasiswa = new \App\Models\Mahasiswa();
+        $new_mahasiswa->name = $new_user->name;
+        $new_mahasiswa->nim = $new_user->nim;
+        $new_mahasiswa->angkatan = $new_user->angkatan;
+        $new_mahasiswa->status = $new_user->status;
+        $new_mahasiswa->user()->associate($new_user->id);
+        $new_mahasiswa->save();
 
         return redirect()->route('manage-users.create')->with('success', ' user successfully created');
     }
