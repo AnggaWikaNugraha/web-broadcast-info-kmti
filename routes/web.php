@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DivisiController;
+use App\Http\Controllers\Admin\InfoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,8 +24,8 @@ Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'
 Route::patch('/change-password/{id}', [AdminController::class, 'ChangePassword'])->name('change-password');
 
 Route::resource('admin/manage-users', UserController::class);
-Route::resource('admin/manage-mahasiswa', MahasiswaController::class);
 Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
+Route::resource('admin/manage-info', InfoController::class);
 
 Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);

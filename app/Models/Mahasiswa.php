@@ -16,11 +16,17 @@ class Mahasiswa extends Model
         'nim',
         'no_wa',
         'angkatan',
-        'id_tele'
+        'id_tele',
+        'status',
+        'jenis_kelamin'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function info(){
+        return $this->belongsToMany(Info::class);
     }
 }

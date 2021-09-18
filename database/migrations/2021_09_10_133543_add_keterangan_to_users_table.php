@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEventsTable extends Migration
+class AddKeteranganToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama', 25);
-            $table->string('foto');
-            $table->date('tanggal');
-            $table->timestamps();
+        Schema::table('divisi', function (Blueprint $table) {
+            $table-> string('keterangan');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateEventsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::table('divisi', function (Blueprint $table) {
+            $table->dropColumn('keterangan');
+        });
     }
 }

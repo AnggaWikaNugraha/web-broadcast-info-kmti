@@ -37,7 +37,7 @@ class DivisiController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
@@ -64,10 +64,12 @@ class DivisiController extends Controller
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
+            "keterangan" => "required",
         ])->validate();
 
         $new_divisi = new Divisi();
         $new_divisi->nama_divisi = $request->get('nama_divisi');
+        $new_divisi->keterangan = $request->get('keterangan');
 
         $new_divisi->save();
 
@@ -109,10 +111,12 @@ class DivisiController extends Controller
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
+            "keterangan" => "required",
         ])->validate();
 
         $new_divisi = Divisi::findOrFail($id);
         $new_divisi->nama_divisi = $request->get('nama_divisi');
+        $new_divisi->keterangan = $request->get('keterangan');
 
         $new_divisi->save();
         

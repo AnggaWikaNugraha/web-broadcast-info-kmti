@@ -15,16 +15,16 @@ class CreateMahasiswaTable extends Migration
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('nim');
-            $table->string('no_wa');
-            $table->string('angkatan');
-            $table->string('id_tele');
+            $table->string('name', 25);
+            $table->string('nim', 11);
+            $table->string('no_wa', 12)->nullable();
+            $table->string('angkatan', 5);
+            $table->string('id_tele', 25)->nullable();
             $table->timestamps();
 
             // mereferensikan fild id users di table mahasiswa
             $table->unsignedBigInteger('user_id')->unique();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

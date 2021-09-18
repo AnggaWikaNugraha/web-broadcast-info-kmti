@@ -40,6 +40,42 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="jam_mulai" class="col-sm-2 col-form-label col-form-label-sm">Jam mulai :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $event->jam_mulai }}" type="time" class="form-control form-control-sm" id="jam_mulai"
+                                name="jam_mulai" placeholder="Masukan jam mulai event">
+                            <span class="err__fields">{{ $errors->first('jam_mulai') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="jam_berakhir" class="col-sm-2 col-form-label col-form-label-sm">Jam berakhir :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $event->jam_berakhir }}" type="time" class="form-control form-control-sm" id="jam_berakhir"
+                                name="jam_berakhir" placeholder="Masukan jam berakhir event">
+                            <span class="err__fields">{{ $errors->first('jam_berakhir') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="lokasi" class="col-sm-2 col-form-label col-form-label-sm">Lokasi Event :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $event->lokasi }}" type="text" class="form-control form-control-sm" id="lokasi"
+                                name="lokasi" placeholder="Masukan lokasi event">
+                            <span class="err__fields">{{ $errors->first('lokasi') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">keterangan Event :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $event->keterangan }}" type="text" class="form-control form-control-sm" id="keterangan"
+                                name="keterangan" placeholder="Masukan keterangan event">
+                            <span class="err__fields">{{ $errors->first('keterangan') }}</span>
+                        </div>
+                    </div>
+
                     <button class="btn btn-info text-white">Submit</button>
 
                 </form>

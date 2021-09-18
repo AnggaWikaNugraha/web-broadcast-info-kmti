@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Divisi extends Model
+class Info extends Model
 {
     use HasFactory;
 
-    protected $table = 'divisi';
+    protected $table = 'info';
 
     protected $fillable = [
-        'nama_divisi',
-        'keterangan'
+        'content',
+        'file',
     ];
+
+    public function mahasiswa(){
+        return $this->belongsToMany(Mahasiswa::class);
+    }
+
 }

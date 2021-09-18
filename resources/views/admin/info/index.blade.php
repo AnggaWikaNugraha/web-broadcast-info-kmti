@@ -6,11 +6,11 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <div class="card-header pl-0">List Divisi
+                <div class="card-header pl-0">List info
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
-                            <a href="{{ route('manage-divisi.create') }}">
-                                <button class="btn btn-focus mr-3">Create Divisi</button>
+                            <a href="{{ route('manage-info.create') }}">
+                                <button class="btn btn-focus mr-3">Create info</button>
                             </a>
                         </div>
                     </div>
@@ -21,8 +21,8 @@
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
-                                <th>Nama Divisi</th>
-                                <th>Keterangan</th>
+                                <th>Content</th>
+                                <th>File</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -46,18 +46,18 @@
             var table = $('.data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('manage-divisi.index') }}",
+                ajax: "{{ route('manage-info.index') }}",
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'nama_divisi',
-                        name: 'nama_divisi'
+                        data: 'content',
+                        name: 'content'
                     },
                     {
-                        data: 'keterangan',
-                        name: 'keterangan'
+                        data: 'file',
+                        name: 'file'
                     },
                     {
                         data: 'action',

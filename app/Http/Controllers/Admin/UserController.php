@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -30,14 +32,35 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
+        $data = User::where('roles', '["mahasiswa"]')
+            ->orderByDesc('created_at')
+            ->get();
 
-            $data = User::where('roles', '["mahasiswa"]')
-                ->orderByDesc('created_at')
-                ->get();
+        if ($request->ajax()) {
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('name', function ($row) {
+                    return $row->mahasiswa->name;
+                })
+                ->addColumn('jenis_kelamin', function ($row) {
+                    return $row->mahasiswa->jenis_kelamin;
+                })
+                ->addColumn('nim', function ($row) {
+                    return $row->mahasiswa->nim;
+                })
+                ->addColumn('whatsapp', function ($row) {
+                    return $row->mahasiswa->no_wa;
+                })
+                ->addColumn('telegram', function ($row) {
+                    return $row->mahasiswa->id_tele;
+                })
+                ->addColumn('angkatan', function ($row) {
+                    return $row->mahasiswa->angkatan;
+                })
+                ->addColumn('status', function ($row) {
+                    return $row->mahasiswa->status;
+                })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
@@ -53,7 +76,7 @@ class UserController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan'])
                 ->make(true);
         }
 
@@ -78,8 +101,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "username" => "required",
+            "name" => "required",
+            // "nim" => "required|min:11|max:12",
+            "nim" => [
+                'required',
+                'min:11',
+                'max:12',
+                function ($attribute, $value, $fail) {
+                    if (Mahasiswa::whereNim($value)->count() > 0) {
+                        $fail($attribute . ' is already used.');
+                    }
+                }
+            ],
             "email" =>  [
                 'required',
                 'email',
@@ -89,16 +124,37 @@ class UserController extends Controller
                     }
                 },
             ],
-            "roles" => "required",
-            "password" => "required|confirmed|min:9",
+            "angkatan" => "required|min:4|max:5",
         ])->validate();
 
-        User::create([
-            'username' => $request['username'],
-            'email' => $request['email'],
-            'roles' => $request['roles'],
-            'password' => Hash::make($request['password']),
-        ]);
+        try {
+
+            // create user
+            $new_user = new \App\Models\User();
+            $new_user->email = $request['email'];
+            $new_user->roles = $request['roles'];
+            $new_user->password = Hash::make($request['nim']);
+            $new_user->save();
+
+            $new_user->user_id = $new_user->id;
+            $new_user->name = $request['name'];
+            $new_user->nim = $request['nim'];
+            $new_user->jenis_kelamin = $request['jenis_kelamin'];
+            $new_user->angkatan = $request['angkatan'];
+            $new_user->status = $request['status'];
+
+            // create mahasiswa using foreign user_id on users
+            $new_mahasiswa = new \App\Models\Mahasiswa();
+            $new_mahasiswa->name = $new_user->name;
+            $new_mahasiswa->nim = $new_user->nim;
+            $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
+            $new_mahasiswa->angkatan = $new_user->angkatan;
+            $new_mahasiswa->status = $new_user->status;
+            $new_mahasiswa->user()->associate($new_user->id);
+            $new_mahasiswa->save();
+        } catch (\Throwable $th) {
+            return false;
+        }
 
         return redirect()->route('manage-users.create')->with('success', ' user successfully created');
     }
@@ -137,28 +193,31 @@ class UserController extends Controller
     {
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "username" => "required|min:2",
-            "email" => "required|min:1",
-            "roles" => "required|min:1",
+            "name" => "required",
+            "email" =>  "required",
+            "status" =>  "required",
         ])->validate();
 
-        $user = User::findOrFail($id);
-        $user->username = $request->get('username');
-        $user->email = $request->get('email');
-        $user->roles = $request->get('roles');
+        try {
 
-        if ($request->get('password')) {
-
-            $request->validate([
-                'password' => 'required|confirmed|min:6'
+            $user = User::findOrFail($id);
+            
+            $user->update([
+                'email' => $request['email'],
             ]);
 
-            $user->password = Hash::make($request['password']);
+            $user->mahasiswa()->update([
+                'jenis_kelamin' => $request['jenis_kelamin'],
+                'name' => $request['name'],
+                'status' => $request['status'],
+
+            ]);
+
+        } catch (\Throwable $th) {
+            return false;
         }
 
-        $user->save();
-
-        return redirect()->route('manage-users.edit', [$user->id])->with('success', 'User successfully updated');
+        return redirect()->route('manage-users.index')->with('success', ' user successfully updated');
     }
 
     /**

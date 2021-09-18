@@ -16,13 +16,35 @@
                     </div>
                 </div>
 
+                <div class="row mt-4">
+                    <div class="col-3 d-flex align-items-center">
+                        <label class="col-6 pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter
+                            berdasarkan angkatan : </label>
+
+                        <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
+                            <option value="">Pilih angkatan</option>
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                        </select>
+                        <br /> <br />
+                    </div>
+                </div>
+
                 <div class="table-responsive">
                     <table class="data-table table-striped">
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
-                                <th>Username</th>
+                                <th>name</th>
+                                <th>nim</th>
+                                <th>angkatan</th>
                                 <th>Email</th>
+                                <th>Whatsapp</th>
+                                <th>Telegram</th>
+                                <th>Status</th>
+                                <th>Jenis kelamin</th>
                                 <th>roles</th>
                                 <th>Actions</th>
                             </tr>
@@ -54,12 +76,36 @@
                         name: 'DT_RowIndex'
                     },
                     {
-                        data: 'username',
-                        name: 'username'
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'nim',
+                        name: 'nim'
+                    },
+                    {
+                        data: 'angkatan',
+                        name: 'angkatan'
                     },
                     {
                         data: 'email',
                         name: 'email'
+                    },
+                    {
+                        data: 'whatsapp',
+                        name: 'whatsapp'
+                    },
+                    {
+                        data: 'telegram',
+                        name: 'telegram'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'jenis_kelamin',
+                        name: 'jenis_kelamin'
                     },
                     {
                         data: 'roles',
@@ -72,6 +118,15 @@
                         searchable: false
                     },
                 ]
+            });
+
+            //filter Berdasarkan satuan product
+            $('#filter-satuan').change(function() {
+
+            table
+                .search($(this).val())
+                .draw();
+
             });
 
         });

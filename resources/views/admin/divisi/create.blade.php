@@ -19,6 +19,15 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ old('keterangan') }}" type="text" class="form-control form-control-sm" id="keterangan"
+                                name="keterangan" placeholder="Masukan keterangan divisi">
+                            <span class="err__fields">{{ $errors->first('keterangan') }}</span>
+                        </div>
+                    </div>
+
                     <button class="btn btn-info text-white">Submit</button>
 
                 </form>
