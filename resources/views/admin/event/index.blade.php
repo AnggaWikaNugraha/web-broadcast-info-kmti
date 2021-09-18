@@ -24,6 +24,10 @@
                                 <th>Nama</th>
                                 <th>Cover</th>
                                 <th>Tanggal</th>
+                                <th>Jam Mulai</th>
+                                <th>Jam Berakhir</th>
+                                <th>Lokasi</th>
+                                <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -63,6 +67,22 @@
                     {
                         data: 'tanggal',
                         name: 'tanggal'
+                    },
+                    {
+                        data: 'jam_mulai',
+                        name: 'jam_mulai'
+                    },
+                    {
+                        data: 'jam_berakhir',
+                        name: 'jam_berakhir'
+                    },
+                    {
+                        data: 'lokasi',
+                        name: 'lokasi'
+                    },
+                    {
+                        data: 'keterangan',
+                        name: 'keterangan'
                     },
                     {
                         data: 'action',
