@@ -68,6 +68,20 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">status Event :</label>
+                        <div class="col-sm-10">
+                            <input {{ $event->status == 'belum-mulai' ? 'checked' : ''}} type="radio" id="status_belum_mulai" name="status" value="belum-mulai"/>
+                            <label for="status_belum_mulai">belum mulai</label><br>
+
+                            <input {{ $event->status == 'sudah-selesai' ? 'checked' : ''}} type="radio" id="status_sudah_selesai" name="status" value="sudah-selesai"/>
+                            <label for="status_sudah_selesai">sudah selesai</label><br>
+
+                            <input {{ $event->status == 'cancel' ? 'checked' : ''}} type="radio" id="status_cancel" name="status" value="cancel"/>
+                            <label for="status_cancel">cancel</label><br>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">keterangan Event :</label>
                         <div class="col-sm-10">
                             <input value="{{ $event->keterangan }}" type="text" class="form-control form-control-sm" id="keterangan"

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
+use App\Models\Info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -18,7 +20,37 @@ class AdminController extends Controller
             if (Auth::user()->email_verified_at == null) {
                 return redirect(route('show-change-password'));
             } else {
-                return view('admin.dashboard');
+
+                $users = User::where([
+                    ['roles', '=', '["mahasiswa"]'],
+                    ['email_verified_at', '!=', 'null'],
+                ])->get()->count();
+
+                $info = Info::get()->count();
+
+                $events = Event::where([
+                    ['status', '=', 'belum-mulai'],
+                ])->get()->count();
+
+                $usersActive = User::where([
+                    ['roles', '=', '["mahasiswa"]'],
+                    ['email_verified_at', '!=', 'null'],
+                ])
+                ->orderByDesc('created_at')
+                ->paginate(5);
+
+                $eventsActive = Event::where([
+                    ['status', '=', 'belum-mulai'],
+                ])
+                ->orderByDesc('created_at')
+                ->paginate(5);
+
+                return view('admin.dashboard', compact(
+                    'users',
+                    'usersActive',
+                    'eventsActive', 
+                    'info', 
+                    'events'));
             }
         } else {
             return redirect('login');
