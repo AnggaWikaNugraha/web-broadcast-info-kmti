@@ -85,7 +85,7 @@ class EventController extends Controller
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
-        $new_event->keterangan = 'active';
+        $new_event->status = 'belum-mulai';
 
         // handle image
         $foto = $request->file('foto');

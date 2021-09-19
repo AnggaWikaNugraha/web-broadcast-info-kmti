@@ -145,7 +145,7 @@
         <div class="col-md-6">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Users last activate</div>
+                <div class="card-header">Event terdekat</div>
 
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -153,20 +153,24 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Name</th>
-                                <th>Nim</th>
-                                <th>Angkatan</th>
-                                <th>Email verified at</th>
+                                <th>Tanggal</th>
+                                <th>Jam mulai</th>
+                                <th>jam berakhir</th>
+                                <th>lokasi</th>
+                                <th>keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($usersActive as $item)
+                            @foreach ($eventsActive as $item)
                                
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
-                                    <td>{{ $item->mahasiswa->name}}</td>
-                                    <td>{{ $item->mahasiswa->nim}}</td>
-                                    <td>{{ $item->mahasiswa->angkatan}}</td>
-                                    <td>{{ $item->email_verified_at}}</td>
+                                    <td>{{ $item->nama}}</td>
+                                    <td>{{ $item->tanggal}}</td>
+                                    <td>{{ $item->jam_mulai}}</td>
+                                    <td>{{ $item->jam_berakhir}}</td>
+                                    <td>{{ $item->lokasi}}</td>
+                                    <td>{{ $item->keterangan}}</td>
                                 </tr>
 
                            @endforeach

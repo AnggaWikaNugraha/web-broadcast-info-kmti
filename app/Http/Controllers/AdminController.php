@@ -37,9 +37,16 @@ class AdminController extends Controller
                 ->orderByDesc('created_at')
                 ->paginate(5);
 
+                $eventsActive = Event::where([
+                    ['status', '=', 'belum-mulai'],
+                ])
+                ->orderByDesc('created_at')
+                ->paginate(5);
+
                 return view('admin.dashboard', compact(
                     'users',
-                    'usersActive', 
+                    'usersActive',
+                    'eventsActive', 
                     'info', 
                     'events'));
             }
