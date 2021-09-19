@@ -25,7 +25,7 @@
                     <div class="widget-content-wrapper">
                         <div class="widget-content-left">
                             <div class="widget-heading">Total Users</div>
-                            <div class="widget-subheading">Users yang aktif</div>
+                            <div class="widget-subheading">Users yang telah diverifikasi</div>
                         </div>
                         <div class="widget-content-right">
                             <div class="widget-numbers text-success">{{ $users }}</div>
@@ -107,7 +107,7 @@
         <div class="col-md-6">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Events</div>
+                <div class="card-header">Users Last verified</div>
 
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
@@ -136,7 +136,7 @@
                         </tbody>
                     </table>
                     <div class="d-block text-center card-footer">
-                        <a href="{{ route('manage-event.index') }}" class="btn-wide btn btn-success text-white">Lihat daftar events</a>
+                        <a href="{{ route('manage-users.index') }}" class="btn-wide btn btn-success text-white">Lihat daftar angkatan</a>
                     </div>
                 </div>
             </div>
@@ -178,7 +178,7 @@
                         </tbody>
                     </table>
                     <div class="d-block text-center card-footer">
-                        <a href="{{ route('manage-users.index') }}" class="btn-wide btn btn-success text-white">Lihat daftar angkatan</a>
+                        <a href="{{ route('manage-event.index') }}" class="btn-wide btn btn-success text-white">Lihat daftar events</a>
                     </div>
                 </div>
             </div>

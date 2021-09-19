@@ -28,7 +28,9 @@ class AdminController extends Controller
 
                 $info = Info::get()->count();
 
-                $events = Event::get()->count();
+                $events = Event::where([
+                    ['status', '=', 'belum-mulai'],
+                ])->get()->count();
 
                 $usersActive = User::where([
                     ['roles', '=', '["mahasiswa"]'],
