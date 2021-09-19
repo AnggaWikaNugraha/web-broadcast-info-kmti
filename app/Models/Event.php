@@ -15,5 +15,9 @@ class Event extends Model
         'nama',
         'foto',
         'tanggal',
+        'jam_mulai',
+        'jam_berakhir',
+        'lokasi',
+        'keterangan'
     ];
 }
