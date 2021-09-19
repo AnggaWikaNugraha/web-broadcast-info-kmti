@@ -29,8 +29,7 @@ class AdminController extends Controller
 
         if (
             Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]' && 
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != '["admin"]' ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -88,12 +87,6 @@ class AdminController extends Controller
 
         $user->save();
 
-        if (
-            Auth::user()->roles == '["superadmin"]' ||
-            Auth::user()->roles == '["admin"]' ) {
-            return redirect()->route('dashboard');
-        }
-
-
+        return redirect()->route('home');
     }
 }

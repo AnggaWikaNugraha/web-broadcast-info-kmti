@@ -26,7 +26,7 @@ class UserController extends Controller
     {
 
         if (Auth::user()->email_verified_at == null) {
-            return redirect(route('show-change-password'));
+            return redirect()->route('show-change-password');
         }
 
         if (

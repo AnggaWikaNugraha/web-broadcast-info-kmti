@@ -19,6 +19,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
+// admin dan superadmin
 Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'])->name('show-change-password');
 Route::patch('/change-password/{id}', [AdminController::class, 'ChangePassword'])->name('change-password');
