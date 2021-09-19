@@ -88,6 +88,12 @@ class AdminController extends Controller
 
         $user->save();
 
-        return redirect()->route('dashboard');
+        if (
+            Auth::user()->roles == '["superadmin"]' ||
+            Auth::user()->roles == '["admin"]' ) {
+            return redirect()->route('dashboard');
+        }
+
+
     }
 }

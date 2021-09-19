@@ -28,8 +28,7 @@ class EventController extends Controller
 
         if (
             Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]' && 
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != '["admin"]') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -240,7 +239,7 @@ class EventController extends Controller
             Auth::user()->roles != '["admin"]') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
-        
+
         $data = Event::findOrFail($id);
         $data->delete();
 
