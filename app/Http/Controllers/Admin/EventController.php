@@ -85,6 +85,7 @@ class EventController extends Controller
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
+        $new_event->keterangan = 'active';
 
         // handle image
         $foto = $request->file('foto');
@@ -146,6 +147,7 @@ class EventController extends Controller
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
+        $new_event->status = $request->get('status');
 
          // handle image
          $foto = $request->file('foto');
@@ -161,7 +163,7 @@ class EventController extends Controller
 
         $new_event->save();
 
-        return redirect()->route('manage-event.edit', [$new_event->id])->with('success', 'Event successfully updated');
+        return redirect()->route('manage-event.index', [$new_event->id])->with('success', 'Event successfully updated');
     }
 
     /**

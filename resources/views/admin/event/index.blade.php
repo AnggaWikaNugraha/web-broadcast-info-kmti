@@ -27,6 +27,7 @@
                                 <th>Jam Mulai</th>
                                 <th>Jam Berakhir</th>
                                 <th>Lokasi</th>
+                                <th>Status</th>
                                 <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
@@ -79,6 +80,10 @@
                     {
                         data: 'lokasi',
                         name: 'lokasi'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'keterangan',

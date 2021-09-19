@@ -18,6 +18,7 @@ class Event extends Model
         'jam_mulai',
         'jam_berakhir',
         'lokasi',
-        'keterangan'
+        'keterangan',
+        'status'
     ];
 }
