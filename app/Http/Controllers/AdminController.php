@@ -49,13 +49,13 @@ class AdminController extends Controller
             ['roles', '=', '["mahasiswa"]'],
             ['email_verified_at', '!=', 'null'],
         ])
-        ->orderByDesc('created_at')
+        ->orderByDesc('email_verified_at')
         ->paginate(5);
 
         $eventsActive = Event::where([
             ['status', '=', 'belum-mulai'],
         ])
-        ->orderByDesc('created_at')
+        ->orderBy('tanggal', 'ASC')
         ->paginate(5);
 
         return view('admin.dashboard', compact(
