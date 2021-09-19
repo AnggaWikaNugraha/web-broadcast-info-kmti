@@ -6,9 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Info;
 use Illuminate\Http\Request;
 use DataTables;
-
+use Illuminate\Support\Facades\Auth;
 class InfoController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware('auth');
+        
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +23,17 @@ class InfoController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]' && 
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $data = Info::orderByDesc('created_at')->get();
      
         if ($request->ajax()) {

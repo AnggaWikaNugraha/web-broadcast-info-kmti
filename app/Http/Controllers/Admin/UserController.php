@@ -10,20 +10,14 @@ use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function __construct()
     {
 
-        $this->middleware(function ($request, $next) {
-
-            if (Gate::allows('manage-users')) {
-                return $next($request);
-            }
-
-            abort(403, 'Anda tidak memiliki cukup hak akses');
-        });
+        $this->middleware('auth');
+        
     }
     /**
      * Display a listing of the resource.
@@ -32,6 +26,17 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $data = User::where('roles', '["mahasiswa"]')
             ->orderByDesc('created_at')
             ->get();
@@ -90,6 +95,17 @@ class UserController extends Controller
      */
     public function create()
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         return view('admin.users.create');
     }
 
@@ -101,6 +117,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
@@ -177,6 +203,17 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         return view('admin.users.edit', [
             'user' => User::findOrFail($id)
         ]);
@@ -191,6 +228,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
@@ -228,6 +275,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if ( Auth::user()->roles != '["superadmin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $data = User::findOrFail($id);
         $data->delete();
 

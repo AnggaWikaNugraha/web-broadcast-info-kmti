@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Divisi;
 use Illuminate\Http\Request;
 use DataTables;
-
+use Illuminate\Support\Facades\Auth;
 class DivisiController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware('auth');
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,18 @@ class DivisiController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]' && 
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         if ($request->ajax()) {
 
             $data = Divisi::orderByDesc('created_at')->get();
@@ -51,6 +69,15 @@ class DivisiController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
         return view('admin.divisi.create');
     }
 
@@ -62,6 +89,16 @@ class DivisiController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
             "keterangan" => "required",
@@ -96,6 +133,16 @@ class DivisiController extends Controller
      */
     public function edit($id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $divisi = Divisi::findOrFail($id);
         return view('admin.divisi.edit', compact('divisi'));
     }
@@ -109,6 +156,16 @@ class DivisiController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
             "keterangan" => "required",
@@ -131,6 +188,16 @@ class DivisiController extends Controller
      */
     public function destroy($id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+        
         $divisi = Divisi::findOrFail($id);
         $divisi->delete();
 

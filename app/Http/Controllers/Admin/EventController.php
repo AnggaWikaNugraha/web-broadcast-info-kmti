@@ -6,9 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use DataTables;
-
+use Illuminate\Support\Facades\Auth;
 class EventController extends Controller
 {
+    public function __construct()
+    {
+
+        $this->middleware('auth');
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,17 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]' && 
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         if ($request->ajax()) {
 
             $data = Event::orderByDesc('created_at')->get();
@@ -56,6 +73,16 @@ class EventController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         return view('admin.event.create');
     }
 
@@ -67,6 +94,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
@@ -118,6 +155,16 @@ class EventController extends Controller
      */
     public function edit($id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $event = Event::findOrFail($id);
         return view('admin.event.edit', compact('event'));
     }
@@ -131,6 +178,16 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
             "tanggal" => "required",
@@ -174,6 +231,16 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+        
         $data = Event::findOrFail($id);
         $data->delete();
 

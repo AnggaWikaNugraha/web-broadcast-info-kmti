@@ -14,47 +14,56 @@ use Illuminate\Support\Facades\Gate;
 class AdminController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
+
     public function index()
     {
-        if (Auth::user()) {
-            if (Auth::user()->email_verified_at == null) {
-                return redirect(route('show-change-password'));
-            } else {
-
-                $users = User::where([
-                    ['roles', '=', '["mahasiswa"]'],
-                    ['email_verified_at', '!=', 'null'],
-                ])->get()->count();
-
-                $info = Info::get()->count();
-
-                $events = Event::where([
-                    ['status', '=', 'belum-mulai'],
-                ])->get()->count();
-
-                $usersActive = User::where([
-                    ['roles', '=', '["mahasiswa"]'],
-                    ['email_verified_at', '!=', 'null'],
-                ])
-                ->orderByDesc('created_at')
-                ->paginate(5);
-
-                $eventsActive = Event::where([
-                    ['status', '=', 'belum-mulai'],
-                ])
-                ->orderByDesc('created_at')
-                ->paginate(5);
-
-                return view('admin.dashboard', compact(
-                    'users',
-                    'usersActive',
-                    'eventsActive', 
-                    'info', 
-                    'events'));
-            }
-        } else {
-            return redirect('login');
+        
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
         }
+
+        if (
+            Auth::user()->roles != '["superadmin"]' && 
+            Auth::user()->roles != '["admin"]' && 
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        $users = User::where([
+            ['roles', '=', '["mahasiswa"]'],
+            ['email_verified_at', '!=', 'null'],
+        ])->get()->count();
+
+        $info = Info::get()->count();
+
+        $events = Event::where([
+            ['status', '=', 'belum-mulai'],
+        ])->get()->count();
+
+        $usersActive = User::where([
+            ['roles', '=', '["mahasiswa"]'],
+            ['email_verified_at', '!=', 'null'],
+        ])
+        ->orderByDesc('created_at')
+        ->paginate(5);
+
+        $eventsActive = Event::where([
+            ['status', '=', 'belum-mulai'],
+        ])
+        ->orderByDesc('created_at')
+        ->paginate(5);
+
+        return view('admin.dashboard', compact(
+            'users',
+            'usersActive',
+            'eventsActive', 
+            'info', 
+            'events'));
     }
 
     public function showChangePasswordForm()
@@ -79,6 +88,6 @@ class AdminController extends Controller
 
         $user->save();
 
-        return view('admin.dashboard');
+        return redirect()->route('dashboard');
     }
 }
