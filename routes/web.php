@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\MahasiswaController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DivisiController;
 use App\Http\Controllers\Admin\InfoController;
+use App\Http\Controllers\User\MahasiswaController as UserMahasiswaController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () { return view('welcome');});
 
 Auth::routes();
 
@@ -30,3 +29,6 @@ Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
 
 Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);
+
+// mahasiswa
+Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');
