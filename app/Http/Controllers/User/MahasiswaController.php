@@ -9,6 +9,7 @@ use App\Models\Info;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DataTables;
 
 class MahasiswaController extends Controller
 {
@@ -49,4 +50,80 @@ class MahasiswaController extends Controller
             'info', 
             'events'));
     }
+
+    public function divisi(Request $request)
+    {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        if ($request->ajax()) {
+
+            $data = Divisi::orderByDesc('created_at')->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="manage-divisi/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('user.divisi');
+    }
+
+    public function event(Request $request)
+    {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        if ($request->ajax()) {
+
+            $data = Event::orderByDesc('created_at')->get();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('foto', function ($row) {
+                    $url = asset('storage/' . $row->foto);
+                    $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
+                    return $img;
+                })
+                ->addColumn('action', function ($row) {
+
+                    $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['foto', 'action'])
+                ->make(true);
+        }
+
+        return view('user.event');
+    }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        
+        return view('user.profile' , compact(
+            'user'
+        ));
+    }
+
 }

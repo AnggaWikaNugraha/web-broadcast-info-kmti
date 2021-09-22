@@ -45,16 +45,25 @@
                 </li>
 
                 <li></li>
+
+                <li>
+                    <a href="{{ route('user.profile') }}" >
+                        <i class="metismenu-icon pe-7s-rocket"></i>
+                        Profile
+                    </a>
+                </li>
+
+                <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
                 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('user.divisi') }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Divisi
                     </a>
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="{{ route('user.event') }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Event
                     </a>

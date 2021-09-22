@@ -32,3 +32,6 @@ Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);
 
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');
+Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('user.divisi');
+Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user.event');
+Route::get('/user/profile', [UserMahasiswaController::class, 'profile'])->name('user.profile');
