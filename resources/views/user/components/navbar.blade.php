@@ -71,8 +71,7 @@
                                                 @endif
                                             @else
 
-                                                {{ Auth::user()->roles == '["superadmin"]' ? 'login as superadmin' : '' }}
-                                                {{ Auth::user()->roles == '["admin"]' ? 'login as admin' : '' }}
+                                                {{ Auth::user()->roles == '["mahasiswa"]' ? Auth::user()->mahasiswa->name : '' }}
 
                                             @endguest
 
