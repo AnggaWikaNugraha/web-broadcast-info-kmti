@@ -112,3 +112,29 @@
     color: red;
     font-size: 12px;
 }
+
+/* sidebar */
+.app-sidebar__inner {
+    font-size: 22px !important;
+    font-weight: 500;
+    height: 100%;
+}
+
+.vertical-nav-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.vertical-nav-menu > li{
+  margin-bottom: 15px !important;
+}
+
+.vertical-nav-menu > li > a{
+    color: gray;
+}
+
+.vertical-nav-menu > li:nth-child(2){
+   border-bottom: 2px solid rgba(0, 0, 0, 0.125);
+}
+
