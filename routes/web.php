@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DivisiController;
@@ -28,8 +27,6 @@ Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
 
-Route::get('/ajax/users/search', [MahasiswaController::class, 'ajaxSearch']);
-
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');
 Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('user.divisi');
@@ -37,3 +34,4 @@ Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user
 Route::get('/user/profile', [UserMahasiswaController::class, 'profile'])->name('user.profile');
 Route::get('/user/profile/edit', [UserMahasiswaController::class, 'edit'])->name('user.profile.edit');
 Route::get('/user/profile/compliting', [UserMahasiswaController::class, 'compliting'])->name('user.profile.compliting');
+Route::patch('/user/profile/{id}/savecompliting', [UserMahasiswaController::class, 'savecompliting'])->name('user.profile.savecompliting');

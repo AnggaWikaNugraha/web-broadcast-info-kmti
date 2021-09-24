@@ -6,8 +6,12 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <form class="form__create" method="post" action="{{ route('manage-divisi.update', $divisi->id) }}"
+                <form 
+                    class="form__create" 
+                    method="post" 
+                    action="{{ route('manage-divisi.update', $divisi->id) }}"
                     enctype="multipart/form-data">
+                    
                     @method('PATCH')
                     @csrf
 
