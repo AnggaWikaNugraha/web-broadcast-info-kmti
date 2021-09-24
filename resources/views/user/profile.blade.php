@@ -4,9 +4,9 @@
 
     <div class="main-card mb-3 card">
         <div class="card-body">
-            <h5 class="card-title">Profile user</h5>
+            <h5 class="card-header">Profile user</h5>
             
-            <div class="position-relative row form-group"><label for="nama" class="col-sm-2 col-form-label">Nama</label>
+            <div class="mt-4 position-relative row form-group"><label for="nama" class="col-sm-2 col-form-label">Nama</label>
                 <div class="col-sm-9 offset-1"><input value="{{ $user->mahasiswa->name }}" id="nama" disabled class="form-control"></div>
             </div>
             
@@ -34,6 +34,7 @@
                 <div class="col-sm-9 offset-1"><input value="{{ $user->mahasiswa->id_tele }}" id="Telegram" disabled class="form-control"></div>
             </div>
             
+            <a class="text-white btn btn-primary" href="{{ route('user.profile.edit') }}">Edit</a>
         </div>
     </div>
 

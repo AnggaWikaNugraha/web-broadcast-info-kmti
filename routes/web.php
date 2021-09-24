@@ -35,3 +35,5 @@ Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('
 Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('user.divisi');
 Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user.event');
 Route::get('/user/profile', [UserMahasiswaController::class, 'profile'])->name('user.profile');
+Route::get('/user/profile/edit', [UserMahasiswaController::class, 'edit'])->name('user.profile.edit');
+Route::get('/user/profile/compliting', [UserMahasiswaController::class, 'compliting'])->name('user.profile.compliting');

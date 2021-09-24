@@ -126,4 +126,22 @@ class MahasiswaController extends Controller
         ));
     }
 
+    public function edit()
+    {
+        $user = Auth::user();
+        
+        return view('user.profile-edit' , compact(
+            'user'
+        ));
+    }
+
+    public function compliting()
+    {
+        $user = Auth::user();
+        
+        return view('user.profile-compliting' , compact(
+            'user'
+        ));
+    }
+
 }
