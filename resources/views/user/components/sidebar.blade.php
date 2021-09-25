@@ -38,7 +38,7 @@
             <ul class="vertical-nav-menu">
 
                 <li>
-                    <a href="{{ route('user.dashboard') }}" class="mm-active">
+                    <a href="{{ route('user.dashboard') }}" class="{{ Request::routeIs('user.dashboard') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
@@ -47,7 +47,7 @@
                 <li></li>
 
                 <li>
-                    <a href="{{ route('user.profile') }}" >
+                    <a href="{{ route('user.profile') }}" class="{{ Request::routeIs('user.profile') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Profile
                     </a>
@@ -56,14 +56,14 @@
                 <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
                 
                 <li>
-                    <a href="{{ route('user.divisi') }}">
+                    <a href="{{ route('user.divisi') }}" class="{{ Request::routeIs('user.divisi') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Divisi
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('user.event') }}">
+                    <a href="{{ route('user.event') }}" class="{{ Request::routeIs('user.event') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Event
                     </a>
