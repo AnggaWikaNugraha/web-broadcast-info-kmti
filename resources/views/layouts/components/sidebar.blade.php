@@ -38,7 +38,7 @@
             <ul class="vertical-nav-menu">
 
                 <li>
-                    <a href="{{ route('dashboard') }}" class="mm-active">
+                    <a href="{{ route('dashboard') }}" class="{{ Request::routeIs('dashboard') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
@@ -54,41 +54,19 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('manage-users.index') }}">
+                            <a href="{{ route('manage-users.index') }}" class="{{ Request::routeIs('manage-users.index') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon"></i>
                                 Daftar Angkatan
                             </a>
                         </li>
                         <li>
-                            <a href=" {{ route('manage-users.create') }}">
+                            <a href=" {{ route('manage-users.create') }}" class="{{ Request::routeIs('manage-users.create') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Buat User
                             </a>
                         </li>
                     </ul>
                 </li>
-
-                {{-- <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-radio"></i>
-                        Data Angkatan
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                    </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('manage-mahasiswa.index') }}">
-                                <i class="metismenu-icon">
-                                </i>List Mahasiswa
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('manage-mahasiswa.create') }}">
-                                <i class="metismenu-icon">
-                                </i>Create Mahasiswa
-                            </a>
-                        </li>
-                    </ul>
-                </li> --}}
 
                 <li>
                     <a href="#">
@@ -98,13 +76,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('manage-divisi.index')}}">
+                            <a href="{{ route('manage-divisi.index')}}" class="{{ Request::routeIs('manage-divisi.index') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>List Divisi
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('manage-divisi.create')}}">
+                            <a href="{{ route('manage-divisi.create')}}" class="{{ Request::routeIs('manage-divisi.create') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Create Divisi
                             </a>
@@ -120,13 +98,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('manage-event.index') }}">
+                            <a href="{{ route('manage-event.index') }}" class="{{ Request::routeIs('manage-event.index') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>List Event
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('manage-event.create') }}">
+                            <a href="{{ route('manage-event.create') }}" class="{{ Request::routeIs('manage-event.create') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Create Event
                             </a>
@@ -142,7 +120,7 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('manage-info.index')  }}">
+                            <a href="{{ route('manage-info.index')  }}" class="{{ Request::routeIs('manage-info.index') ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>List Info
                             </a>
