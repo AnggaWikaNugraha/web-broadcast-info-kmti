@@ -38,100 +38,81 @@
             <ul class="vertical-nav-menu">
 
                 <li>
-                    <a href="{{ route('dashboard') }}" class="{{ Request::routeIs('dashboard') ? 'mm-active' : '' }}">
+                    <a href="{{ route('dashboard') }}"
+                        class="{{ Request::routeIs('dashboard') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
                 </li>
 
-                <li></li>
+                <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
 
+                <li class="app-sidebar__heading">Data Angkatan</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-add-user"></i>
-                        Data Angkatan
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <a href="{{ route('manage-users.index') }}"
+                        class="{{ Request::routeIs('manage-users.index') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon"></i>
+                        Daftar Angkatan
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('manage-users.index') }}" class="{{ Request::routeIs('manage-users.index') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon"></i>
-                                Daftar Angkatan
-                            </a>
-                        </li>
-                        <li>
-                            <a href=" {{ route('manage-users.create') }}" class="{{ Request::routeIs('manage-users.create') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>Buat User
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href=" {{ route('manage-users.create') }}"
+                        class="{{ Request::routeIs('manage-users.create') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>Buat User
+                    </a>
                 </li>
 
+                <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
+
+                <li class="app-sidebar__heading">Divisi</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-note2"></i>
-                        Divisi
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <a href="{{ route('manage-divisi.index') }}"
+                        class="{{ Request::routeIs('manage-divisi.index') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>List Divisi
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('manage-divisi.index')}}" class="{{ Request::routeIs('manage-divisi.index') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>List Divisi
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('manage-divisi.create')}}" class="{{ Request::routeIs('manage-divisi.create') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>Create Divisi
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route('manage-divisi.create') }}"
+                        class="{{ Request::routeIs('manage-divisi.create') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>Create Divisi
+                    </a>
                 </li>
 
+                <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
+
+                <li class="app-sidebar__heading">Manage Event</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-note2"></i>
-                        Manage Event
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <a href="{{ route('manage-event.index') }}"
+                        class="{{ Request::routeIs('manage-event.index') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>List Event
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('manage-event.index') }}" class="{{ Request::routeIs('manage-event.index') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>List Event
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('manage-event.create') }}" class="{{ Request::routeIs('manage-event.create') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>Create Event
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="{{ route('manage-event.create') }}"
+                        class="{{ Request::routeIs('manage-event.create') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>Create Event
+                    </a>
                 </li>
 
+                <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
+                <li class="app-sidebar__heading">manage Info</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-radio"></i>
-                        Info
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    <a href="{{ route('manage-info.index') }}"
+                        class="{{ Request::routeIs('manage-info.index') ? 'mm-active' : '' }}">
+                        <i class="metismenu-icon">
+                        </i>List Info
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('manage-info.index')  }}" class="{{ Request::routeIs('manage-info.index') ? 'mm-active' : '' }}">
-                                <i class="metismenu-icon">
-                                </i>List Info
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-accordions.html">
-                                <i class="metismenu-icon">
-                                </i>Create info
-                            </a>
-                        </li>
-                    </ul>
+                </li>
+                <li>
+                    <a href="components-accordions.html">
+                        <i class="metismenu-icon">
+                        </i>Create info
+                    </a>
                 </li>
 
             </ul>
