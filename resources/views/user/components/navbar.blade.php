@@ -13,6 +13,10 @@
         </div>
     </div>
 
+    <div style="font-weight: bold">
+        KELUARGA MAHASISWA TEKNOLOGI INFORMASI
+    </div>
+
     <div class="app-header__mobile-menu">
         <div>
             <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
