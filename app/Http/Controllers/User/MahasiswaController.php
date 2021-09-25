@@ -163,6 +163,37 @@ class MahasiswaController extends Controller
         ));
     }
 
+    public function saveedit(Request $request, $id)
+    {
+
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "name" => "required",
+            "email" =>  "required",
+            "no_wa" =>  "required",
+            "id_tele" =>  "required",
+        ])->validate();
+
+        try {
+            
+            $user = User::findOrFail($id);
+            $user->update([
+                'email' => $request['email'],
+            ]);
+
+            $user->mahasiswa()->update([
+                'name' => $request['name'],
+                'no_wa' => $request['no_wa'],
+                'id_tele' => $request['id_tele']
+            ]);
+
+        } catch (\Throwable $th) {
+            return false ;
+        }
+
+        return redirect()->route('user.profile')->with('success', ' user successfully updated');
+        
+    }
+
     public function compliting()
     {
         if (Auth::user()->email_verified_at == null) {

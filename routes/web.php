@@ -33,5 +33,6 @@ Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('us
 Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user.event');
 Route::get('/user/profile', [UserMahasiswaController::class, 'profile'])->name('user.profile');
 Route::get('/user/profile/edit', [UserMahasiswaController::class, 'edit'])->name('user.profile.edit');
+Route::patch('/user/profile/{id}/saveedit', [UserMahasiswaController::class, 'saveedit'])->name('user.profile.saveedit');
 Route::get('/user/profile/compliting', [UserMahasiswaController::class, 'compliting'])->name('user.profile.compliting');
 Route::patch('/user/profile/{id}/savecompliting', [UserMahasiswaController::class, 'savecompliting'])->name('user.profile.savecompliting');

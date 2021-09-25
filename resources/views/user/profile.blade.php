@@ -7,7 +7,7 @@
             <h5 class="card-header">Profile user</h5>
             
             <div class="card-header position-relative row form-group"><label for="nama" class="col-sm-2 col-form-label">Nama</label>
-                <div class="col-sm-9 offset-1">{{ $user->mahasiswa->name }}"</div>
+                <div class="col-sm-9 offset-1">{{ $user->mahasiswa->name }}</div>
             </div>
             
             <div class="card-header position-relative row form-group"><label for="nim" class="col-sm-2 col-form-label">Nim</label>
