@@ -23,10 +23,11 @@
 
                         <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
                             <option value="">Pilih angkatan</option>
-                            <option value="2017">2017</option>
-                            <option value="2018">2018</option>
-                            <option value="2019">2019</option>
-                            <option value="2020">2020</option>
+                            
+                            @foreach ($angkatan as $item)
+                                <option>{{ $item->angkatan}}</option>
+                            @endforeach
+
                         </select>
                         <br /> <br />
                     </div>

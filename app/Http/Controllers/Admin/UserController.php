@@ -38,7 +38,9 @@ class UserController extends Controller
         $data = User::where('roles', '["mahasiswa"]')
             ->orderByDesc('created_at')
             ->get();
-
+        $mahasiswa = Mahasiswa::get();
+        $angkatan = $mahasiswa->unique('angkatan');
+        
         if ($request->ajax()) {
 
             return Datatables::of($data)
@@ -86,7 +88,9 @@ class UserController extends Controller
                 ->make(true);
         }
 
-        return view('admin.users.index');
+        return view('admin.users.index', compact(
+            'angkatan'
+        ));
     }
 
     /**

@@ -38,36 +38,40 @@
             <ul class="vertical-nav-menu">
 
                 <li>
-                    <a href="{{ route('user.dashboard') }}" class="{{ Request::routeIs('user.dashboard') ? 'mm-active' : '' }}">
+                    <a href="{{ route('user.dashboard') }}"
+                        class="{{ Request::routeIs('user.dashboard') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
                 </li>
 
-                <li></li>
+                <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
 
                 <li>
-                    <a href="{{ route('user.profile') }}" class="{{ Request::routeIs('user.profile') ? 'mm-active' : '' }}">
+                    <a href="{{ route('user.profile') }}"
+                        class="{{ Request::routeIs('user.profile') || Request::routeIs('user.profile.edit') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Profile
                     </a>
                 </li>
 
                 <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
-                
+
                 <li>
-                    <a href="{{ route('user.divisi') }}" class="{{ Request::routeIs('user.divisi') ? 'mm-active' : '' }}">
+                    <a href="{{ route('user.divisi') }}"
+                        class="{{ Request::routeIs('user.divisi') || Request::routeIs('user.detailDivisi')? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Divisi
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('user.event') }}" class="{{ Request::routeIs('user.event') ? 'mm-active' : '' }}">
+                    <a href="{{ route('user.event') }}"
+                        class="{{ Request::routeIs('user.event') || Request::routeIs('user.detailEvent') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Event
                     </a>
-                   
+
                 </li>
 
                 <li>

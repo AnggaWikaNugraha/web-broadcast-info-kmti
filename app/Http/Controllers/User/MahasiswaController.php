@@ -79,19 +79,48 @@ class MahasiswaController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('foto', function ($row) {
+                    $url = asset('storage/' . $row->foto);
+                    if($row->foto){
+                        $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
+                    return $img;
+                    }else{
+                        $tag = '<span> - </span>' ;
+                        return $tag;
+                    }
+                })
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="manage-divisi/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    $btn = '<a href="divisi/' . $row->id . ' " class="edit btn btn-primary btn-sm">Detail</a>';
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','foto'])
                 ->make(true);
         }
 
         return view('user.divisi');
     }
 
+    public function detailDivisi($id)
+    {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        if ( Auth::user()->mahasiswa->id_tele == null || Auth::user()->mahasiswa->no_wa == null) {
+            return redirect()->route('user.profile.compliting')->with('warning', 'anda belum melengkapi data diri !');
+        }
+
+        $divisi = Divisi::findOrFail($id);
+        return view('user.divisi-detail', compact('divisi'));
+    }
+    
     public function event(Request $request)
     {
         if (Auth::user()->email_verified_at == null) {
@@ -120,7 +149,7 @@ class MahasiswaController extends Controller
                 })
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    $btn = '<a href="event/' . $row->id . '" class="edit btn btn-primary btn-sm">Detail</a>';
 
                     return $btn;
                 })
@@ -129,6 +158,27 @@ class MahasiswaController extends Controller
         }
 
         return view('user.event');
+    }
+
+    public function detailEvent($id)
+    {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        if ( Auth::user()->mahasiswa->id_tele == null || Auth::user()->mahasiswa->no_wa == null) {
+            return redirect()->route('user.profile.compliting')->with('warning', 'anda belum melengkapi data diri !');
+        }
+
+        $event = Event::findOrFail($id);
+
+        return view('user.event-detail', compact('event'));
+
     }
 
     public function profile()
@@ -168,7 +218,6 @@ class MahasiswaController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
-            "email" =>  "required",
             "no_wa" =>  "required",
             "id_tele" =>  "required",
         ])->validate();
@@ -176,9 +225,6 @@ class MahasiswaController extends Controller
         try {
             
             $user = User::findOrFail($id);
-            $user->update([
-                'email' => $request['email'],
-            ]);
 
             $user->mahasiswa()->update([
                 'name' => $request['name'],
