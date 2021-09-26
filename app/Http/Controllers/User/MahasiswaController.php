@@ -218,7 +218,6 @@ class MahasiswaController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
-            "email" =>  "required",
             "no_wa" =>  "required",
             "id_tele" =>  "required",
         ])->validate();
@@ -226,9 +225,6 @@ class MahasiswaController extends Controller
         try {
             
             $user = User::findOrFail($id);
-            $user->update([
-                'email' => $request['email'],
-            ]);
 
             $user->mahasiswa()->update([
                 'name' => $request['name'],

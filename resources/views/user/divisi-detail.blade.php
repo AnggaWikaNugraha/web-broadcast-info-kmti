@@ -16,10 +16,10 @@
                 </div>
 
                 @if ($divisi->foto)
-                    <div style="height: 300px" class="card-header form-group row">
+                    <div style="height: 500px" class="card-header form-group row">
                         <label for="foto" class="col-sm-2 col-form-label col-form-label-sm">Foto :</label>
                         <div class="col-sm-10">
-                            <img style="margin-left: 10%" src="{{asset('storage/' . $divisi->foto)}}" width="250px"/>
+                            <img style="margin-left: 10%;" src="{{asset('storage/' . $divisi->foto)}}" width="250px"/>
                         </div>
                     </div>
                 @endif

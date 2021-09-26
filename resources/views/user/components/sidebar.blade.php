@@ -49,7 +49,7 @@
 
                 <li>
                     <a href="{{ route('user.profile') }}"
-                        class="{{ Request::routeIs('user.profile') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('user.profile') || Request::routeIs('user.profile.edit') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Profile
                     </a>
