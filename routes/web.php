@@ -29,8 +29,13 @@ Route::resource('admin/manage-info', InfoController::class);
 
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');
+
 Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('user.divisi');
+Route::get('/user/divisi/{id}', [UserMahasiswaController::class, 'detailDivisi'])->name('user.detailDivisi');
+
 Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user.event');
+Route::get('/user/event/{id}', [UserMahasiswaController::class, 'detailEvent'])->name('user.detailEvent');
+
 Route::get('/user/profile', [UserMahasiswaController::class, 'profile'])->name('user.profile');
 Route::get('/user/profile/edit', [UserMahasiswaController::class, 'edit'])->name('user.profile.edit');
 Route::patch('/user/profile/{id}/saveedit', [UserMahasiswaController::class, 'saveedit'])->name('user.profile.saveedit');

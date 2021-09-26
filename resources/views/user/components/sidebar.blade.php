@@ -59,7 +59,7 @@
 
                 <li>
                     <a href="{{ route('user.divisi') }}"
-                        class="{{ Request::routeIs('user.divisi') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('user.divisi') || Request::routeIs('user.detailDivisi')? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Divisi
                     </a>
@@ -67,7 +67,7 @@
 
                 <li>
                     <a href="{{ route('user.event') }}"
-                        class="{{ Request::routeIs('user.event') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('user.event') || Request::routeIs('user.detailEvent') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Event
                     </a>
