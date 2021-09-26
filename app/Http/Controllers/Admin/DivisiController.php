@@ -39,6 +39,16 @@ class DivisiController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('foto', function ($row) {
+                    $url = asset('storage/' . $row->foto);
+                    if($row->foto){
+                        $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
+                    return $img;
+                    }else{
+                        $tag = '<span> - </span>' ;
+                        return $tag;
+                    }
+                })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-divisi/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
@@ -54,7 +64,7 @@ class DivisiController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','foto'])
                 ->make(true);
         }
 
@@ -88,6 +98,7 @@ class DivisiController extends Controller
      */
     public function store(Request $request)
     {
+
         if (Auth::user()->email_verified_at == null) {
             return redirect(route('show-change-password'));
         }
@@ -100,12 +111,20 @@ class DivisiController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
+            "fungsi" => "required",
             "keterangan" => "required",
         ])->validate();
 
         $new_divisi = new Divisi();
         $new_divisi->nama_divisi = $request->get('nama_divisi');
         $new_divisi->keterangan = $request->get('keterangan');
+        $new_divisi->fungsi = $request->get('fungsi');
+
+        $foto = $request->file('foto');
+        if ($foto) {
+            $foto_path = $foto->store('divisi', 'public');
+            $new_divisi->foto = $foto_path;
+        }
 
         $new_divisi->save();
 
@@ -167,12 +186,26 @@ class DivisiController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama_divisi" => "required",
+            "fungsi" => "required",
             "keterangan" => "required",
         ])->validate();
 
         $new_divisi = Divisi::findOrFail($id);
         $new_divisi->nama_divisi = $request->get('nama_divisi');
+        $new_divisi->fungsi = $request->get('fungsi');
         $new_divisi->keterangan = $request->get('keterangan');
+
+         // handle image
+         $foto = $request->file('foto');
+         if ($foto) {
+
+            if($new_divisi->foto && file_exists(storage_path('app/public/' . $new_divisi->foto))){
+                \Storage::delete('public/'. $new_divisi->foto);
+            }
+
+            $foto_path = $foto->store('photos', 'public');
+            $new_divisi->foto = $foto_path;
+        }
 
         $new_divisi->save();
         

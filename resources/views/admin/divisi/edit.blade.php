@@ -25,6 +25,26 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="foto" class="col-sm-2 col-form-label col-form-label-sm">Foto :</label>
+                        <div class="col-sm-10">
+                            @if($divisi->foto)
+                                <img src="{{asset('storage/' . $divisi->foto)}}" width="250px"/>
+                            @endif
+                            <input name="foto" type="file" class="mt-2 form-control-file">
+                            <span class="err__fields">{{ $errors->first('foto') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi Divisi :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $divisi->fungsi }}" type="text" class="form-control form-control-sm" id="fungsi"
+                                name="fungsi" placeholder="Masukan fungsi divisi">
+                            <span class="err__fields">{{ $errors->first('fungsi') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan :</label>
                         <div class="col-sm-10">
                             <input value="{{ $divisi->keterangan }}" type="text" class="form-control form-control-sm" id="keterangan"
