@@ -50,7 +50,7 @@
                 <li class="app-sidebar__heading">Data Angkatan</li>
                 <li>
                     <a href="{{ route('manage-users.index') }}"
-                        class="{{ Request::routeIs('manage-users.index') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-users.index') || Request::routeIs('manage-users.edit') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon"></i>
                         Daftar Angkatan
                     </a>
@@ -68,7 +68,7 @@
                 <li class="app-sidebar__heading">Divisi</li>
                 <li>
                     <a href="{{ route('manage-divisi.index') }}"
-                        class="{{ Request::routeIs('manage-divisi.index') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-divisi.index') || Request::routeIs('manage-divisi.edit') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
                         </i>List Divisi
                     </a>
@@ -86,7 +86,7 @@
                 <li class="app-sidebar__heading">Manage Event</li>
                 <li>
                     <a href="{{ route('manage-event.index') }}"
-                        class="{{ Request::routeIs('manage-event.index') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-event.index') || Request::routeIs('manage-event.edit') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
                         </i>List Event
                     </a>
