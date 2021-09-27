@@ -41,21 +41,13 @@ class InfoController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-
-                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '
-                    
-                    <form action="manage-info/' . $row->id . '" method="POST" class="wrapper__delete">
-                        ' . csrf_field() . '
-                        ' . method_field("DELETE") . '
-                        <button type="submit" class="btn btn-danger btn__delete"
-                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
-                            style="padding: .0em !important;font-size: xx-small;">Delete</button>
-                    </form>';
-
+                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('tanggal_kirim', function ($row) {
+                    return $row->mahasiswa()->first()->pivot->tanggal_kirim;
+                })
+                ->rawColumns(['action','tanggal_kirim'])
                 ->make(true);
         }
 

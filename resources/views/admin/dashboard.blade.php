@@ -70,28 +70,26 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Info</div>
+                <div class="card-header">Info terbaru</div>
 
-                <div class="table-responsive">
+                <div class="table-responsive p-2">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Name</th>
-                                <th>Nim</th>
-                                <th>Angkatan</th>
-                                <th>Email verified at</th>
+                                <th>Subject</th>
+                                <th>Content</th>
+                                <th>Tanggal kirim</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($usersActive as $item)
+                            @foreach ($infoMahasiswa as $item)
                                
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
-                                    <td>{{ $item->mahasiswa->name}}</td>
-                                    <td>{{ $item->mahasiswa->nim}}</td>
-                                    <td>{{ $item->mahasiswa->angkatan}}</td>
-                                    <td>{{ $item->email_verified_at}}</td>
+                                    <td>{{ $item->subject }}</td>
+                                    <td>{{ $item->content }}</td>
+                                    <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim }}</td>
                                 </tr>
 
                            @endforeach
