@@ -14,10 +14,11 @@ class Info extends Model
     protected $fillable = [
         'content',
         'file',
+        'subject'
     ];
 
     public function mahasiswa(){
-        return $this->belongsToMany(Mahasiswa::class);
+        return $this->belongsToMany(Mahasiswa::class)->withPivot('tanggal_kirim');
     }
 
 }

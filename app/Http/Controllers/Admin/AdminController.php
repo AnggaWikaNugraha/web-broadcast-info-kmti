@@ -55,14 +55,17 @@ class AdminController extends Controller
         $eventsActive = Event::where([
             ['status', '=', 'belum-mulai'],
         ])
-        ->orderBy('tanggal', 'ASC')
+        ->orderBy('tanggal', 'DESC')
         ->paginate(5);
+
+        $infoMahasiswa = Info::orderBy('id', 'DESC')->paginate(5);
 
         return view('admin.dashboard', compact(
             'users',
             'usersActive',
             'eventsActive', 
-            'info', 
+            'info',
+            'infoMahasiswa', 
             'events'));
     }
 

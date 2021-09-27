@@ -21,7 +21,9 @@
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
+                                <th>Subject</th>
                                 <th>Content</th>
+                                <th>Tanggal kirim</th>
                                 <th>File</th>
                                 <th>Actions</th>
                             </tr>
@@ -52,8 +54,16 @@
                         name: 'DT_RowIndex'
                     },
                     {
+                        data: 'subject',
+                        name: 'subject'
+                    },
+                    {
                         data: 'content',
                         name: 'content'
+                    },
+                    {
+                        data: 'tanggal_kirim',
+                        name: 'tanggal_kirim'
                     },
                     {
                         data: 'file',
