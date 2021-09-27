@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Info;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -68,7 +69,7 @@ class InfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.info.create');
     }
 
     /**
@@ -79,7 +80,21 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "subject" => "required",
+            "content" => "required",
+        ])->validate();
+
+        $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
+        
+        $new_info = new Info();
+        $new_info->subject = $request->get('subject');
+        $new_info->content = $request->get('content');
+        $new_info->save();
+
+        $new_info->mahasiswa()->attach($mahasiswa);
+
+        return redirect()->route('manage-info.index');
     }
 
     /**

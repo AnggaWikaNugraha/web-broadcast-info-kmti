@@ -21,6 +21,7 @@
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
+                                <th>Subject</th>
                                 <th>Content</th>
                                 <th>File</th>
                                 <th>Actions</th>
@@ -50,6 +51,10 @@
                 columns: [{
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
+                    },
+                    {
+                        data: 'subject',
+                        name: 'subject'
                     },
                     {
                         data: 'content',

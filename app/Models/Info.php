@@ -14,6 +14,7 @@ class Info extends Model
     protected $fillable = [
         'content',
         'file',
+        'subject'
     ];
 
     public function mahasiswa(){
