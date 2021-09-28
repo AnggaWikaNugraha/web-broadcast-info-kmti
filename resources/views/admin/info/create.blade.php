@@ -34,7 +34,7 @@
                         <div class="col-sm-10">
                             <select class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
-                                <option value='["anggota", "pengurus"]''>Pengurus KMTI</option>
+                                <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
                             </select>
                         </div>
                     </div>
