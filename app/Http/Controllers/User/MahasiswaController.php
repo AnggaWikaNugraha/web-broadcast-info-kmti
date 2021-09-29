@@ -154,6 +154,10 @@ class MahasiswaController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('statusEvent', function ($row) {
+                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>'  ;
+                    return $hasil;
+                })
                 ->addColumn('foto', function ($row) {
                     $url = asset('storage/' . $row->foto);
                     $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
@@ -165,7 +169,7 @@ class MahasiswaController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['foto', 'action','statusEvent'])
                 ->make(true);
         }
 
@@ -325,7 +329,11 @@ class MahasiswaController extends Controller
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
-                ->rawColumns(['action','tanggal_kirim'])
+                ->addColumn('status', function ($row) {
+                    $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
+                    return $hasil;
+                })
+                ->rawColumns(['action','tanggal_kirim', 'status'])
                 ->make(true);
         }
 

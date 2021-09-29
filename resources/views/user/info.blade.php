@@ -17,6 +17,7 @@
                                 <th>Subject</th>
                                 <th>Content</th>
                                 <th>Tanggal kirim</th>
+                                <th>Status</th>
                                 <th>File</th>
                                 <th>Actions</th>
                             </tr>
@@ -42,7 +43,8 @@
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('user.info') }}",
-                columns: [{
+                columns: [
+                    {
                         data: 'DT_RowIndex',
                         name: 'DT_RowIndex'
                     },
@@ -57,6 +59,10 @@
                     {
                         data: 'tanggal_kirim',
                         name: 'tanggal_kirim'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
                     },
                     {
                         data: 'file',
