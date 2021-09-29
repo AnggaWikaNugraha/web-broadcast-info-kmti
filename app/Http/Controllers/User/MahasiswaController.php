@@ -298,7 +298,7 @@ class MahasiswaController extends Controller
             return Datatables::of($info)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     return $btn;
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
@@ -312,4 +312,13 @@ class MahasiswaController extends Controller
 
     }
 
+    public function infoDetail($id)
+    {
+        
+        $info = Info::findOrFail($id);
+
+        return view('user.info-detail', compact(
+            'info'
+        ));
+    }
 }
