@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Divisi;
 use App\Models\Event;
 use App\Models\Info;
+use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class MahasiswaController extends Controller
         $eventsActive = Event::where([
             ['status', '=', 'belum-mulai'],
         ])
-        ->orderBy('tanggal', 'ASC')
+        ->orderBy('tanggal', 'DESC')
         ->paginate(5);
 
         return view('user.dashboard', compact(
@@ -279,6 +280,36 @@ class MahasiswaController extends Controller
         }
 
         return redirect()->route('user.profile')->with('success', ' user successfully updated');
+    }
+
+    public function info(Request $request)
+    {
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
+
+        $info = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
+            $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
+        })
+        ->orderBy('id', 'DESC')
+        ->get();
+
+        if ($request->ajax()) {
+
+            return Datatables::of($info)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    return $btn;
+                })
+                ->addColumn('tanggal_kirim', function ($row) {
+                    return $row->mahasiswa()->first()->pivot->tanggal_kirim;
+                })
+                ->rawColumns(['action','tanggal_kirim'])
+                ->make(true);
+        }
+
+        return view('user.info');
+
     }
 
 }

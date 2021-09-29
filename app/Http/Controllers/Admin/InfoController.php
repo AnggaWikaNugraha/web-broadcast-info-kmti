@@ -77,7 +77,11 @@ class InfoController extends Controller
             "content" => "required",
         ])->validate();
 
-        $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
+        if($request['status'] == '["anggota", "pengurus"]' ){
+            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
+        }else{
+            $mahasiswa = Mahasiswa::get();
+        }
         
         $new_info = new Info();
         $new_info->subject = $request->get('subject');

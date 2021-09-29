@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow">
+<div class="app-sidebar sidebar-shadow" style="background-color: #354052">
 
     <div class="app-header__logo">
         <div class="logo-src"></div>
@@ -118,7 +118,7 @@
 
             </ul>
         </div>
-        <div class="app-sidebar__inner wrapper__logout">
+        {{-- <div class="app-sidebar__inner wrapper__logout">
             <ul class="vertical-nav-menu">
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -131,6 +131,6 @@
                     </form>
                 </li>
             </ul>
-        </div>
+        </div> --}}
     </div>
 </div>

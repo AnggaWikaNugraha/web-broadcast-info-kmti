@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow">
+<div class="app-sidebar sidebar-shadow" style="background-color: #354052">
 
     <div class="app-header__logo">
         <div class="logo-src"></div>
@@ -75,7 +75,9 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a  href="{{ route('user.info') }}"
+                        class="{{ Request::routeIs('user.info') ? 'mm-active' : '' }}"
+                    >
                         <i class="metismenu-icon pe-7s-radio"></i>
                         Info
                     </a>
