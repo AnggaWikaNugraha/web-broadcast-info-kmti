@@ -41,7 +41,7 @@ class InfoController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    $btn = '<a href="manage-info/' . $row->id . '" class="edit btn btn-primary btn-sm">Detail</a>';
                     return $btn;
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
@@ -101,7 +101,11 @@ class InfoController extends Controller
      */
     public function show($id)
     {
-        //
+        $info = Info::findOrFail($id);
+
+        return view('admin.info.detail', compact(
+            'info'
+        ));
     }
 
     /**
@@ -112,7 +116,7 @@ class InfoController extends Controller
      */
     public function edit($id)
     {
-        //
+      
     }
 
     /**

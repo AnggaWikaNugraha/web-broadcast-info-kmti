@@ -37,6 +37,8 @@ class MahasiswaController extends Controller
            return redirect()->route('user.profile.compliting')->with('warning', 'anda belum melengkapi data diri !');
         }
 
+        $user = Auth::user();
+
         $divisi = Divisi::get()->count();
 
         $info = Info::get()->count();
@@ -51,10 +53,19 @@ class MahasiswaController extends Controller
         ->orderBy('tanggal', 'DESC')
         ->paginate(5);
 
+        $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
+
+        $infoMahasiswa = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
+            $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate(5);
+
         return view('user.dashboard', compact(
             'divisi',
             'eventsActive', 
             'info', 
+            'infoMahasiswa',
             'events'));
     }
 
@@ -143,6 +154,10 @@ class MahasiswaController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('statusEvent', function ($row) {
+                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>'  ;
+                    return $hasil;
+                })
                 ->addColumn('foto', function ($row) {
                     $url = asset('storage/' . $row->foto);
                     $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
@@ -154,7 +169,7 @@ class MahasiswaController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['foto', 'action','statusEvent'])
                 ->make(true);
         }
 
@@ -284,6 +299,16 @@ class MahasiswaController extends Controller
 
     public function info(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $user = Auth::user();
         $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
 
@@ -298,13 +323,17 @@ class MahasiswaController extends Controller
             return Datatables::of($info)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="manage-info/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Detail</a>';
+                    $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     return $btn;
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
-                ->rawColumns(['action','tanggal_kirim'])
+                ->addColumn('status', function ($row) {
+                    $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
+                    return $hasil;
+                })
+                ->rawColumns(['action','tanggal_kirim', 'status'])
                 ->make(true);
         }
 
@@ -312,4 +341,22 @@ class MahasiswaController extends Controller
 
     }
 
+    public function infoDetail($id)
+    {
+        
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        $info = Info::findOrFail($id);
+
+        return view('user.info-detail', compact(
+            'info'
+        ));
+    }
 }

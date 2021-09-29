@@ -14,7 +14,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Cover</th>
                                 <th>Tanggal</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Berakhir</th>
@@ -54,10 +53,6 @@
                         name: 'nama'
                     },
                     {
-                        data: 'foto',
-                        name: 'foto'
-                    },
-                    {
                         data: 'tanggal',
                         name: 'tanggal'
                     },
@@ -74,8 +69,8 @@
                         name: 'lokasi'
                     },
                     {
-                        data: 'status',
-                        name: 'status'
+                        data: 'statusEvent',
+                        name: 'statusEvent'
                     },
                     {
                         data: 'keterangan',

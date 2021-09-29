@@ -27,6 +27,6 @@ class Mahasiswa extends Model
     }
 
     public function info(){
-        return $this->belongsToMany(Info::class);
+        return $this->belongsToMany(Info::class)->withPivot('tanggal_kirim', 'status');
     }
 }

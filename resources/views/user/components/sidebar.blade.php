@@ -76,8 +76,7 @@
 
                 <li>
                     <a  href="{{ route('user.info') }}"
-                        class="{{ Request::routeIs('user.info') ? 'mm-active' : '' }}"
-                    >
+                        class="{{ Request::routeIs('user.info') ||  Request::routeIs('user.infoDetail') ? 'mm-active' : '' }}" >
                         <i class="metismenu-icon pe-7s-radio"></i>
                         Info
                     </a>

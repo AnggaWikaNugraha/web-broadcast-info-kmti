@@ -103,7 +103,9 @@
                 <li class="app-sidebar__heading">manage Info</li>
                 <li>
                     <a  href="{{ route('manage-info.index') }}"
-                        class="{{ Request::routeIs('manage-info.index') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-info.index') || 
+                        Request::routeIs('manage-info.show')
+                        ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
                         </i>List Info
                     </a>
