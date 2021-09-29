@@ -37,6 +37,8 @@ class MahasiswaController extends Controller
            return redirect()->route('user.profile.compliting')->with('warning', 'anda belum melengkapi data diri !');
         }
 
+        $user = Auth::user();
+
         $divisi = Divisi::get()->count();
 
         $info = Info::get()->count();
@@ -51,10 +53,19 @@ class MahasiswaController extends Controller
         ->orderBy('tanggal', 'DESC')
         ->paginate(5);
 
+        $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
+
+        $infoMahasiswa = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
+            $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
+        })
+        ->orderBy('id', 'DESC')
+        ->paginate(5);
+
         return view('user.dashboard', compact(
             'divisi',
             'eventsActive', 
             'info', 
+            'infoMahasiswa',
             'events'));
     }
 
@@ -284,6 +295,16 @@ class MahasiswaController extends Controller
 
     public function info(Request $request)
     {
+
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $user = Auth::user();
         $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
 
@@ -315,6 +336,15 @@ class MahasiswaController extends Controller
     public function infoDetail($id)
     {
         
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != '["mahasiswa"]') {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
         $info = Info::findOrFail($id);
 
         return view('user.info-detail', compact(

@@ -70,23 +70,35 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Info</div>
+                <div class="card-header">Info terbaru</div>
 
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th>Name</th>
-                                <th>Nim</th>
-                                <th>Angkatan</th>
-                                <th>Email verified at</th>
+                                <th>Subject</th>
+                                <th>Content</th>
+                                <th>Terkirim</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($infoMahasiswa as $item)
+                               
+                                <tr>
+                                    <td style="text-align: center">{{ $loop->index  + 1}}</td>
+                                    <td>{{ $item->subject}}</td>
+                                    <td>{{ $item->content}}</td>
+                                    <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim}}</td>
+                                </tr>
+
+                           @endforeach
                             
                         </tbody>
                     </table>
+                    <div class="d-block text-center card-footer">
+                        <a href="{{ route('user.info') }}" class="btn-wide btn btn-success text-white">Lihat smua info</a>
+                    </div>
                 </div>
             </div>
         </div>
