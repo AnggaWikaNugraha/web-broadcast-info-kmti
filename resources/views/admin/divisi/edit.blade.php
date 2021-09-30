@@ -8,8 +8,7 @@
 
                 <h5 class="card-header">Edit Divisi</h5>
 
-                <form class="form__create" method="post" action="{{ route('manage-divisi.update', $divisi->id) }}"
-                    enctype="multipart/form-data">
+                <form class="form__create" method="post" action="{{ route('manage-divisi.update', $divisi->id) }}" enctype="multipart/form-data">
 
                     @method('PATCH')
                     @csrf
