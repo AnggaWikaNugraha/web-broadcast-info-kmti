@@ -43,3 +43,4 @@ Route::get('/user/profile/compliting', [UserMahasiswaController::class, 'complit
 Route::patch('/user/profile/{id}/savecompliting', [UserMahasiswaController::class, 'savecompliting'])->name('user.profile.savecompliting');
 Route::get('/user/info', [UserMahasiswaController::class, 'info'])->name('user.info');
 Route::get('/user/info/{id}/detail', [UserMahasiswaController::class, 'infoDetail'])->name('user.infoDetail');
+Route::patch('/user/info/{id}/detail', [UserMahasiswaController::class, 'infoRead'])->name('user.infoRead');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Divisi;
 use App\Models\Event;
 use App\Models\Info;
+use App\Models\InfoMahasiswa;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -39,7 +40,7 @@ class MahasiswaController extends Controller
 
         $user = Auth::user();
 
-        $divisi = Divisi::get()->count();
+        $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get()->count();
 
         $info = Info::get()->count();
 
@@ -323,8 +324,19 @@ class MahasiswaController extends Controller
             return Datatables::of($info)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
+                    // $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
+                    $btn = '
+                    
+                    <form action="info/' . $row->mahasiswa()->first()->pivot->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
+                        ' . csrf_field() . '
+                        ' . method_field("PATCH") . '
+                        <button class="btn btn-info text-white">Lihat info</button>
+                    </form>
+                    
+                    ';
+
                     return $btn;
+
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
@@ -358,5 +370,17 @@ class MahasiswaController extends Controller
         return view('user.info-detail', compact(
             'info'
         ));
+    }
+
+    public function infoRead($id)
+    {
+        $new_info = InfoMahasiswa::findOrFail($id);
+        $new_info->status = 'deactive';
+
+        $new_info->save();
+
+
+        return redirect()->route('user.infoDetail', [$new_info->info->id])->with('success', 'Info successfully read');
+  
     }
 }

@@ -9,7 +9,7 @@
                 <div class="card-header pl-0">List Events</div>
 
                 <div class="table-responsive">
-                    <table class="data-table table-striped">
+                    <table class="data-table table-striped table-hover">
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>

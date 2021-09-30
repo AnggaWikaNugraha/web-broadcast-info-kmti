@@ -40,13 +40,13 @@
     <div class="app-header__content">
         <div class="app-header-right">
 
-            <div class="search-wrapper">
+            {{-- <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search">
                     <button class="search-icon"><span></span></button>
                 </div>
                 <button class="close"></button>
-            </div>
+            </div> --}}
 
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
@@ -75,8 +75,26 @@
                                                 @endif
                                             @else
 
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                               
                                                 {{ Auth::user()->roles == '["superadmin"]' ? 'login as superadmin' : '' }}
                                                 {{ Auth::user()->roles == '["admin"]' ? 'login as admin' : '' }}
+
+                                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                            </a>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right mt-4">
+                                                <ul class="vertical-nav-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            <span >LOGOUT</span>
+                                                        </a>
+                                    
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
 
                                             @endguest
 
