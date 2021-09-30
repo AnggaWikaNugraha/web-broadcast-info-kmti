@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Mahasiswa extends Model
 {
@@ -29,4 +30,15 @@ class Mahasiswa extends Model
     public function info(){
         return $this->belongsToMany(Info::class)->withPivot('tanggal_kirim', 'status');
     }
+
+    /**
+     * Get all of the notifications for the Mahasiswa
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(InfoMahasiswa::class);
+    }
+
 }
