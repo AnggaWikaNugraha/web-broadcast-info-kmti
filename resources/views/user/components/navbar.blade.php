@@ -40,14 +40,6 @@
     <div class="app-header__content">
         <div class="app-header-right">
 
-            {{-- <div class="search-wrapper">
-                <div class="input-holder">
-                    <input type="text" class="search-input" placeholder="Type to search">
-                    <button class="search-icon"><span></span></button>
-                </div>
-                <button class="close"></button>
-            </div> --}}
-
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
@@ -57,10 +49,22 @@
                                 
                                 @if ( Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() > 0)
                                     
-                                    <a href="{{ route('user.info') }}" style="color: #3ac47d" class="p-0 btn">
-                                        <i class="fa fa-bell" ></i>
+                                    <a style="color: #3ac47d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                        <i class="fa fa-bell" aria-hidden="true"></i>
+
                                         <span style="position: absolute; top: -10px; left: 9px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}+</span>
+                                        
+                                        
                                     </a>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right mt-3">
+
+                                        @foreach (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)
+                                            <h6 tabindex="-1" class="dropdown-header"> {{ $item->info->subject}}</h6>
+                                        @endforeach
+
+                                        <a style="color: #3ac47d" href="{{ route('user.info') }}" class="p-0 btn">More Notifications</a>
+
+                                    </div>
 
                                 @else
                                     

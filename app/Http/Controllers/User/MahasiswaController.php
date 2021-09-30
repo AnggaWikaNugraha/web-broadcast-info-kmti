@@ -39,7 +39,7 @@ class MahasiswaController extends Controller
 
         $user = Auth::user();
 
-        $divisi = Divisi::get()->count();
+        $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get()->count();
 
         $info = Info::get()->count();
 
