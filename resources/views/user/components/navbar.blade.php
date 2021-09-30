@@ -40,17 +40,35 @@
     <div class="app-header__content">
         <div class="app-header-right">
 
-            <div class="search-wrapper">
+            {{-- <div class="search-wrapper">
                 <div class="input-holder">
                     <input type="text" class="search-input" placeholder="Type to search">
                     <button class="search-icon"><span></span></button>
                 </div>
                 <button class="close"></button>
-            </div>
+            </div> --}}
 
             <div class="header-btn-lg pr-0">
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
+
+                        <div class="widget-content-left">
+                            <div class="btn-group">
+                                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                </a>
+                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right mt-3">
+                                    <button type="button" tabindex="0" class="dropdown-item">User
+                                        Account</button>
+                                    <button type="button" tabindex="0" class="dropdown-item">Settings</button>
+                                    <h6 tabindex="-1" class="dropdown-header">Header</h6>
+                                    <button type="button" tabindex="0" class="dropdown-item">Actions</button>
+                                    <div tabindex="-1" class="dropdown-divider"></div>
+                                    <button type="button" tabindex="0" class="dropdown-item">Dividers</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">
                                 <ul class="navbar-nav ml-auto">
@@ -59,7 +77,7 @@
                                     <div class="widget-content-left  ml-3 header-user-info">
                                         <div class="widget-heading">
 
-                                            @guest
+                                              @guest
                                                 @if (Route::has('login'))
 
                                                     <a class="nav-link"
@@ -75,7 +93,23 @@
                                                 @endif
                                             @else
 
+                                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                                 {{ Auth::user()->roles == '["mahasiswa"]' ? Auth::user()->mahasiswa->name : '' }}
+                                                <i class="fa fa-angle-down ml-2 opacity-8"></i>
+                                            </a>
+                                            <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right mt-4">
+                                                <ul class="vertical-nav-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                            <span >LOGOUT</span>
+                                                        </a>
+                                    
+                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                            @csrf
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
 
                                             @endguest
 
