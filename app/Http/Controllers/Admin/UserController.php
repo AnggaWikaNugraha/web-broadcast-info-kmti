@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -158,6 +160,7 @@ class UserController extends Controller
             "angkatan" => "required|min:4|max:5",
         ])->validate();
 
+        DB::beginTransaction();
         try {
 
             // create user
@@ -183,6 +186,9 @@ class UserController extends Controller
             $new_mahasiswa->status = $new_user->status;
             $new_mahasiswa->user()->associate($new_user->id);
             $new_mahasiswa->save();
+            
+            DB::commit();
+            
         } catch (\Throwable $th) {
             return false;
         }
@@ -250,6 +256,8 @@ class UserController extends Controller
             "status" =>  "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         try {
 
             $user = User::findOrFail($id);
@@ -265,6 +273,8 @@ class UserController extends Controller
 
             ]);
 
+            DB::commit();
+            
         } catch (\Throwable $th) {
             return false;
         }

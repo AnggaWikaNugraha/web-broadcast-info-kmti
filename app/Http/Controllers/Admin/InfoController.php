@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class InfoController extends Controller
 {
     public function __construct()
@@ -47,7 +48,10 @@ class InfoController extends Controller
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
-                ->rawColumns(['action','tanggal_kirim'])
+                ->addColumn('divisi', function ($row) {
+                    return $row->divisi->nama_divisi;
+                })
+                ->rawColumns(['action','tanggal_kirim', 'divisi'])
                 ->make(true);
         }
 
@@ -72,9 +76,11 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "subject" => "required",
             "content" => "required",
+            "divisi" => "required",
         ])->validate();
 
         if($request['status'] == '["anggota", "pengurus"]' ){
@@ -83,12 +89,17 @@ class InfoController extends Controller
             $mahasiswa = Mahasiswa::get();
         }
         
+        DB::beginTransaction();
+
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
+        $new_info->divisi()->associate($request->get('divisi'));
         $new_info->save();
 
         $new_info->mahasiswa()->attach($mahasiswa);
+
+        DB::commit();
 
         return redirect()->route('manage-info.index');
     }
@@ -141,4 +152,13 @@ class InfoController extends Controller
     {
         //
     }
+
+    public function searchDivisi(Request $request){
+        $keyword = $request->get('q');
+       
+        $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
+       
+        return $info;
+    }
+
 }

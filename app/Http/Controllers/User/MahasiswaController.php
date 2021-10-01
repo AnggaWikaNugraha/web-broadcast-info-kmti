@@ -239,6 +239,8 @@ class MahasiswaController extends Controller
             "id_tele" =>  "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         try {
             
             $user = User::findOrFail($id);
@@ -248,6 +250,8 @@ class MahasiswaController extends Controller
                 'no_wa' => $request['no_wa'],
                 'id_tele' => $request['id_tele']
             ]);
+
+            DB::commit();
 
         } catch (\Throwable $th) {
             return false ;
@@ -282,6 +286,8 @@ class MahasiswaController extends Controller
             "id_tele" =>  "required"
         ])->validate();
 
+        DB::beginTransaction();
+
         try {
 
             $user = User::findOrFail($id);
@@ -291,6 +297,8 @@ class MahasiswaController extends Controller
                 'id_tele' => $request['id_tele']
             ]);
 
+            DB::commit();
+            
         }catch(\Throwable $th){
             return false;
         }

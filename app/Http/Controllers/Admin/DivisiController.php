@@ -7,6 +7,8 @@ use App\Models\Divisi;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class DivisiController extends Controller
 {
     public function __construct()
@@ -115,6 +117,8 @@ class DivisiController extends Controller
             "keterangan" => "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         $new_divisi = new Divisi();
         $new_divisi->nama_divisi = $request->get('nama_divisi');
         $new_divisi->keterangan = $request->get('keterangan');
@@ -127,6 +131,8 @@ class DivisiController extends Controller
         }
 
         $new_divisi->save();
+
+        DB::commit();
 
         return redirect()->route('manage-divisi.create')->with('success', ' Divisi successfully created');
     
@@ -190,6 +196,8 @@ class DivisiController extends Controller
             "keterangan" => "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         $new_divisi = Divisi::findOrFail($id);
         $new_divisi->nama_divisi = $request->get('nama_divisi');
         $new_divisi->fungsi = $request->get('fungsi');
@@ -208,6 +216,8 @@ class DivisiController extends Controller
         }
 
         $new_divisi->save();
+
+        DB::commit();
         
         return redirect()->route('manage-divisi.edit', [$new_divisi->id])->with('success', 'Divisi successfully updated');
     }

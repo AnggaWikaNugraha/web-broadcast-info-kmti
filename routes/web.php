@@ -26,6 +26,7 @@ Route::resource('admin/manage-users', UserController::class);
 Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
+Route::get('ajax/divisi/search', [InfoController::class, 'searchDivisi'])->name('user.search.divisi');
 
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');

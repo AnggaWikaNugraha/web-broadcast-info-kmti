@@ -24,7 +24,7 @@
                                 <th>Subject</th>
                                 <th>Content</th>
                                 <th>Tanggal kirim</th>
-                                <th>File</th>
+                                <th>Divisi</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -66,8 +66,8 @@
                         name: 'tanggal_kirim'
                     },
                     {
-                        data: 'file',
-                        name: 'file'
+                        data: 'divisi',
+                        name: 'divisi'
                     },
                     {
                         data: 'action',
