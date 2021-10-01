@@ -43,6 +43,10 @@ class EventController extends Controller
                     $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
                     return $img;
                 })
+                ->addColumn('statusEvent', function ($row) {
+                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>'  ;
+                    return $hasil;
+                })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
@@ -58,7 +62,7 @@ class EventController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['foto', 'action','statusEvent'])
                 ->make(true);
         }
 

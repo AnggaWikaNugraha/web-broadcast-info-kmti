@@ -82,8 +82,8 @@
                         name: 'lokasi'
                     },
                     {
-                        data: 'status',
-                        name: 'status'
+                        data: 'statusEvent',
+                        name: 'statusEvent'
                     },
                     {
                         data: 'keterangan',

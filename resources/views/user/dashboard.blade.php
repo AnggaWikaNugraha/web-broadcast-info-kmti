@@ -80,6 +80,7 @@
                                 <th>Subject</th>
                                 <th>Content</th>
                                 <th>Terkirim</th>
+                                <th style="text-align: center">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -90,6 +91,7 @@
                                     <td>{{ $item->subject}}</td>
                                     <td>{{ $item->content}}</td>
                                     <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim}}</td>
+                                    <td style="text-align: center">{!! $item->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>' !!}</td>
                                 </tr>
 
                            @endforeach
@@ -115,8 +117,7 @@
                                 <th class="text-center">#</th>
                                 <th>Name</th>
                                 <th>Tanggal</th>
-                                <th>Jam mulai</th>
-                                <th>jam berakhir</th>
+                                <th>Jam</th>
                                 <th>lokasi</th>
                                 <th>keterangan</th>
                             </tr>
@@ -128,8 +129,7 @@
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->nama}}</td>
                                     <td>{{ $item->tanggal}}</td>
-                                    <td>{{ $item->jam_mulai}}</td>
-                                    <td>{{ $item->jam_berakhir}}</td>
+                                    <td>{{ $item->jam_mulai}} - {{ $item->jam_berakhir}}</td>
                                     <td>{{ $item->lokasi}}</td>
                                     <td>{{ $item->keterangan}}</td>
                                 </tr>
