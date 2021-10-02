@@ -48,10 +48,7 @@ class InfoController extends Controller
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
-                ->addColumn('divisi', function ($row) {
-                    return $row->divisi->nama_divisi;
-                })
-                ->rawColumns(['action','tanggal_kirim', 'divisi'])
+                ->rawColumns(['action','tanggal_kirim'])
                 ->make(true);
         }
 
@@ -80,13 +77,12 @@ class InfoController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "subject" => "required",
             "content" => "required",
-            "divisi" => "required",
         ])->validate();
 
-        if($request['status'] == '["anggota", "pengurus"]' ){
-            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
-        }else{
+        if($request['status'] == '["anggota"]' ){
             $mahasiswa = Mahasiswa::get();
+        }else{
+            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
         }
         
         DB::beginTransaction();
@@ -94,7 +90,6 @@ class InfoController extends Controller
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
-        $new_info->divisi()->associate($request->get('divisi'));
         $new_info->save();
 
         $new_info->mahasiswa()->attach($mahasiswa);

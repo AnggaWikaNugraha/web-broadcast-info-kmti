@@ -31,6 +31,10 @@ class Mahasiswa extends Model
         return $this->belongsToMany(Info::class)->withPivot('tanggal_kirim', 'status');
     }
 
+    public function divisi(){
+        return $this->belongsToMany(Divisi::class);
+    }
+
     /**
      * Get all of the notifications for the Mahasiswa
      *

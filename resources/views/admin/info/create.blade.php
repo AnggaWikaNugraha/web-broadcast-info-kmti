@@ -30,14 +30,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="divisi" class="col-sm-2 col-form-label col-form-label-sm">From :</label>
-                        <div class="col-sm-10">
-                            <select id="divisi" class="custom-select custom-select-sm mr-sm-2" name="divisi" ></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">To :</label>
+                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Kirim Ke :</label>
                         <div class="col-sm-10">
                             <select class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
@@ -56,7 +49,7 @@
 
 @endsection
 
-@push('script')
+{{-- @push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     <script type="text/javascript">
@@ -78,4 +71,4 @@
         });
 
     </script>
-@endpush
+@endpush --}}

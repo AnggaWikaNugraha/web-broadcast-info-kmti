@@ -23,7 +23,6 @@
                                 <th>#</th>
                                 <th>Nama Divisi</th>
                                 <th>Fungsi</th>
-                                <th>Foto</th>
                                 <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
@@ -60,10 +59,6 @@
                     {
                         data: 'fungsi',
                         name: 'fungsi'
-                    },
-                    {
-                        data: 'foto',
-                        name: 'foto'
                     },
                     {
                         data: 'keterangan',

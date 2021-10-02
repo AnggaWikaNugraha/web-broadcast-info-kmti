@@ -294,16 +294,31 @@ class MahasiswaController extends Controller
 
             $user->mahasiswa()->update([
                 'no_wa' => $request['no_wa'],
-                'id_tele' => $request['id_tele']
+                'id_tele' => $request['id_tele'],
+                'status' => $request['status']
             ]);
+
+            if($request['divisi']){
+                $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+                $mhs->divisi()->attach($request['divisi']);
+            }
 
             DB::commit();
             
         }catch(\Throwable $th){
+            dd($th);
             return false;
         }
 
         return redirect()->route('user.profile')->with('success', ' user successfully updated');
+    }
+
+    public function searchDivisi(Request $request){
+        $keyword = $request->get('q');
+       
+        $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
+       
+        return $info;
     }
 
     public function info(Request $request)

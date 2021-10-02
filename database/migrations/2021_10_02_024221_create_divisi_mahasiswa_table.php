@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddEventIdToInfoTable extends Migration
+class CreateDivisiMahasiswaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,14 @@ class AddEventIdToInfoTable extends Migration
      */
     public function up()
     {
-        Schema::table('info', function (Blueprint $table) {
-            $table->unsignedBigInteger('divisi_id')->nullable();
+        Schema::create('divisi_mahasiswa', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('divisi_id');
+            $table->unsignedBigInteger('mahasiswa_id');
+            $table->timestamps();
+
             $table->foreign('divisi_id')->references('id')->on('divisi');
+            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa');
         });
     }
 
@@ -26,9 +31,6 @@ class AddEventIdToInfoTable extends Migration
      */
     public function down()
     {
-        Schema::table('info', function (Blueprint $table) {
-            $table->dropForeign('divisi_divisi_id_foreign');
-            $table->dropColumn('divisi_id');
-        });
+        Schema::dropIfExists('divisi_mahasiswa');
     }
 }

@@ -19,13 +19,17 @@ class Divisi extends Model
         'fungsi'
     ];
 
+    public function mahasiswa(){
+        return $this->belongsToMany(Mahasiswa::class);
+    }
+
     /**
      * Get all of the info for the Divisi
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function info(): HasMany
-    {
-        return $this->hasMany(Info::class);
-    }
+    // public function info(): HasMany
+    // {
+    //     return $this->hasMany(Info::class);
+    // }
 }
