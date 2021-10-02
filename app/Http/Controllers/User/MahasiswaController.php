@@ -214,9 +214,12 @@ class MahasiswaController extends Controller
         }
 
         $user = Auth::user();
+
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
         
         return view('user.profile' , compact(
-            'user'
+            'user',
+            'mhs'
         ));
     }
 
@@ -224,9 +227,11 @@ class MahasiswaController extends Controller
     {
 
         $user = Auth::user();
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
         
         return view('user.profile-edit' , compact(
-            'user'
+            'user',
+            'mhs'
         ));
     }
 
@@ -250,6 +255,11 @@ class MahasiswaController extends Controller
                 'no_wa' => $request['no_wa'],
                 'id_tele' => $request['id_tele']
             ]);
+
+            if($request['divisi']){
+                $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+                $mhs->divisi()->sync($request['divisi']);
+            }
 
             DB::commit();
 
