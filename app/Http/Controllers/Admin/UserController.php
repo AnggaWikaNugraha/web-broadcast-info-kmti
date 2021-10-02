@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     public function __construct()
@@ -158,6 +160,7 @@ class UserController extends Controller
             "angkatan" => "required|min:4|max:5",
         ])->validate();
 
+        DB::beginTransaction();
         try {
 
             // create user
@@ -172,7 +175,6 @@ class UserController extends Controller
             $new_user->nim = $request['nim'];
             $new_user->jenis_kelamin = $request['jenis_kelamin'];
             $new_user->angkatan = $request['angkatan'];
-            $new_user->status = $request['status'];
 
             // create mahasiswa using foreign user_id on users
             $new_mahasiswa = new \App\Models\Mahasiswa();
@@ -180,9 +182,11 @@ class UserController extends Controller
             $new_mahasiswa->nim = $new_user->nim;
             $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
             $new_mahasiswa->angkatan = $new_user->angkatan;
-            $new_mahasiswa->status = $new_user->status;
             $new_mahasiswa->user()->associate($new_user->id);
             $new_mahasiswa->save();
+            
+            DB::commit();
+            
         } catch (\Throwable $th) {
             return false;
         }
@@ -247,8 +251,9 @@ class UserController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             "email" =>  "required",
-            "status" =>  "required",
         ])->validate();
+
+        DB::beginTransaction();
 
         try {
 
@@ -261,10 +266,11 @@ class UserController extends Controller
             $user->mahasiswa()->update([
                 'jenis_kelamin' => $request['jenis_kelamin'],
                 'name' => $request['name'],
-                'status' => $request['status'],
 
             ]);
 
+            DB::commit();
+            
         } catch (\Throwable $th) {
             return false;
         }

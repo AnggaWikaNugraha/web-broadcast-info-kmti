@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Kirim ke :</label>
+                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Kirim Ke :</label>
                         <div class="col-sm-10">
                             <select class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
@@ -48,3 +48,27 @@
     </div>
 
 @endsection
+
+{{-- @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+        $('#divisi').select2({
+            ajax: {
+                url: '{{ route("user.search.divisi") }}',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.nama_divisi
+                            }
+                        })
+                    }
+                }
+            }
+            
+        });
+
+    </script>
+@endpush --}}

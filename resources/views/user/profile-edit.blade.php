@@ -50,6 +50,13 @@
                     <div class="col-sm-9 offset-1"><input name="id_tele" value="{{ $user->mahasiswa->id_tele }}" id="Telegram" class="form-control"></div>
                 </div>
 
+                <div class="position-relative row form-group">
+                    <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                    <div class="col-sm-9 offset-1">
+                        <select id="SelectDivisi" multiple  class="custom-select custom-select-sm" name="divisi[]"></select>
+                    </div>
+                </div>
+
                 <input class="btn btn-primary" type="submit" value="Simpan">
            </form>
             
@@ -57,3 +64,36 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+
+        $('#SelectDivisi').select2({
+            ajax: {
+                url: '{{ route('user.search.divisi') }}',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.nama_divisi
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        var divisi = {!! $mhs->divisi !!}
+
+        divisi.forEach(function(category){
+            var option = new Option(category.nama_divisi, category.id, true, true);
+            $('#SelectDivisi').append(option).trigger('change');
+        });
+
+
+    </script>
+
+@endpush

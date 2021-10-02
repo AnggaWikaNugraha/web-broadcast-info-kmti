@@ -7,6 +7,8 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class EventController extends Controller
 {
     public function __construct()
@@ -43,6 +45,10 @@ class EventController extends Controller
                     $img = '<img src="' . $url . '" border="0" width="40" class="img-rounded" align="center" />';
                     return $img;
                 })
+                ->addColumn('statusEvent', function ($row) {
+                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>'  ;
+                    return $hasil;
+                })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
@@ -58,7 +64,7 @@ class EventController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action'])
+                ->rawColumns(['foto', 'action','statusEvent'])
                 ->make(true);
         }
 
@@ -114,6 +120,8 @@ class EventController extends Controller
             "keterangan" => "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         $new_event = new Event();
         $new_event->nama = $request->get('nama');
         $new_event->tanggal = $request->get('tanggal');
@@ -131,6 +139,8 @@ class EventController extends Controller
         }
 
         $new_event->save();
+
+        DB::commit();
 
         return redirect()->route('manage-event.create')->with('success', ' Event successfully created');
     }
@@ -196,6 +206,8 @@ class EventController extends Controller
             "keterangan" => "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         $new_event = Event::findOrFail($id);
         $new_event->nama = $request->get('nama');
         $new_event->tanggal = $request->get('tanggal');
@@ -218,6 +230,8 @@ class EventController extends Controller
         }
 
         $new_event->save();
+
+        DB::commit();
 
         return redirect()->route('manage-event.index', [$new_event->id])->with('success', 'Event successfully updated');
     }

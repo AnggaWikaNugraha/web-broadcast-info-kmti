@@ -26,12 +26,15 @@ Route::resource('admin/manage-users', UserController::class);
 Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
+// Route::get('ajax/divisi/search', [InfoController::class, 'searchDivisi'])->name('user.search.divisi');
 
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');
 
 Route::get('/user/divisi', [UserMahasiswaController::class, 'divisi'])->name('user.divisi');
 Route::get('/user/divisi/{id}', [UserMahasiswaController::class, 'detailDivisi'])->name('user.detailDivisi');
+Route::get('ajax/user/divisi/search', [UserMahasiswaController::class, 'searchDivisi'])->name('user.search.divisi');
+
 
 Route::get('/user/event', [UserMahasiswaController::class, 'event'])->name('user.event');
 Route::get('/user/event/{id}', [UserMahasiswaController::class, 'detailEvent'])->name('user.detailEvent');

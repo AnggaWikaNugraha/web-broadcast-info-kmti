@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -86,10 +86,14 @@ class AdminController extends Controller
             'password' => 'required|confirmed|min:6'
         ]);
 
+        DB::beginTransaction();
+
         $user->password = Hash::make($request['password']);
         $user->email_verified_at = Carbon::now()->toDateTimeString();
 
         $user->save();
+
+        DB::commit();
 
         return redirect()->route('home');
     }

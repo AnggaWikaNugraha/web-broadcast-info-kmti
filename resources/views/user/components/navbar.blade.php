@@ -49,10 +49,10 @@
                                 
                                 @if ( Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() > 0)
                                     
-                                    <a style="color: #3ac47d" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
+                                    <a style="color: #3ac47d; font-size: 18px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                         <i class="fa fa-bell" aria-hidden="true"></i>
 
-                                        <span style="position: absolute; top: -10px; left: 9px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}+</span>
+                                        <span style="position: absolute; top: -10px; left: 15px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}+</span>
                                         
                                         
                                     </a>

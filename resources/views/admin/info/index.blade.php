@@ -24,7 +24,6 @@
                                 <th>Subject</th>
                                 <th>Content</th>
                                 <th>Tanggal kirim</th>
-                                <th>File</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -64,10 +63,6 @@
                     {
                         data: 'tanggal_kirim',
                         name: 'tanggal_kirim'
-                    },
-                    {
-                        data: 'file',
-                        name: 'file'
                     },
                     {
                         data: 'action',

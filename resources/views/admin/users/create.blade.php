@@ -73,16 +73,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Status :</label>
-                        <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="status" >
-                                <option value='["anggota"]'>Anggota KMTI</option>
-                                <option value='["anggota", "pengurus"]''>Pengurus KMTI</option>
-                            </select>
-                        </div>
-                    </div>
-
                     <button class="btn btn-info text-white">Submit</button>
 
                 </form>

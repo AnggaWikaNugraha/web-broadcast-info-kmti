@@ -214,9 +214,12 @@ class MahasiswaController extends Controller
         }
 
         $user = Auth::user();
+
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
         
         return view('user.profile' , compact(
-            'user'
+            'user',
+            'mhs'
         ));
     }
 
@@ -224,9 +227,11 @@ class MahasiswaController extends Controller
     {
 
         $user = Auth::user();
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
         
         return view('user.profile-edit' , compact(
-            'user'
+            'user',
+            'mhs'
         ));
     }
 
@@ -239,6 +244,8 @@ class MahasiswaController extends Controller
             "id_tele" =>  "required",
         ])->validate();
 
+        DB::beginTransaction();
+
         try {
             
             $user = User::findOrFail($id);
@@ -248,6 +255,13 @@ class MahasiswaController extends Controller
                 'no_wa' => $request['no_wa'],
                 'id_tele' => $request['id_tele']
             ]);
+
+            if($request['divisi']){
+                $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+                $mhs->divisi()->sync($request['divisi']);
+            }
+
+            DB::commit();
 
         } catch (\Throwable $th) {
             return false ;
@@ -282,20 +296,39 @@ class MahasiswaController extends Controller
             "id_tele" =>  "required"
         ])->validate();
 
+        DB::beginTransaction();
+
         try {
 
             $user = User::findOrFail($id);
 
             $user->mahasiswa()->update([
                 'no_wa' => $request['no_wa'],
-                'id_tele' => $request['id_tele']
+                'id_tele' => $request['id_tele'],
+                'status' => $request['status']
             ]);
 
+            if($request['divisi']){
+                $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+                $mhs->divisi()->attach($request['divisi']);
+            }
+
+            DB::commit();
+            
         }catch(\Throwable $th){
+            dd($th);
             return false;
         }
 
         return redirect()->route('user.profile')->with('success', ' user successfully updated');
+    }
+
+    public function searchDivisi(Request $request){
+        $keyword = $request->get('q');
+       
+        $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
+       
+        return $info;
     }
 
     public function info(Request $request)

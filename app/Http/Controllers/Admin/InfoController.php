@@ -8,6 +8,7 @@ use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 class InfoController extends Controller
 {
     public function __construct()
@@ -72,23 +73,28 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
+
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "subject" => "required",
             "content" => "required",
         ])->validate();
 
-        if($request['status'] == '["anggota", "pengurus"]' ){
-            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
-        }else{
+        if($request['status'] == '["anggota"]' ){
             $mahasiswa = Mahasiswa::get();
+        }else{
+            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
         }
         
+        DB::beginTransaction();
+
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
         $new_info->save();
 
         $new_info->mahasiswa()->attach($mahasiswa);
+
+        DB::commit();
 
         return redirect()->route('manage-info.index');
     }
@@ -141,4 +147,13 @@ class InfoController extends Controller
     {
         //
     }
+
+    public function searchDivisi(Request $request){
+        $keyword = $request->get('q');
+       
+        $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
+       
+        return $info;
+    }
+
 }
