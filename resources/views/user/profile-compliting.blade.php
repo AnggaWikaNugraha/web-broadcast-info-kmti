@@ -40,7 +40,7 @@
                 <div id="DivisiOptions" class="position-relative row form-group" style="display: none">
                     <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Divisi :</label>
                     <div class="col-sm-9 offset-1">
-                        <select id="SelectDivisi" multiple  class="custom-select custom-select-sm " name="divisi[]">
+                        <select id="SelectDivisi" class="custom-select custom-select-sm " name="divisi">
                             <option value=''>Pilih Divisi</option>
                         </select>
                     </div>

@@ -23,6 +23,7 @@
                                 <th>#</th>
                                 <th>Subject</th>
                                 <th>Content</th>
+                                <th>Terkirim ke</th>
                                 <th>Tanggal kirim</th>
                                 <th>Actions</th>
                             </tr>
@@ -59,6 +60,10 @@
                     {
                         data: 'content',
                         name: 'content'
+                    },
+                    {
+                        data: 'divisi',
+                        name: 'divisi'
                     },
                     {
                         data: 'tanggal_kirim',

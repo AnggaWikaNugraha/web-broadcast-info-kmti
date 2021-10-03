@@ -32,9 +32,19 @@
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Kirim Ke :</label>
                         <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="status" >
+                            <select id="select-pengurus" onchange="selecOptions()" class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
                                 <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                            </select>
+                            <span class="err__fields">{{ $errors->first('divisi') }}</span>
+                        </div>
+                    </div>
+
+                    <div id="DivisiOptions" class="position-relative row form-group" style="display: none">
+                        <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Divisi :</label>
+                        <div class="col-sm-10">
+                            <select id="SelectDivisi" class="custom-select custom-select-sm " name="divisi">
+                                <option value=''>Pilih Divisi</option>
                             </select>
                         </div>
                     </div>
@@ -49,13 +59,23 @@
 
 @endsection
 
-{{-- @push('script')
+@push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
     <script type="text/javascript">
-        $('#divisi').select2({
+
+        function selecOptions() {
+            if (document.getElementById('select-pengurus').value === '["anggota", "pengurus"]') {
+                document.getElementById('DivisiOptions').style.display = 'flex';
+            } else {
+                document.getElementById('DivisiOptions').style.display = 'none'
+                document.getElementById('SelectDivisi').value = null
+            }
+        }
+
+        $('#SelectDivisi').select2({
             ajax: {
-                url: '{{ route("user.search.divisi") }}',
+                url: '{{ route("admin.search.divisi") }}',
                 processResults: function(data) {
                     return {
                         results: data.map(function(item) {
@@ -71,4 +91,4 @@
         });
 
     </script>
-@endpush --}}
+@endpush

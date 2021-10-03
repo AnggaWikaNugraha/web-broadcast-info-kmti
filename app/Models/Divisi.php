@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Divisi extends Model
 {
@@ -26,10 +26,11 @@ class Divisi extends Model
     /**
      * Get all of the info for the Divisi
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    // public function info(): HasMany
-    // {
-    //     return $this->hasMany(Info::class);
-    // }
+    public function info(): HasOne
+    {
+        return $this->hasOne(Info::class);
+    }
+
 }

@@ -79,6 +79,7 @@
                                 <th class="text-center">#</th>
                                 <th>Subject</th>
                                 <th>Content</th>
+                                <th>Terkirim ke</th>
                                 <th>Tanggal kirim</th>
                             </tr>
                         </thead>
@@ -89,6 +90,7 @@
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{{ $item->content }}</td>
+                                    <td>{{ $item->divisi ? $item->divisi->nama_divisi : 'Anggota KMTI'}}</td>
                                     <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim }}</td>
                                 </tr>
 
