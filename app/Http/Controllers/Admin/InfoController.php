@@ -85,11 +85,18 @@ class InfoController extends Controller
         ])->validate();
 
         if($request['status'] == '["anggota"]' ){
+
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
         }else if ($request['divisi'] !== null){
+
             $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
                 $q->whereIn('divisi_id', [$request['divisi']]);
             })->get();
+        }else{
+
+            \Illuminate\Support\Facades\Validator::make($request->all(), [
+                "divisi" => "required",
+            ])->validate();
         }
         
         DB::beginTransaction();

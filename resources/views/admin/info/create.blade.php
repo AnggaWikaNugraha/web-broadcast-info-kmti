@@ -36,6 +36,7 @@
                                 <option value='["anggota"]'>Anggota KMTI</option>
                                 <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
                             </select>
+                            <span class="err__fields">{{ $errors->first('divisi') }}</span>
                         </div>
                     </div>
 
@@ -65,9 +66,10 @@
 
         function selecOptions() {
             if (document.getElementById('select-pengurus').value === '["anggota", "pengurus"]') {
-                document.getElementById('DivisiOptions').style.display = 'flex'
+                document.getElementById('DivisiOptions').style.display = 'flex';
             } else {
                 document.getElementById('DivisiOptions').style.display = 'none'
+                document.getElementById('SelectDivisi').value = null
             }
         }
 
