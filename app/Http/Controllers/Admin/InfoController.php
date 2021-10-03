@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Divisi;
+use App\Models\DivisiMahasiswa;
 use App\Models\Info;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
@@ -48,7 +50,11 @@ class InfoController extends Controller
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
-                ->rawColumns(['action','tanggal_kirim'])
+                ->addColumn('divisi', function ($row) {
+                    $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
+                    return $item;
+                })
+                ->rawColumns(['action','tanggal_kirim', 'terkirim', 'divisi'])
                 ->make(true);
         }
 
@@ -73,16 +79,17 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
-
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "subject" => "required",
             "content" => "required",
         ])->validate();
 
         if($request['status'] == '["anggota"]' ){
-            $mahasiswa = Mahasiswa::get();
-        }else{
-            $mahasiswa = Mahasiswa::where('status', $request['status'])->get();
+            $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
+        }else if ($request['divisi'] !== null){
+            $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
+                $q->whereIn('divisi_id', [$request['divisi']]);
+            })->get();
         }
         
         DB::beginTransaction();
@@ -90,6 +97,11 @@ class InfoController extends Controller
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
+
+        if ($request['divisi'] !== null) {
+            $new_info->divisi()->associate($request['divisi']);
+        }
+
         $new_info->save();
 
         $new_info->mahasiswa()->attach($mahasiswa);

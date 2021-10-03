@@ -58,6 +58,7 @@
                 </div>
 
                 <input class="btn btn-primary" type="submit" value="Simpan">
+                <a href="{{ route('user.profile') }}" class="btn btn-info">Kembali</a>
            </form>
             
         </div>

@@ -27,8 +27,9 @@ class Info extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    // public function divisi(): BelongsTo
-    // {
-    //     return $this->belongsTo(Divisi::class);
-    // }
+    public function divisi(): BelongsTo
+    {
+        return $this->belongsTo(Divisi::class);
+    }
+
 }
