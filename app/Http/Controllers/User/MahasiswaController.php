@@ -40,9 +40,13 @@ class MahasiswaController extends Controller
 
         $user = Auth::user();
 
+        $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
+
         $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get()->count();
 
-        $info = Info::get()->count();
+        $info = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
+            $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
+        })->count();
 
         $events = Event::where([
             ['status', '=', 'belum-mulai'],
@@ -53,8 +57,6 @@ class MahasiswaController extends Controller
         ])
         ->orderBy('tanggal', 'DESC')
         ->paginate(5);
-
-        $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
 
         $infoMahasiswa = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
             $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
