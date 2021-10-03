@@ -44,18 +44,30 @@
                 
                             <div class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Telegram</label>
                                 <div class="col-sm-9 offset-1">{{ $user->mahasiswa->id_tele }}</div>
-                            </div> 
+                            </div>
+                            
+                            <div class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Status mahasiswa</label>
+                                <div class="col-sm-9 offset-1">{{ $user->mahasiswa->status === '["anggota"]' ? 'Anggota KMTI' : 'Pengurus KMTI' }}</div>
+                            </div>
 
-                            <div style="height: 100px" class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
-                                <div class="col-sm-9 offset-1" style="height: 100%; display: flex; align-items: center">
-                                    <ul>
-                                        @foreach ($mhs->divisi as $item)
-                                            <li>{{ $item->nama_divisi}}</li>
-                                        @endforeach
-                                    </ul>
+                            @if ($user->mahasiswa->status !== '["anggota"]')
+                                <div style="height: 100px" class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                                    <div class="col-sm-9 offset-1" style="height: 100%; display: flex; align-items: center">
                                         
-                                </div>
-                            </div> 
+                                            @if ( $mhs->divisi->count() > 0 )
+                                                <ul>
+                                                    @foreach ($mhs->divisi as $item)
+                                                        <li>{{ $item->nama_divisi}}</li>
+                                                    @endforeach
+                                                    
+                                                </ul>
+                                            @else
+                                                !! Harap isi Divisi !!
+                                            @endif
+                                            
+                                    </div>
+                                </div> 
+                            @endif
 
                         </div>
                     </div>

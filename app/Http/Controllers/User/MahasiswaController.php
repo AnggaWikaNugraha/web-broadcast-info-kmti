@@ -253,7 +253,8 @@ class MahasiswaController extends Controller
             $user->mahasiswa()->update([
                 'name' => $request['name'],
                 'no_wa' => $request['no_wa'],
-                'id_tele' => $request['id_tele']
+                'id_tele' => $request['id_tele'],
+                'status' => $request['status']
             ]);
 
             if($request['divisi']){

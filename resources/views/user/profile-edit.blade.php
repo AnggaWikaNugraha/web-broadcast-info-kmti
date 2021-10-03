@@ -51,11 +51,23 @@
                 </div>
 
                 <div class="position-relative row form-group">
-                    <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                    <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                     <div class="col-sm-9 offset-1">
-                        <select id="SelectDivisi" multiple  class="custom-select custom-select-sm" name="divisi[]"></select>
+                        <select id="select-pengurus" class="custom-select custom-select-sm" name="status">
+                            <option {{ $user->mahasiswa->status == '["anggota"]' ? 'selected' : '' }} value='["anggota"]'>Anggota KMTI</option>
+                            <option {{ $user->mahasiswa->status == '["anggota", "pengurus"]' ? 'selected' : '' }} value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                        </select>
                     </div>
                 </div>
+
+                @if ($user->mahasiswa->status == '["anggota", "pengurus"]')
+                    <div class="position-relative row form-group">
+                        <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                        <div class="col-sm-9 offset-1">
+                            <select id="SelectDivisi" multiple  class="custom-select custom-select-sm" name="divisi[]"></select>
+                        </div>
+                    </div>
+                @endif
 
                 <input class="btn btn-primary" type="submit" value="Simpan">
                 <a href="{{ route('user.profile') }}" class="btn btn-info">Kembali</a>
