@@ -14,6 +14,10 @@
                 <div class="col-sm-9 offset-1">{{ $info->mahasiswa()->first()->pivot->tanggal_kirim }}</div>
             </div>
 
+            <div class="card-header position-relative row form-group"><label class="col-sm-2 col-form-label">Terkirim ke :</label>
+                <div class="col-sm-9 offset-1">{{ $info->divisi ? $info->divisi->nama_divisi : 'Anggota KMTI' }}</div>
+            </div>
+
             <div class="card-header position-relative row form-group"><label for="nama" class="col-sm-2 col-form-label">Content</label>
                 <div class="col-sm-9 offset-1">{{ $info->content }}</div>
             </div>
