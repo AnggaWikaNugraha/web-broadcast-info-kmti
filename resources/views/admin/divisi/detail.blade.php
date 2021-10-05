@@ -9,7 +9,7 @@
                 <h5 class="card-header">Detail Divisi</h5>
 
                 <div class="form-group row mt-4">
-                    <label for="nama_divisi" class="col-sm-2 col-form-label col-form-label-sm">Nama Divisi :</label>
+                    <label for="nama_divisi" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $divisi->nama_divisi }}</div>
                     </div>
@@ -25,7 +25,7 @@
                 @endif
 
                 <div class="form-group row">
-                    <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi Divisi :</label>
+                    <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi :</label>
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $divisi->fungsi }}</div>
                     </div>

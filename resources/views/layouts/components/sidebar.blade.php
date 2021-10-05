@@ -86,7 +86,7 @@
                 <li class="app-sidebar__heading">Manage Event</li>
                 <li>
                     <a  href="{{ route('manage-event.index') }}"
-                        class="{{ Request::routeIs('manage-event.index') || Request::routeIs('manage-event.edit') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-event.index') || Request::routeIs('manage-event.edit') || Request::routeIs('manage-event.show') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
                         </i>List Event
                     </a>
