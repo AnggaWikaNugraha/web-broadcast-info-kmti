@@ -74,23 +74,20 @@
                         <div class="carousel-inner w-100" role="listbox">
 
                             @foreach ($eventsActive as $item)
-                                <div class="carousel-item active mb-4">
-                                    <div class="col-md-4">
-                                        <div style="border-radius: 5px" class="card card-body">
+                            <div class="carousel-item active mb-4">
+                                <div class="col-md-4">
+                                    <div style="border-radius: 5px" class="card card-body">
+                                        <a style="color: black" href="{{ route('event.detail', $item->id) }}">
                                             <div style="width: 300px">
-                                                <img class="img-fluid"
-                                                    src="https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg">
+                                                <img class="img-fluid" src="https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg">
                                             </div>
-                                            <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event:
-                                                {{ $item->nama }}</h6>
-                                            <div style="font-size: 12px" class="mt-2 text-left" class="text-left">
-                                                Lokasi : {{ $item->lokasi }}</div>
-                                            <div style="font-size: 12px" class="text-left">Tanggal : <span
-                                                    class="badge badge-warning">{{ $item->tanggal }}</span> mulai :
-                                                {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
-                                        </div>
+                                            <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event: {{ $item->nama }}</h6>
+                                            <div style="font-size: 12px" class="mt-2 text-left" class="text-left">Lokasi : {{ $item->lokasi }}</div>
+                                            <div style="font-size: 12px" class="text-left">Tanggal : <span class="badge badge-warning">{{ $item->tanggal }}</span> mulai : {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
 
                         </div>

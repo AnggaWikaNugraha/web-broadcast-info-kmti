@@ -13,6 +13,7 @@ use App\Http\Controllers\User\MahasiswaController as UserMahasiswaController;
 use App\Models\Divisi;
 use App\Models\Event;
 
+// landing page
 Route::get('/', function () { 
 
     $eventsActive = Event::where([
@@ -28,6 +29,14 @@ Route::get('/', function () {
         'divisi'
     ));
 });
+
+Route::get('/event/{id}', function ($id) {
+    $event = Event::findOrFail($id);
+    // dd($event);
+    return view('divisi', compact('event'));
+
+})->name('event.detail');
+
 
 Auth::routes();
 
