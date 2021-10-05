@@ -32,10 +32,15 @@ Route::get('/', function () {
 
 Route::get('/event/{id}', function ($id) {
     $event = Event::findOrFail($id);
-    // dd($event);
-    return view('divisi', compact('event'));
+    return view('event', compact('event'));
 
 })->name('event.detail');
+
+Route::get('/divisi/{id}', function ($id) {
+    $divisi = Divisi::findOrFail($id);
+    return view('divisi', compact('divisi'));
+
+})->name('divisi.detail');
 
 
 Auth::routes();

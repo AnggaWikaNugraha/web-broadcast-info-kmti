@@ -114,16 +114,18 @@
                    
                     @foreach ($divisi as $item)
                         <div class="col-4 mb-4">
-                            <div class="card">
-                                <div style="height: 250px" class="view overlay">
-                                    <img style="height: 100%; width: auto" class="card-img-top" src="{{ $item->foto !== null ? asset('storage/' . $item->foto) : '' }}" alt="Card image cap">
+                           <a style="color: black" href="{{ route('divisi.detail', $item->id) }}">
+                                <div class="card">
+                                    <div style="height: 250px" class="view overlay">
+                                        <img style="height: 100%; width: auto" class="card-img-top" src="{{ $item->foto !== null ? asset('storage/' . $item->foto) : '' }}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ $item->nama_divisi}}</h4>
+                                        <hr>
+                                        <p style="overflow-y: auto; height: 120px;" class="card-text">{{ $item->fungsi}}</p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">{{ $item->nama_divisi}}</h4>
-                                    <hr>
-                                    <p style="overflow-y: auto; height: 120px;" class="card-text">{{ $item->fungsi}}</p>
-                                </div>
-                            </div>
+                           </a>
                         </div>
                     @endforeach
 
