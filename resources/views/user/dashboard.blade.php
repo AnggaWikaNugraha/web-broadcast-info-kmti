@@ -98,9 +98,6 @@
                             
                         </tbody>
                     </table>
-                    <div class="d-block text-center card-footer">
-                        <a href="{{ route('user.info') }}" class="btn-wide btn btn-success text-white">Lihat smua info</a>
-                    </div>
                 </div>
             </div>
         </div>
