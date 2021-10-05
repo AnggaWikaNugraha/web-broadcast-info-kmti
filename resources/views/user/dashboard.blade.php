@@ -78,8 +78,8 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Subject</th>
-                                <th>Content</th>
                                 <th>Terkirim</th>
+                                <th>Terkirim ke</th>
                                 <th style="text-align: center">Status</th>
                             </tr>
                         </thead>
@@ -89,8 +89,8 @@
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->subject}}</td>
-                                    <td>{{ $item->content}}</td>
                                     <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim}}</td>
+                                    <td>{!! $item->divisi !== null?  $item->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>' !!}</td>
                                     <td style="text-align: center">{!! $item->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>' !!}</td>
                                 </tr>
 
@@ -98,9 +98,6 @@
                             
                         </tbody>
                     </table>
-                    <div class="d-block text-center card-footer">
-                        <a href="{{ route('user.info') }}" class="btn-wide btn btn-success text-white">Lihat smua info</a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -118,8 +115,8 @@
                                 <th>Name</th>
                                 <th>Tanggal</th>
                                 <th>Jam</th>
-                                <th>lokasi</th>
-                                <th>keterangan</th>
+                                <th>lokasi</th> 
+                                <th style="text-align: center">status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -131,16 +128,13 @@
                                     <td>{{ $item->tanggal}}</td>
                                     <td>{{ $item->jam_mulai}} - {{ $item->jam_berakhir}}</td>
                                     <td>{{ $item->lokasi}}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td style="text-align: center">{!! $item->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $item->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>' !!}</td>
                                 </tr>
 
                            @endforeach
                            
                         </tbody>
                     </table>
-                    <div class="d-block text-center card-footer">
-                        <a href="{{ route('manage-event.index') }}" class="btn-wide btn btn-success text-white">Lihat daftar events</a>
-                    </div>
                 </div>
             </div>
         </div>

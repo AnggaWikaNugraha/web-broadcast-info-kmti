@@ -58,14 +58,6 @@
                 <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
 
                 <li>
-                    <a href="{{ route('user.divisi') }}"
-                        class="{{ Request::routeIs('user.divisi') || Request::routeIs('user.detailDivisi')? 'mm-active' : '' }}">
-                        <i class="metismenu-icon pe-7s-note2"></i>
-                        Divisi
-                    </a>
-                </li>
-
-                <li>
                     <a href="{{ route('user.event') }}"
                         class="{{ Request::routeIs('user.event') || Request::routeIs('user.detailEvent') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-note2"></i>
@@ -74,6 +66,8 @@
 
                 </li>
 
+                <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
+                
                 <li>
                     <a  href="{{ route('user.info') }}"
                         class="{{ Request::routeIs('user.info') ||  Request::routeIs('user.infoDetail') ? 'mm-active' : '' }}" >

@@ -22,7 +22,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Subject</th>
-                                <th>Content</th>
                                 <th>Terkirim ke</th>
                                 <th>Tanggal kirim</th>
                                 <th>Actions</th>
@@ -56,10 +55,6 @@
                     {
                         data: 'subject',
                         name: 'subject'
-                    },
-                    {
-                        data: 'content',
-                        name: 'content'
                     },
                     {
                         data: 'divisi',

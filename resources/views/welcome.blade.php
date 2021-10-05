@@ -74,23 +74,20 @@
                         <div class="carousel-inner w-100" role="listbox">
 
                             @foreach ($eventsActive as $item)
-                                <div class="carousel-item active mb-4">
-                                    <div class="col-md-4">
-                                        <div style="border-radius: 5px" class="card card-body">
+                            <div class="carousel-item active mb-4">
+                                <div class="col-md-4">
+                                    <div style="border-radius: 5px" class="card card-body">
+                                        <a style="color: black" href="{{ route('event.detail', $item->id) }}">
                                             <div style="width: 300px">
-                                                <img class="img-fluid"
-                                                    src="https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg">
+                                                <img class="img-fluid" src="https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg">
                                             </div>
-                                            <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event:
-                                                {{ $item->nama }}</h6>
-                                            <div style="font-size: 12px" class="mt-2 text-left" class="text-left">
-                                                Lokasi : {{ $item->lokasi }}</div>
-                                            <div style="font-size: 12px" class="text-left">Tanggal : <span
-                                                    class="badge badge-warning">{{ $item->tanggal }}</span> mulai :
-                                                {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
-                                        </div>
+                                            <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event: {{ $item->nama }}</h6>
+                                            <div style="font-size: 12px" class="mt-2 text-left" class="text-left">Lokasi : {{ $item->lokasi }}</div>
+                                            <div style="font-size: 12px" class="text-left">Tanggal : <span class="badge badge-warning">{{ $item->tanggal }}</span> mulai : {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
+                                        </a>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
 
                         </div>
@@ -117,17 +114,18 @@
                    
                     @foreach ($divisi as $item)
                         <div class="col-4 mb-4">
-                            <div class="card">
-                                <div style="height: 250px" class="view overlay">
-                                    <img style="height: 100%; width: auto" class="card-img-top" src="{{ $item->foto !== null ? asset('storage/' . $item->foto) : '' }}" alt="Card image cap">
+                           <a style="color: black" href="{{ route('divisi.detail', $item->id) }}">
+                                <div class="card">
+                                    <div style="height: 250px" class="view overlay">
+                                        <img style="height: 100%; width: auto" class="card-img-top" src="{{ $item->foto !== null ? asset('storage/' . $item->foto) : '' }}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="card-title">{{ $item->nama_divisi}}</h4>
+                                        <hr>
+                                        <p style="overflow-y: auto; height: 120px;" class="card-text">{{ $item->fungsi}}</p>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="card-title">{{ $item->nama_divisi}}</h4>
-                                    <hr>
-                                    <p style="overflow-y: auto; height: 70px;" class="card-text">{{ $item->fungsi}}</p>
-                                    <button class="btn btn-indigo btn-rounded btn-md">Read more</button>
-                                </div>
-                            </div>
+                           </a>
                         </div>
                     @endforeach
 

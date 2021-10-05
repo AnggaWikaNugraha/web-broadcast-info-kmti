@@ -47,6 +47,9 @@ class UserController extends Controller
 
             return Datatables::of($data)
                 ->addIndexColumn()
+                ->addColumn('rolesMhs', function ($row) {
+                    return $row->roles == '["mahasiswa"]' ? 'Mahasiswa': '' ;
+                })
                 ->addColumn('name', function ($row) {
                     return $row->mahasiswa->name;
                 })
@@ -66,7 +69,7 @@ class UserController extends Controller
                     return $row->mahasiswa->angkatan;
                 })
                 ->addColumn('status', function ($row) {
-                    return $row->mahasiswa->status;
+                    return $row->mahasiswa->status == '["anggota"]' ? '<div class="badge badge-warning">Anggota KMTI</div>' : '<div class="badge badge-success">Pengurus KMTI</div>';
                 })
                 ->addColumn('action', function ($row) {
 
@@ -86,7 +89,7 @@ class UserController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan'])
+                ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs'])
                 ->make(true);
         }
 

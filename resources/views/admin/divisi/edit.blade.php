@@ -51,6 +51,8 @@
 
                     <button class="btn btn-info text-white">Submit</button>
 
+                    <a href="{{ route('manage-divisi.index') }}" class="btn btn-info text-white">Kembali</a>
+
                 </form>
 
             </div>

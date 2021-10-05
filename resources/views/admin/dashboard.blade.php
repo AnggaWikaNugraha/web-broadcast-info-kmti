@@ -78,7 +78,6 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Subject</th>
-                                <th>Content</th>
                                 <th>Terkirim ke</th>
                                 <th>Tanggal kirim</th>
                             </tr>
@@ -89,8 +88,7 @@
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->subject }}</td>
-                                    <td>{{ $item->content }}</td>
-                                    <td>{{ $item->divisi ? $item->divisi->nama_divisi : 'Anggota KMTI'}}</td>
+                                    <td>{!! $item->divisi ? $item->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>' !!}</td>
                                     <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim }}</td>
                                 </tr>
 
@@ -154,10 +152,9 @@
                                 <th class="text-center">#</th>
                                 <th>Name</th>
                                 <th>Tanggal</th>
-                                <th>Jam mulai</th>
-                                <th>jam berakhir</th>
+                                <th>Jam</th>
                                 <th>lokasi</th>
-                                <th>keterangan</th>
+                                <th style="text-align: center">status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -167,10 +164,9 @@
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->nama}}</td>
                                     <td>{{ $item->tanggal}}</td>
-                                    <td>{{ $item->jam_mulai}}</td>
-                                    <td>{{ $item->jam_berakhir}}</td>
+                                    <td>{{ $item->jam_mulai}} - {{ $item->jam_berakhir}}</td>
                                     <td>{{ $item->lokasi}}</td>
-                                    <td>{{ $item->keterangan}}</td>
+                                    <td style="text-align: center">{!! $item->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $item->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>' !!}</td>
                                 </tr>
 
                            @endforeach

@@ -61,6 +61,7 @@ class EventController extends Controller
                             onclick="return confirm(\'Are You Sure Want to Delete?\')"
                             style="padding: .0em !important;font-size: xx-small;">Delete</button>
                     </form>';
+                    $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
 
                     return $btn;
                 })
@@ -153,7 +154,9 @@ class EventController extends Controller
      */
     public function show($id)
     {
-       
+        $event = Event::findOrFail($id);
+
+        return view('admin.event.detail', compact('event'));
     }
 
     /**

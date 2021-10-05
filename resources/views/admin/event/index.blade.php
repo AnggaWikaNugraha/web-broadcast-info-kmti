@@ -28,7 +28,6 @@
                                 <th>Jam Berakhir</th>
                                 <th>Lokasi</th>
                                 <th>Status</th>
-                                <th>Keterangan</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -84,10 +83,6 @@
                     {
                         data: 'statusEvent',
                         name: 'statusEvent'
-                    },
-                    {
-                        data: 'keterangan',
-                        name: 'keterangan'
                     },
                     {
                         data: 'action',

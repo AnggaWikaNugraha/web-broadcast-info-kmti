@@ -47,7 +47,12 @@
                             </div>
                             
                             <div class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Status mahasiswa</label>
-                                <div class="col-sm-9 offset-1">{{ $user->mahasiswa->status === '["anggota"]' ? 'Anggota KMTI' : 'Pengurus KMTI' }}</div>
+                                <div class="col-sm-9 offset-1">
+                                    <select disabled id="select-pengurus" class="custom-select custom-select-sm" name="status">
+                                        <option {{ $user->mahasiswa->status == '["anggota"]' ? 'selected' : '' }} value='["anggota"]'>Anggota KMTI</option>
+                                        <option {{ $user->mahasiswa->status == '["anggota", "pengurus"]' ? 'selected' : '' }} value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                                    </select>
+                                </div>
                             </div>
 
                             @if ($user->mahasiswa->status !== '["anggota"]')
