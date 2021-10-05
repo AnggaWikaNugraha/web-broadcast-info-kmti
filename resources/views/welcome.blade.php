@@ -125,7 +125,6 @@
                                     <h4 class="card-title">{{ $item->nama_divisi}}</h4>
                                     <hr>
                                     <p style="overflow-y: auto; height: 70px;" class="card-text">{{ $item->fungsi}}</p>
-                                    <button class="btn btn-indigo btn-rounded btn-md">Read more</button>
                                 </div>
                             </div>
                         </div>
