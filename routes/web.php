@@ -10,8 +10,24 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\DivisiController;
 use App\Http\Controllers\Admin\InfoController;
 use App\Http\Controllers\User\MahasiswaController as UserMahasiswaController;
+use App\Models\Divisi;
+use App\Models\Event;
 
-Route::get('/', function () { return view('welcome');});
+Route::get('/', function () { 
+
+    $eventsActive = Event::where([
+        ['status', '=', 'belum-mulai'],
+    ])
+    ->orderBy('tanggal', 'DESC')
+    ->get();
+
+    $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get();
+
+    return view('welcome', compact(
+        'eventsActive',
+        'divisi'
+    ));
+});
 
 Auth::routes();
 
