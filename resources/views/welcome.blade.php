@@ -124,7 +124,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">{{ $item->nama_divisi}}</h4>
                                     <hr>
-                                    <p style="overflow-y: auto; height: 70px;" class="card-text">{{ $item->fungsi}}</p>
+                                    <p style="overflow-y: auto; height: 120px;" class="card-text">{{ $item->fungsi}}</p>
                                 </div>
                             </div>
                         </div>

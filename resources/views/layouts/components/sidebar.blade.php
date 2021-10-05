@@ -68,7 +68,7 @@
                 <li class="app-sidebar__heading">Divisi</li>
                 <li>
                     <a  href="{{ route('manage-divisi.index') }}"
-                        class="{{ Request::routeIs('manage-divisi.index') || Request::routeIs('manage-divisi.edit') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-divisi.index') || Request::routeIs('manage-divisi.edit') || Request::routeIs('manage-divisi.show') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
                         </i>List Divisi
                     </a>

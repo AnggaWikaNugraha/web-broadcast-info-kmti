@@ -63,6 +63,8 @@ class DivisiController extends Controller
                             onclick="return confirm(\'Are You Sure Want to Delete?\')"
                             style="padding: .0em !important;font-size: xx-small;">Delete</button>
                     </form>';
+                    $btn .= '<a href="manage-divisi/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
+                    
 
                     return $btn;
                 })
@@ -146,7 +148,8 @@ class DivisiController extends Controller
      */
     public function show($id)
     {
-        //
+        $divisi = Divisi::findOrFail($id);
+        return view('admin.divisi.detail', compact('divisi'));
     }
 
     /**
