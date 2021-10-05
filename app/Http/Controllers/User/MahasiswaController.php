@@ -359,7 +359,7 @@ class MahasiswaController extends Controller
 
             return Datatables::of($info)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
+                ->addColumn('action', function ($row) use($mahasiswa) {
                     // $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     $btn = '
                     
@@ -410,6 +410,10 @@ class MahasiswaController extends Controller
 
     public function infoRead($id)
     {
+        // $user = Auth::user();
+
+        // $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
+        dd($id);
         $new_info = InfoMahasiswa::findOrFail($id);
         $new_info->status = 'deactive';
 
