@@ -20,7 +20,13 @@
                             </div> 
 
                         </div>
+
                     </div>
+
+                    @if ($user->mahasiswa->now_wa || $user->mahasiswa->id_tele == null )
+                        <div class=" mt-4 badge badge-danger">!! Akun belum teregistrasi !!</div>
+                    @endif
+
                 </div>
                 <div class="col-md-7">
                     <div class="card p-3">

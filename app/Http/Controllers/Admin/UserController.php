@@ -184,6 +184,7 @@ class UserController extends Controller
             // create mahasiswa using foreign user_id on users
             $new_mahasiswa = new \App\Models\Mahasiswa();
             $new_mahasiswa->name = $new_user->name;
+            $new_mahasiswa->status = '["anggota"]';
             $new_mahasiswa->nim = $new_user->nim;
             $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
             $new_mahasiswa->angkatan = $new_user->angkatan;
