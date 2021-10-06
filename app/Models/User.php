@@ -59,4 +59,14 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(InfoMahasiswa::class, Mahasiswa::class);
     }
+
+    /**
+     * Get all of the divisi for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function divisi(): HasManyThrough
+    {
+        return $this->hasManyThrough(DivisiMahasiswa::class, Mahasiswa::class);
+    }
 }

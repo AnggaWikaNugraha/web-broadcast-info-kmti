@@ -87,6 +87,8 @@ class UserController extends Controller
                         </form>';
                     }
 
+                    $btn .= '<a href="manage-users/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
+
                     return $btn;
                 })
                 ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs'])
@@ -205,6 +207,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = User::where('id', $id)->firstOrFail();
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+        
+        return view('admin.users.detail' , compact(
+            'user',
+            'mhs'
+        ));
     }
 
     /**
