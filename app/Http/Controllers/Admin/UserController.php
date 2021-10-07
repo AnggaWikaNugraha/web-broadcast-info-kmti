@@ -17,7 +17,6 @@ class UserController extends Controller
     {
 
         $this->middleware('auth');
-
     }
     /**
      * Display a listing of the resource.
@@ -32,8 +31,9 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -42,13 +42,13 @@ class UserController extends Controller
             ->get();
         $mahasiswa = Mahasiswa::get();
         $angkatan = $mahasiswa->unique('angkatan');
-        
+
         if ($request->ajax()) {
 
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('rolesMhs', function ($row) {
-                    return $row->roles == '["mahasiswa"]' ? 'Mahasiswa': '' ;
+                    return $row->roles == '["mahasiswa"]' ? 'Mahasiswa' : '';
                 })
                 ->addColumn('name', function ($row) {
                     return $row->mahasiswa->name;
@@ -74,7 +74,7 @@ class UserController extends Controller
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                  
+
                     if (Auth::user()->roles == '["superadmin"]') {
                         $btn .= '
                     
@@ -87,9 +87,11 @@ class UserController extends Controller
                         </form>';
                     }
 
+                    $btn .= '<a href="manage-users/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
+
                     return $btn;
                 })
-                ->rawColumns(['action', 'nim', 'jenis_kelamin' , 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs'])
+                ->rawColumns(['action', 'nim', 'jenis_kelamin', 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs'])
                 ->make(true);
         }
 
@@ -111,8 +113,9 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -133,65 +136,69 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
-        \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "name" => "required",
-            // "nim" => "required|min:11|max:12",
-            "nim" => [
-                'required',
-                'min:11',
-                'max:12',
-                function ($attribute, $value, $fail) {
-                    if (Mahasiswa::whereNim($value)->count() > 0) {
-                        $fail($attribute . ' is already used.');
+        if ($request['name']) {
+
+            \Illuminate\Support\Facades\Validator::make($request->all(), [
+                "name" => "required",
+                // "nim" => "required|min:11|max:12",
+                "nim" => [
+                    'required',
+                    'min:11',
+                    'max:12',
+                    function ($attribute, $value, $fail) {
+                        if (Mahasiswa::whereNim($value)->count() > 0) {
+                            $fail($attribute . ' is already used.');
+                        }
                     }
-                }
-            ],
-            "email" =>  [
-                'required',
-                'email',
-                function ($attribute, $value, $fail) {
-                    if (User::whereEmail($value)->count() > 0) {
-                        $fail($attribute . ' is already used.');
-                    }
-                },
-            ],
-            "angkatan" => "required|min:4|max:5",
-        ])->validate();
+                ],
+                "email" =>  [
+                    'required',
+                    'email',
+                    function ($attribute, $value, $fail) {
+                        if (User::whereEmail($value)->count() > 0) {
+                            $fail($attribute . ' is already used.');
+                        }
+                    },
+                ],
+                "angkatan" => "required|min:4|max:5",
+            ])->validate();
 
-        DB::beginTransaction();
-        try {
+            DB::beginTransaction();
+            try {
 
-            // create user
-            $new_user = new \App\Models\User();
-            $new_user->email = $request['email'];
-            $new_user->roles = $request['roles'];
-            $new_user->password = Hash::make($request['nim']);
-            $new_user->save();
+                // create user
+                $new_user = new \App\Models\User();
+                $new_user->email = $request['email'];
+                $new_user->roles = $request['roles'];
+                $new_user->password = Hash::make($request['nim']);
+                $new_user->save();
 
-            $new_user->user_id = $new_user->id;
-            $new_user->name = $request['name'];
-            $new_user->nim = $request['nim'];
-            $new_user->jenis_kelamin = $request['jenis_kelamin'];
-            $new_user->angkatan = $request['angkatan'];
+                $new_user->user_id = $new_user->id;
+                $new_user->name = $request['name'];
+                $new_user->nim = $request['nim'];
+                $new_user->jenis_kelamin = $request['jenis_kelamin'];
+                $new_user->angkatan = $request['angkatan'];
 
-            // create mahasiswa using foreign user_id on users
-            $new_mahasiswa = new \App\Models\Mahasiswa();
-            $new_mahasiswa->name = $new_user->name;
-            $new_mahasiswa->nim = $new_user->nim;
-            $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
-            $new_mahasiswa->angkatan = $new_user->angkatan;
-            $new_mahasiswa->user()->associate($new_user->id);
-            $new_mahasiswa->save();
-            
-            DB::commit();
-            
-        } catch (\Throwable $th) {
-            return false;
+                // create mahasiswa using foreign user_id on users
+                $new_mahasiswa = new \App\Models\Mahasiswa();
+                $new_mahasiswa->name = $new_user->name;
+                $new_mahasiswa->status = '["anggota"]';
+                $new_mahasiswa->nim = $new_user->nim;
+                $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
+                $new_mahasiswa->angkatan = $new_user->angkatan;
+                $new_mahasiswa->user()->associate($new_user->id);
+                $new_mahasiswa->save();
+
+                DB::commit();
+            } catch (\Throwable $th) {
+                return false;
+            }
         }
 
         return redirect()->route('manage-users.create')->with('success', ' user successfully created');
@@ -205,6 +212,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = User::where('id', $id)->firstOrFail();
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+
+        return view('admin.users.detail', compact(
+            'user',
+            'mhs'
+        ));
     }
 
     /**
@@ -221,8 +235,9 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -246,8 +261,9 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -261,7 +277,7 @@ class UserController extends Controller
         try {
 
             $user = User::findOrFail($id);
-            
+
             $user->update([
                 'email' => $request['email'],
             ]);
@@ -273,7 +289,6 @@ class UserController extends Controller
             ]);
 
             DB::commit();
-            
         } catch (\Throwable $th) {
             return false;
         }
@@ -294,7 +309,7 @@ class UserController extends Controller
             return redirect(route('show-change-password'));
         }
 
-        if ( Auth::user()->roles != '["superadmin"]') {
+        if (Auth::user()->roles != '["superadmin"]') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 

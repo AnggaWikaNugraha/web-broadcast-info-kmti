@@ -74,6 +74,7 @@
                     </div>
 
                     <button class="btn btn-info text-white">Submit</button>
+                    <a class="text-white ml-2 btn btn-primary" href="{{ route('manage-users.index') }}">Kembali</a>
 
                 </form>
 

@@ -50,7 +50,7 @@
                 <li class="app-sidebar__heading">Data Angkatan</li>
                 <li>
                     <a  href="{{ route('manage-users.index') }}"
-                        class="{{ Request::routeIs('manage-users.index') || Request::routeIs('manage-users.edit') ? 'mm-active' : '' }}">
+                        class="{{ Request::routeIs('manage-users.index') || Request::routeIs('manage-users.edit') || Request::routeIs('manage-users.show') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon"></i>
                         Daftar Angkatan
                     </a>
