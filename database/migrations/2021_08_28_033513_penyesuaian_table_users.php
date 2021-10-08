@@ -14,7 +14,7 @@ class PenyesuaianTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string("roles", 15);
+            $table->string("roles", 15)->default('["mahasiswa"]');
         });
     }
 

@@ -142,63 +142,58 @@ class UserController extends Controller
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
-        if ($request['name']) {
-
-            \Illuminate\Support\Facades\Validator::make($request->all(), [
-                "name" => "required",
-                // "nim" => "required|min:11|max:12",
-                "nim" => [
-                    'required',
-                    'min:11',
-                    'max:12',
-                    function ($attribute, $value, $fail) {
-                        if (Mahasiswa::whereNim($value)->count() > 0) {
-                            $fail($attribute . ' is already used.');
-                        }
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+            "name" => "required",
+            // "nim" => "required|min:11|max:12",
+            "nim" => [
+                'required',
+                'min:11',
+                'max:12',
+                function ($attribute, $value, $fail) {
+                    if (Mahasiswa::whereNim($value)->count() > 0) {
+                        $fail($attribute . ' is already used.');
                     }
-                ],
-                "email" =>  [
-                    'required',
-                    'email',
-                    function ($attribute, $value, $fail) {
-                        if (User::whereEmail($value)->count() > 0) {
-                            $fail($attribute . ' is already used.');
-                        }
-                    },
-                ],
-                "angkatan" => "required|min:4|max:5",
-            ])->validate();
+                }
+            ],
+            "email" =>  [
+                'required',
+                'email',
+                function ($attribute, $value, $fail) {
+                    if (User::whereEmail($value)->count() > 0) {
+                        $fail($attribute . ' is already used.');
+                    }
+                },
+            ],
+            "angkatan" => "required|min:4|max:5",
+        ])->validate();
 
-            DB::beginTransaction();
-            try {
+        DB::beginTransaction();
+        try {
 
-                // create user
-                $new_user = new \App\Models\User();
-                $new_user->email = $request['email'];
-                $new_user->roles = $request['roles'];
-                $new_user->password = Hash::make($request['nim']);
-                $new_user->save();
+            // create user
+            $new_user = new \App\Models\User();
+            $new_user->email = $request['email'];
+            $new_user->password = Hash::make($request['nim']);
+            $new_user->save();
 
-                $new_user->user_id = $new_user->id;
-                $new_user->name = $request['name'];
-                $new_user->nim = $request['nim'];
-                $new_user->jenis_kelamin = $request['jenis_kelamin'];
-                $new_user->angkatan = $request['angkatan'];
+            $new_user->user_id = $new_user->id;
+            $new_user->name = $request['name'];
+            $new_user->nim = $request['nim'];
+            $new_user->jenis_kelamin = $request['jenis_kelamin'];
+            $new_user->angkatan = $request['angkatan'];
 
-                // create mahasiswa using foreign user_id on users
-                $new_mahasiswa = new \App\Models\Mahasiswa();
-                $new_mahasiswa->name = $new_user->name;
-                $new_mahasiswa->status = '["anggota"]';
-                $new_mahasiswa->nim = $new_user->nim;
-                $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
-                $new_mahasiswa->angkatan = $new_user->angkatan;
-                $new_mahasiswa->user()->associate($new_user->id);
-                $new_mahasiswa->save();
+            // create mahasiswa using foreign user_id on users
+            $new_mahasiswa = new \App\Models\Mahasiswa();
+            $new_mahasiswa->name = $new_user->name;
+            $new_mahasiswa->nim = $new_user->nim;
+            $new_mahasiswa->jenis_kelamin = $new_user->jenis_kelamin;
+            $new_mahasiswa->angkatan = $new_user->angkatan;
+            $new_mahasiswa->user()->associate($new_user->id);
+            $new_mahasiswa->save();
 
-                DB::commit();
-            } catch (\Throwable $th) {
-                return false;
-            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            return false;
         }
 
         return redirect()->route('manage-users.create')->with('success', ' user successfully created');
