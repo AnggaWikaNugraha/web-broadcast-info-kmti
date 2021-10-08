@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <div class="card-header pl-0">List Divisi
+                <div class="card-header pl-0">KMTI
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
                             <a href="{{ route('manage-divisi.create') }}">

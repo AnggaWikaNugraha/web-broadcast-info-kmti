@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <div class="card-header pl-0 mb-4">Create Divisi</div>
+                <div class="card-header pl-0 mb-4">Create</div>
 
                 <form class="form__create" method="post" action="{{ route('manage-divisi.store') }}"
                     enctype="multipart/form-data">
