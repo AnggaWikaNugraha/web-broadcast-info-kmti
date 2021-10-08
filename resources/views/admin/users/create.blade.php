@@ -93,7 +93,8 @@
                 @csrf
 
                     <div class="input-group">
-                        <input 
+                        <input
+                            id="importExcel" 
                             type="file" 
                             name="file" 
                             class="form-control" 
@@ -106,7 +107,47 @@
                 </form>
 
             </div>
+        </div>
 
+        <div id="wrapperTable" style="display: none" class="col-12">
+            <div class="main-card mb-3 card p-4">
+                <table  id="tableImport" class="table "></table>
+
+            </div>
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
+
+    <script type="text/javascript">
+      
+      var input = document.getElementById('importExcel')
+        input.addEventListener('change', function() {
+            document.getElementById('wrapperTable').style.display = 'block'
+            readXlsxFile(input.files[0]).then(function(data) {
+                var i = 0;
+                data.map((row, index) => {
+                    if( i == 0){
+                        let table = document.getElementById('tableImport');
+                        generateHead(table, row)
+                    }
+                })
+            })
+        })
+
+        function generateHead(table, data) {
+            let thead = table.createTHead();
+            let row = thead.insertRow();
+            for(let key of data){
+                let th = document.createElement('th');
+                let text = document.createTextNode(key);
+                th.appendChild(text);
+                row.appendChild(th)
+            }
+        }
+
+    </script>
+
+@endpush
