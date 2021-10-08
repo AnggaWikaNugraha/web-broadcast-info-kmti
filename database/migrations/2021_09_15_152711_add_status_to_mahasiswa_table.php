@@ -14,7 +14,7 @@ class AddStatusToMahasiswaTable extends Migration
     public function up()
     {
         Schema::table('mahasiswa', function (Blueprint $table) {
-            $table->string('status', 50);
+            $table->string('status', 50)->default('["anggota"]');
         });
     }
 

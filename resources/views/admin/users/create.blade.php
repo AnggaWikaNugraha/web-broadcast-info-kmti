@@ -13,6 +13,7 @@
                     method="post" 
                     action="{{ route('manage-users.store') }}"
                     enctype="multipart/form-data">
+                    
                     @csrf
 
                     <div class="form-group row">
@@ -55,9 +56,9 @@
                     <div class="form-group row">
                         <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Jenis kelamin :</label>
                         <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="jenis_kelamin" >
-                                <option value='laki-laki' >Laki-Laki</option>
-                                <option value='perempuan' >Perempuan</option>
+                            <select class="custom-select custom-select-sm mr-sm-2" name="jenis_kelamin">
+                                <option value='laki-laki'>Laki-Laki</option>
+                                <option value='perempuan'>Perempuan</option>
                             </select>
                         </div>
                     </div>
@@ -65,10 +66,10 @@
                     <div class="form-group row">
                         <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                         <div class="col-sm-10">
-                            <select class="custom-select custom-select-sm mr-sm-2" name="roles" >
+                            <select class="custom-select custom-select-sm mr-sm-2" name="roles">
                                 <option value='["mahasiswa"]'>Mahasiswa</option>
                                 <option value='["admin"]''>Admin</option>
-                                <option value=' ["superadmin"]'>Super Admin</option>
+                                    <option value=' ["superadmin"]'>Super Admin</option>
                             </select>
                         </div>
                     </div>
@@ -79,6 +80,33 @@
                 </form>
 
             </div>
+        </div>
+
+        <div class="col-12">
+            <div class="main-card mb-3 card p-4">
+
+                <form 
+                    action="{{ route('import.excel') }}" 
+                    method="post" 
+                    enctype="multipart/form-data">
+
+                @csrf
+
+                    <div class="input-group">
+                        <input 
+                            type="file" 
+                            name="file" 
+                            class="form-control" 
+                            placeholder="Recipient's username"
+                            aria-label="Recipient's username" 
+                            aria-describedby="button-addon2">
+                        
+                        <button class="btn btn-primary" type="submit" id="button-addon2">Import</button>
+                    </div>
+                </form>
+
+            </div>
+
         </div>
     </div>
 @endsection

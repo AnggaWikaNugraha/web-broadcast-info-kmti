@@ -12,36 +12,18 @@ use App\Http\Controllers\Admin\InfoController;
 use App\Http\Controllers\User\MahasiswaController as UserMahasiswaController;
 use App\Models\Divisi;
 use App\Models\Event;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 // landing page
 Route::get('/', function () { 
-
-    $eventsActive = Event::where([
-        ['status', '=', 'belum-mulai'],
-    ])
-    ->orderBy('tanggal', 'DESC')
-    ->get();
-
+    $eventsActive = Event::where([ ['status', '=', 'belum-mulai'],])->orderBy('tanggal', 'DESC')->get();
     $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get();
-
-    return view('welcome', compact(
-        'eventsActive',
-        'divisi'
-    ));
+    return view('welcome', compact('eventsActive','divisi'));
 });
 
-Route::get('/event/{id}', function ($id) {
-    $event = Event::findOrFail($id);
-    return view('event', compact('event'));
-
-})->name('event.detail');
-
-Route::get('/divisi/{id}', function ($id) {
-    $divisi = Divisi::findOrFail($id);
-    return view('divisi', compact('divisi'));
-
-})->name('divisi.detail');
-
+Route::get('/event/{id}', function ($id) { $event = Event::findOrFail($id); return view('event', compact('event'));})->name('event.detail');
+Route::get('/divisi/{id}', function ($id) { $divisi = Divisi::findOrFail($id); return view('divisi', compact('divisi')); })->name('divisi.detail');
 
 Auth::routes();
 
@@ -53,6 +35,10 @@ Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'
 Route::patch('/change-password/{id}', [AdminController::class, 'ChangePassword'])->name('change-password');
 
 Route::resource('admin/manage-users', UserController::class);
+Route::post('/admin/manage-users/excel', function () { 
+        Excel::import( new UsersImport, request()->file('file')); 
+    return back()->with('success', 'sukses import data'); })->name('import.excel');
+
 Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
