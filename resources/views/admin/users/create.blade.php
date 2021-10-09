@@ -85,6 +85,22 @@
         <div class="col-12">
             <div class="main-card mb-3 card p-4">
 
+                @if(count($errors->getMessages()) > 0)
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>Validation Errors:</strong>
+                    <ul>
+                        @foreach($errors->getMessages() as $errorMessages)
+                            @foreach($errorMessages as $errorMessage)
+                                <li>
+                                    {{ $errorMessage }}
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                </li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <form 
                     action="{{ route('import.excel') }}" 
                     method="post" 
