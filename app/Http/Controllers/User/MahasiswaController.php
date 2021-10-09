@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Divisi;
+use App\Models\DivisiMahasiswa;
 use App\Models\Event;
 use App\Models\Info;
 use App\Models\InfoMahasiswa;
@@ -239,7 +240,6 @@ class MahasiswaController extends Controller
 
     public function saveedit(Request $request, $id)
     {
-
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             "no_wa" =>  "required",
@@ -256,12 +256,27 @@ class MahasiswaController extends Controller
                 'name' => $request['name'],
                 'no_wa' => $request['no_wa'],
                 'id_tele' => $request['id_tele'],
-                'status' => $request['status']
             ]);
+
 
             if($request['divisi']){
                 $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
                 $mhs->divisi()->sync($request['divisi']);
+            }
+
+            if ($request['status'] == '["anggota"]' ) {
+              
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
+
+                DivisiMahasiswa::where('mahasiswa_id', $user->mahasiswa->id )->delete() ;
+                
+            }else{
+
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
             }
 
             DB::commit();
@@ -363,7 +378,7 @@ class MahasiswaController extends Controller
                     // $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     $btn = '
                     
-                    <form action="info/' . $row->mahasiswa()->first()->pivot->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
+                    <form action="info/' . $row->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
                         ' . csrf_field() . '
                         ' . method_field("PATCH") . '
                         <button class="btn btn-info text-white">Lihat info</button>
@@ -374,6 +389,10 @@ class MahasiswaController extends Controller
                     return $btn;
 
                 })
+                ->addColumn('terkirim', function ($row) {
+                    $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
+                    return $item;
+                })
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
@@ -381,7 +400,7 @@ class MahasiswaController extends Controller
                     $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
                     return $hasil;
                 })
-                ->rawColumns(['action','tanggal_kirim', 'status'])
+                ->rawColumns(['action','tanggal_kirim', 'status', 'terkirim'])
                 ->make(true);
         }
 
@@ -410,17 +429,18 @@ class MahasiswaController extends Controller
 
     public function infoRead($id)
     {
-        // $user = Auth::user();
+        $user = Auth::user();
 
-        // $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
-        dd($id);
-        $new_info = InfoMahasiswa::findOrFail($id);
-        $new_info->status = 'deactive';
+        $infoMahasiswa = InfoMahasiswa::where([
+            ['mahasiswa_id', '=', $user->mahasiswa->id],
+            ['info_id', '=', $id]
+        ])->firstOrFail();
 
-        $new_info->save();
+        $infoMahasiswa->status = 'deactive';
+        $infoMahasiswa->save();
 
 
-        return redirect()->route('user.infoDetail', [$new_info->info->id])->with('success', 'Info successfully read');
+        return redirect()->route('user.infoDetail', [$id])->with('success', 'Info successfully read');
   
     }
 }
