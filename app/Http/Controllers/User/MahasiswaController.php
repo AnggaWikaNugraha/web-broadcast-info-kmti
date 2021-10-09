@@ -378,7 +378,7 @@ class MahasiswaController extends Controller
                     // $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     $btn = '
                     
-                    <form action="info/' . $row->mahasiswa()->first()->pivot->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
+                    <form action="info/' . $row->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
                         ' . csrf_field() . '
                         ' . method_field("PATCH") . '
                         <button class="btn btn-info text-white">Lihat info</button>
@@ -425,17 +425,18 @@ class MahasiswaController extends Controller
 
     public function infoRead($id)
     {
-        // $user = Auth::user();
+        $user = Auth::user();
 
-        // $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
-        dd($id);
-        $new_info = InfoMahasiswa::findOrFail($id);
-        $new_info->status = 'deactive';
+        $infoMahasiswa = InfoMahasiswa::where([
+            ['mahasiswa_id', '=', $user->mahasiswa->id],
+            ['info_id', '=', $id]
+        ])->firstOrFail();
 
-        $new_info->save();
+        $infoMahasiswa->status = 'deactive';
+        $infoMahasiswa->save();
 
 
-        return redirect()->route('user.infoDetail', [$new_info->info->id])->with('success', 'Info successfully read');
+        return redirect()->route('user.infoDetail', [$id])->with('success', 'Info successfully read');
   
     }
 }
