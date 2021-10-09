@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Divisi;
+use App\Models\DivisiMahasiswa;
 use App\Models\Event;
 use App\Models\Info;
 use App\Models\InfoMahasiswa;
@@ -239,7 +240,6 @@ class MahasiswaController extends Controller
 
     public function saveedit(Request $request, $id)
     {
-
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             "no_wa" =>  "required",
@@ -256,12 +256,27 @@ class MahasiswaController extends Controller
                 'name' => $request['name'],
                 'no_wa' => $request['no_wa'],
                 'id_tele' => $request['id_tele'],
-                'status' => $request['status']
             ]);
+
 
             if($request['divisi']){
                 $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
                 $mhs->divisi()->sync($request['divisi']);
+            }
+
+            if ($request['status'] == '["anggota"]' ) {
+              
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
+
+                DivisiMahasiswa::where('mahasiswa_id', $user->mahasiswa->id )->delete() ;
+                
+            }else{
+
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
             }
 
             DB::commit();
