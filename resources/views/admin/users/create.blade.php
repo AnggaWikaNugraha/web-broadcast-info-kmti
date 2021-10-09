@@ -8,6 +8,22 @@
 
                 <div class="card-header pl-0 mb-4">Create User</div>
 
+                @if(count($errors->getMessages()) > 0)
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <strong>Validation Errors:</strong>
+                    <ul>
+                        @foreach($errors->getMessages() as $errorMessages)
+                            @foreach($errorMessages as $errorMessage)
+                                <li>
+                                    {{ $errorMessage }}
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                </li>
+                            @endforeach
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <form 
                     class="form__create" 
                     method="post" 

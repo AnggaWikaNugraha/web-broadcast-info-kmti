@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <h5 class="card-header">Detail Divisi</h5>
+                <h5 class="card-header">Detail</h5>
 
                 <div class="form-group row mt-4">
                     <label for="nama_divisi" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>

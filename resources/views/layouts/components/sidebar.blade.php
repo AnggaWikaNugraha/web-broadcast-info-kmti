@@ -65,19 +65,19 @@
 
                 <li style="   border-bottom: 2px solid rgba(0, 0, 0, 0.125);"></li>
 
-                <li class="app-sidebar__heading">Divisi</li>
+                <li class="app-sidebar__heading">KMTI</li>
                 <li>
                     <a  href="{{ route('manage-divisi.index') }}"
                         class="{{ Request::routeIs('manage-divisi.index') || Request::routeIs('manage-divisi.edit') || Request::routeIs('manage-divisi.show') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
-                        </i>List Divisi
+                        </i>List
                     </a>
                 </li>
                 <li>
                     <a  href="{{ route('manage-divisi.create') }}"
                         class="{{ Request::routeIs('manage-divisi.create') ? 'mm-active' : '' }}">
                         <i class="metismenu-icon">
-                        </i>Create Divisi
+                        </i>Create
                     </a>
                 </li>
 

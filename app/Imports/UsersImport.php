@@ -10,6 +10,8 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Validators\Failure;
 
 class UsersImport implements ToModel, WithHeadingRow, WithValidation
 {
@@ -67,6 +69,24 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
             "angkatan"      => "required|min:4|max:5",
             'jenis_kelamin' => 'required',
         ];
+    }
+
+    public function customValidationMessages()
+    {
+        return [
+            'name' => 'Name cannot be empty',
+        ];
+    }
+
+    /**
+     * @param Failure ...$failures
+     * @throws ValidationException
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        $exception = ValidationException::withMessages(collect($failures)->map->toArray()->all());
+
+        throw $exception;
     }
 
 }
