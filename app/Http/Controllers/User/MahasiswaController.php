@@ -389,6 +389,10 @@ class MahasiswaController extends Controller
                     return $btn;
 
                 })
+                ->addColumn('terkirim', function ($row) {
+                    $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
+                    return $item;
+                })
                 ->addColumn('tanggal_kirim', function ($row) {
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
@@ -396,7 +400,7 @@ class MahasiswaController extends Controller
                     $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
                     return $hasil;
                 })
-                ->rawColumns(['action','tanggal_kirim', 'status'])
+                ->rawColumns(['action','tanggal_kirim', 'status', 'terkirim'])
                 ->make(true);
         }
 

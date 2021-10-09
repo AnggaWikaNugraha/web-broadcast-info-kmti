@@ -17,7 +17,7 @@
                                 <th>Subject</th>
                                 <th>Tanggal kirim</th>
                                 <th>Status</th>
-                                <th>File</th>
+                                <th>Terkirim ke</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -60,8 +60,8 @@
                         name: 'status'
                     },
                     {
-                        data: 'file',
-                        name: 'file'
+                        data: 'terkirim',
+                        name: 'terkirim'
                     },
                     {
                         data: 'action',
