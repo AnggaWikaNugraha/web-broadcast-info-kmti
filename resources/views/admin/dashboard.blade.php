@@ -89,7 +89,7 @@
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->subject }}</td>
                                     <td>{!! $item->divisi ? $item->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>' !!}</td>
-                                    <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim }}</td>
+                                    <td>{{ $item->mahasiswa()->first() ?  $item->mahasiswa()->first()->pivot->tanggal_kirim : '' }}</td>
                                 </tr>
 
                            @endforeach

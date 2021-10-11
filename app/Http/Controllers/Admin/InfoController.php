@@ -48,7 +48,7 @@ class InfoController extends Controller
                     return $btn;
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
-                    return $row->mahasiswa()->first()->pivot->tanggal_kirim;
+                    return $row->mahasiswa()->first() ? $row->mahasiswa()->first()->pivot->tanggal_kirim : '';
                 })
                 ->addColumn('divisi', function ($row) {
                     $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
@@ -113,9 +113,55 @@ class InfoController extends Controller
 
         $new_info->mahasiswa()->attach($mahasiswa);
 
+        $this->kirimWablas();
+
         DB::commit();
 
         return redirect()->route('manage-info.index');
+    }
+
+    function kirimWablas()
+    {
+        $link  =  "https://us.wablas.com/api/send-message";
+        
+        $payload = [
+            "data" => [
+                [
+                    'phone' => '081221565331',
+                    'message' => 'Tes Broadcast KMTI',
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ],
+                [
+                    'phone' => '081227129035',
+                    'message' => 'Tes Broadcast KMTI',
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ],
+            ]
+        ];
+         
+         
+        $curl = curl_init();
+        $token =  "hAX7YsPA05iGg1KbwwkEmT7KNBy37dPljG6skfGPNilS4aflyIn8TME8fv7yPxiO";
+ 
+        curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array(
+                "Authorization: $token",
+                "Content-Type: application/json"
+            )
+        );
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
+        curl_setopt($curl, CURLOPT_URL, "https://us.wablas.com/api/v2/send-bulk/text");
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+    
+        $result = curl_exec($curl);
+        curl_close($curl); 
+        
+        return $result;
     }
 
     /**
