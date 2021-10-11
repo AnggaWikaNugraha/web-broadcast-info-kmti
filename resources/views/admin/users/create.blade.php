@@ -101,6 +101,8 @@
         <div class="col-12">
             <div class="main-card mb-3 card p-4">
 
+                <a id="btnBatal" style="display: none;" class="col-1 text-white mb-4 btn btn-primary" href="{{ route('manage-users.create') }}">Refresh</a>
+
                 <form 
                     action="{{ route('import.excel') }}" 
                     method="post" 
@@ -141,7 +143,10 @@
       
       var input = document.getElementById('importExcel')
         input.addEventListener('change', function() {
+
             document.getElementById('wrapperTable').style.display = 'block'
+            document.getElementById('btnBatal').style.display = 'block'
+
             readXlsxFile(input.files[0]).then(function(data) {
                 var i = 0;
                 data.map((row, index) => {
