@@ -56,7 +56,7 @@
                             </div>
 
                             @if ($user->mahasiswa->status !== '["anggota"]')
-                                <div style="height: 100px" class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                                <div style="height: 100px" class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">KMTI</label>
                                     <div class="col-sm-9 offset-1" style="height: 100%; display: flex; align-items: center">
                                         
                                             @if ( $mhs->divisi->count() > 0 )
@@ -67,7 +67,7 @@
                                                     
                                                 </ul>
                                             @else
-                                                !! Harap isi Divisi !!
+                                                !! Harap isi !!
                                             @endif
                                             
                                     </div>

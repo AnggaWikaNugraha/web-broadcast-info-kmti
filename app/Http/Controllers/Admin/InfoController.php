@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+use function PHPSTORM_META\map;
+
 class InfoController extends Controller
 {
     public function __construct()
@@ -48,7 +51,7 @@ class InfoController extends Controller
                     return $btn;
                 })
                 ->addColumn('tanggal_kirim', function ($row) {
-                    return $row->mahasiswa()->first()->pivot->tanggal_kirim;
+                    return $row->mahasiswa()->first() ? $row->mahasiswa()->first()->pivot->tanggal_kirim : '';
                 })
                 ->addColumn('divisi', function ($row) {
                     $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
@@ -113,9 +116,55 @@ class InfoController extends Controller
 
         $new_info->mahasiswa()->attach($mahasiswa);
 
+        $isi = [];
+        foreach ($mahasiswa as $value) {
+            array_push($isi, (object)[
+                'phone' => $value->no_wa,
+                'message' => 
+                "*[Reminder]*
+                *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                
+                Subject : " . $request['subject'] . "
+                Pemberitahuan : " . $request['content'] ,
+                'secret' => false, // or true
+                'priority' => false, // or true
+            ]);
+        }
+    
+        $payload = [ "data" => $isi];
+
+        // dd($payload);
+        // $this->kirimWablas($payload);
+
         DB::commit();
 
         return redirect()->route('manage-info.index');
+    }
+
+    function kirimWablas($content)
+    {   
+        $payload = $content;
+         
+        $curl = curl_init();
+        $token = env('WABLASS_TOKEN');
+ 
+        curl_setopt($curl, CURLOPT_HTTPHEADER,
+            array(
+                "Authorization: $token",
+                "Content-Type: application/json"
+            )
+        );
+        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
+        curl_setopt($curl, CURLOPT_URL, env('WABLASS_URL'));
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+    
+        $result = curl_exec($curl);
+        curl_close($curl); 
+        
+        return $result;
     }
 
     /**
