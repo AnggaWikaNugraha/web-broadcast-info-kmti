@@ -123,6 +123,7 @@ class InfoController extends Controller
                 'message' => 
                 "*[Reminder]*
                 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                
                 Subject : " . $request['subject'] . "
                 Pemberitahuan : " . $request['content'] ,
                 'secret' => false, // or true
@@ -131,7 +132,8 @@ class InfoController extends Controller
         }
     
         $payload = [ "data" => $isi];
-        
+
+        // dd($payload);
         // $this->kirimWablas($payload);
 
         DB::commit();
@@ -155,7 +157,7 @@ class InfoController extends Controller
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
-        curl_setopt($curl, CURLOPT_URL, env('APP_URL'));
+        curl_setopt($curl, CURLOPT_URL, env('WABLASS_URL'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     
