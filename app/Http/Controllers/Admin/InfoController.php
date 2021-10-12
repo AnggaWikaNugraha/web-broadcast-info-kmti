@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+use function PHPSTORM_META\map;
+
 class InfoController extends Controller
 {
     public function __construct()
@@ -113,37 +116,35 @@ class InfoController extends Controller
 
         $new_info->mahasiswa()->attach($mahasiswa);
 
-        $this->kirimWablas();
+        $isi = [];
+        foreach ($mahasiswa as $value) {
+            array_push($isi, (object)[
+                'phone' => $value->no_wa,
+                'message' => 
+                "*[Reminder]*
+                *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                Subject : " . $request['subject'] . "
+                Pemberitahuan : " . $request['content'] ,
+                'secret' => false, // or true
+                'priority' => false, // or true
+            ]);
+        }
+    
+        $payload = [ "data" => $isi];
+        
+        // $this->kirimWablas($payload);
 
         DB::commit();
 
         return redirect()->route('manage-info.index');
     }
 
-    function kirimWablas()
-    {
-        $link  =  "https://us.wablas.com/api/send-message";
-        
-        $payload = [
-            "data" => [
-                [
-                    'phone' => '081221565331',
-                    'message' => 'Tes Broadcast KMTI',
-                    'secret' => false, // or true
-                    'priority' => false, // or true
-                ],
-                [
-                    'phone' => '081227129035',
-                    'message' => 'Tes Broadcast KMTI',
-                    'secret' => false, // or true
-                    'priority' => false, // or true
-                ],
-            ]
-        ];
-         
+    function kirimWablas($content)
+    {   
+        $payload = $content;
          
         $curl = curl_init();
-        $token =  "hAX7YsPA05iGg1KbwwkEmT7KNBy37dPljG6skfGPNilS4aflyIn8TME8fv7yPxiO";
+        $token = env('WABLASS_TOKEN');
  
         curl_setopt($curl, CURLOPT_HTTPHEADER,
             array(
@@ -154,7 +155,7 @@ class InfoController extends Controller
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
-        curl_setopt($curl, CURLOPT_URL, "https://us.wablas.com/api/v2/send-bulk/text");
+        curl_setopt($curl, CURLOPT_URL, env('APP_URL'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     
