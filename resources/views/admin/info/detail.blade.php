@@ -41,7 +41,7 @@
                                 <td>{{ $item->name}}</td>
                                 <td>{{ $item->nim}}</td>
                                 <td>{{ $item->no_wa}}</td>
-                                <td>{!! $item->pivot->status == 'active' ? '<div class="badge badge-warning">belum-terbaca</div>' : '<div class="badge badge-warning">sudah-terbaca</div>' !!}</td>
+                                <td>{!! $item->pivot->status == 'active' ? '<div class="badge badge-warning">belum-terbaca</div>' : '<div class="badge badge-info">sudah-terbaca</div>' !!}</td>
                             </tr>
                             @endforeach
                             
