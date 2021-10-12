@@ -13,7 +13,7 @@
                     @csrf
 
                     <div class="form-group row">
-                        <label for="nama_divisi" class="col-sm-2 col-form-label col-form-label-sm">Nama Divisi :</label>
+                        <label for="nama_divisi" class="col-sm-2 col-form-label col-form-label-sm">Nama :</label>
                         <div class="col-sm-10">
                             <input value="{{ old('nama_divisi') }}" type="text" class="form-control form-control-sm" id="nama_divisi"
                                 name="nama_divisi" placeholder="Masukan nama divisi">
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi Divisi :</label>
+                        <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi :</label>
                         <div class="col-sm-10">
                             <textarea class="form-control form-control-sm" name="fungsi" id="fungsi"></textarea>
                            
