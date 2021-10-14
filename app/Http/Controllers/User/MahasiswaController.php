@@ -364,6 +364,7 @@ class MahasiswaController extends Controller
         $user = Auth::user();
         $mahasiswa = Mahasiswa::findOrfail($user->mahasiswa->id);
 
+        $status = Auth::user()->notifs()->get();
         $info = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
             $q->whereIn('mahasiswa_id', [$mahasiswa->id]);
         })
@@ -397,7 +398,9 @@ class MahasiswaController extends Controller
                     return $row->mahasiswa()->first()->pivot->tanggal_kirim;
                 })
                 ->addColumn('status', function ($row) {
+                    
                     $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
+                    
                     return $hasil;
                 })
                 ->rawColumns(['action','tanggal_kirim', 'status', 'terkirim'])

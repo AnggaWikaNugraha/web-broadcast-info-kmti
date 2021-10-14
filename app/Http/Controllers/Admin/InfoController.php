@@ -121,7 +121,7 @@ class InfoController extends Controller
             array_push($isi, (object)[
                 'phone' => $value->no_wa,
                 'message' => 
-                "*[Reminder]*
+                "*[INFO KMTI]*
                 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
                 
                 Subject : " . $request['subject'] . "
@@ -134,7 +134,7 @@ class InfoController extends Controller
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        // $this->kirimWablas($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 

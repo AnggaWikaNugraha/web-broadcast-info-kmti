@@ -16,7 +16,7 @@
                                 <th>#</th>
                                 <th>Subject</th>
                                 <th>Tanggal kirim</th>
-                                <th>Status</th>
+                                {{-- <th>Status</th> --}}
                                 <th>Terkirim ke</th>
                                 <th>Actions</th>
                             </tr>
@@ -55,10 +55,10 @@
                         data: 'tanggal_kirim',
                         name: 'tanggal_kirim'
                     },
-                    {
-                        data: 'status',
-                        name: 'status'
-                    },
+                    // {
+                    //     data: 'status',
+                    //     name: 'status'
+                    // },
                     {
                         data: 'terkirim',
                         name: 'terkirim'
