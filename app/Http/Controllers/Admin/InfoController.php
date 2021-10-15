@@ -117,24 +117,50 @@ class InfoController extends Controller
         $new_info->mahasiswa()->attach($mahasiswa);
 
         $isi = [];
-        foreach ($mahasiswa as $value) {
-            array_push($isi, (object)[
-                'phone' => $value->no_wa,
-                'message' => 
-                "*[INFO KMTI]*
-                *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                
-                Subject : " . $request['subject'] . "
-                Pemberitahuan : " . $request['content'] ,
-                'secret' => false, // or true
-                'priority' => false, // or true
-            ]);
+        
+        if ($request['divisi'] !== null) {
+            
+            $divisi = Divisi::findOrFail($request['divisi']);
+
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+                    "*[INFO KMTI]*
+                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                    
+                    *Subject* : " . $request['subject'] . "
+                    *Terkirim ke* : " . $divisi->nama_divisi . "
+                    *Pemberitahuan* : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+
+        } else {
+            
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+                    "*[INFO KMTI]*
+                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                    
+                    *Subject* : " . $request['subject'] . "
+                    *Terkirim Ke* : Anggota KMTI
+                    *Pemberitahuan* : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+
         }
+    
     
         $payload = [ "data" => $isi];
 
-        // dd($payload);
-        $this->kirimWablas($payload);
+        dd($payload);
+        // $this->kirimWablas($payload);
 
         DB::commit();
 

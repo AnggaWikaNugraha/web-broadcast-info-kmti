@@ -10,7 +10,7 @@
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
                             <a href="{{ route('manage-divisi.create') }}">
-                                <button class="btn btn-focus mr-3">Create Divisi</button>
+                                <button class="btn btn-focus mr-3">Create</button>
                             </a>
                         </div>
                     </div>
