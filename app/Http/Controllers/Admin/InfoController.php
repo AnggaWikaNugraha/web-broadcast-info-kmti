@@ -159,7 +159,7 @@ class InfoController extends Controller
     
         $payload = [ "data" => $isi];
 
-        dd($payload);
+        // dd($payload);
         // $this->kirimWablas($payload);
 
         DB::commit();
@@ -183,7 +183,7 @@ class InfoController extends Controller
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
-        curl_setopt($curl, CURLOPT_URL, env('WABLASS_URL'));
+        curl_setopt($curl, CURLOPT_URL, env('WABLASS_BRODCAST'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     

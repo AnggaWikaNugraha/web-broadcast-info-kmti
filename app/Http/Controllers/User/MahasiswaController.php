@@ -394,12 +394,12 @@ class MahasiswaController extends Controller
                     $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
                     return $item;
                 })
-                ->addColumn('tanggal_kirim', function ($row) {
-                    return $row->mahasiswa()->first()->pivot->tanggal_kirim;
+                ->addColumn('tanggal_kirim', function ($row) use($mahasiswa) {
+                    return $row->mahasiswa()->findOrFail($mahasiswa->id)->pivot->tanggal_kirim;
                 })
-                ->addColumn('status', function ($row) {
+                ->addColumn('status', function ($row) use($mahasiswa) {
                     
-                    $hasil = $row->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
+                    $hasil = $row->mahasiswa()->findOrFail($mahasiswa->id)->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
                     
                     return $hasil;
                 })
