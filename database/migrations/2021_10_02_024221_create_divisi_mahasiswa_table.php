@@ -19,8 +19,8 @@ class CreateDivisiMahasiswaTable extends Migration
             $table->unsignedBigInteger('mahasiswa_id');
             $table->timestamps();
 
-            $table->foreign('divisi_id')->references('id')->on('divisi');
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa');
+            $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('cascade');
+            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
 

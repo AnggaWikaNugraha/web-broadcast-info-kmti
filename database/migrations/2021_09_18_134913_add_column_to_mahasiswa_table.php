@@ -14,10 +14,10 @@ class AddColumnToMahasiswaTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->string('jam_mulai');
-            $table->string('jam_berakhir');
-            $table->string('lokasi');
-            $table->string('keterangan');
+            $table->string('jam_mulai', 6);
+            $table->string('jam_berakhir', 6);
+            $table->string('lokasi', 255);
+            $table->string('keterangan', 1000);
         });
     }
 

@@ -41,7 +41,7 @@
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan :</label>
                         <div class="col-sm-10">
-                            <textarea value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea>
+                            <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea>
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
                         </div>
                     </div>

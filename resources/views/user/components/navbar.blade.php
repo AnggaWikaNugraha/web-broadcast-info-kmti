@@ -58,7 +58,7 @@
 
 
                                     </a>
-                                    <div tabindex="-1" role="menu" aria-hidden="true"
+                                    <div style="width: 300px" tabindex="-1" role="menu" aria-hidden="true"
                                         class="dropdown-menu dropdown-menu-right mt-3">
 
                                         @foreach (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)

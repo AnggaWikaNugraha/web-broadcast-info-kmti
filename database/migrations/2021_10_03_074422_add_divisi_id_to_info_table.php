@@ -15,7 +15,7 @@ class AddDivisiIdToInfoTable extends Migration
     {
         Schema::table('info', function (Blueprint $table) {
             $table->unsignedBigInteger('divisi_id')->nullable();
-            $table->foreign('divisi_id')->references('id')->on('divisi');
+            $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('cascade');
         });
     }
 

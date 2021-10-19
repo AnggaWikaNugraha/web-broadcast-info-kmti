@@ -17,8 +17,8 @@ class CreateMahasiswaTable extends Migration
             $table->id();
             $table->string('name', 25);
             $table->string('nim', 11);
-            $table->string('no_wa', 12)->nullable();
-            $table->string('angkatan', 5);
+            $table->string('no_wa', 13)->nullable();
+            $table->string('angkatan', 6);
             $table->string('id_tele', 25)->nullable();
             $table->timestamps();
 

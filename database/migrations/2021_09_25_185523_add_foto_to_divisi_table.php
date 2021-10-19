@@ -15,7 +15,7 @@ class AddFotoToDivisiTable extends Migration
     {
         Schema::table('divisi', function (Blueprint $table) {
             $table->string('foto');
-            $table->string('fungsi');
+            $table->string('fungsi', 1000);
         });
     }
 

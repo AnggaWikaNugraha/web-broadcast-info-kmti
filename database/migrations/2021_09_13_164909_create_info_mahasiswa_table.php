@@ -20,8 +20,8 @@ class CreateInfoMahasiswaTable extends Migration
             $table->timestamp('tanggal_kirim')->useCurrent();
             $table->timestamps();
 
-            $table->foreign('info_id')->references('id')->on('info');
-            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa');
+            $table->foreign('info_id')->references('id')->on('info')->onDelete('cascade');
+            $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
 

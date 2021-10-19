@@ -15,8 +15,7 @@ class CreateInfoTable extends Migration
     {
         Schema::create('info', function (Blueprint $table) {
             $table->id();
-            $table->string('content');
-            $table->string('file');
+            $table->string('content', 1000);
             $table->timestamps();
         });
     }

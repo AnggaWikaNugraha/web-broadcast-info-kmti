@@ -14,7 +14,7 @@ class AddKeteranganToUsersTable extends Migration
     public function up()
     {
         Schema::table('divisi', function (Blueprint $table) {
-            $table-> string('keterangan');
+            $table-> string('keterangan', 25);
         });
     }
 
