@@ -59,11 +59,12 @@
                                     <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right mt-3">
 
                                         @foreach (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)
-                                            <h6 tabindex="-1" class="dropdown-header"> {{ $item->info->subject}}</h6>
+                                            <h6 tabindex="-1" class="dropdown-header">{{ $item->info->subject}}</h6>
                                         @endforeach
 
-                                        <a style="color: #3ac47d" href="{{ route('user.info') }}" class="p-0 btn">More Notifications</a>
-
+                                        <div style="width: 100%; display: flex; justify-content: center">
+                                            <a href="{{ route('user.info') }}" class="p-1 btn btn-info">More Notifications</a>
+                                        </div>
                                     </div>
 
                                 @else

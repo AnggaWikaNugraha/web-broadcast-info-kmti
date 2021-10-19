@@ -80,7 +80,7 @@
                                 <th>Subject</th>
                                 <th>Terkirim</th>
                                 <th>Terkirim ke</th>
-                                <th style="text-align: center">Status</th>
+                                {{-- <th style="text-align: center">Status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -91,7 +91,7 @@
                                     <td>{{ $item->subject}}</td>
                                     <td>{{ $item->mahasiswa()->first()->pivot->tanggal_kirim}}</td>
                                     <td>{!! $item->divisi !== null?  $item->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>' !!}</td>
-                                    <td style="text-align: center">{!! $item->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>' !!}</td>
+                                    {{-- <td style="text-align: center">{!! $item->mahasiswa()->first()->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>' !!}</td> --}}
                                 </tr>
 
                            @endforeach

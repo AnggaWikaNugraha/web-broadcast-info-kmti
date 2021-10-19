@@ -117,19 +117,45 @@ class InfoController extends Controller
         $new_info->mahasiswa()->attach($mahasiswa);
 
         $isi = [];
-        foreach ($mahasiswa as $value) {
-            array_push($isi, (object)[
-                'phone' => $value->no_wa,
-                'message' => 
-                "*[Reminder]*
-                *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                
-                Subject : " . $request['subject'] . "
-                Pemberitahuan : " . $request['content'] ,
-                'secret' => false, // or true
-                'priority' => false, // or true
-            ]);
+        
+        if ($request['divisi'] !== null) {
+            
+            $divisi = Divisi::findOrFail($request['divisi']);
+
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+                    "*[INFO KMTI]*
+                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                    
+                    *Subject* : " . $request['subject'] . "
+                    *Terkirim ke* : " . $divisi->nama_divisi . "
+                    *Pemberitahuan* : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+
+        } else {
+            
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+                    "*[INFO KMTI]*
+                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                    
+                    *Subject* : " . $request['subject'] . "
+                    *Terkirim Ke* : Anggota KMTI
+                    *Pemberitahuan* : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+
         }
+    
     
         $payload = [ "data" => $isi];
 
@@ -157,7 +183,7 @@ class InfoController extends Controller
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($payload) );
-        curl_setopt($curl, CURLOPT_URL, env('WABLASS_URL'));
+        curl_setopt($curl, CURLOPT_URL, env('WABLASS_BRODCAST'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
     
