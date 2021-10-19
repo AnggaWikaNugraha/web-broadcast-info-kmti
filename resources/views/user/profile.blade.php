@@ -45,15 +45,18 @@
                             <div class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Telegram</label>
                                 <div class="col-sm-9 offset-1">{{ $user->mahasiswa->id_tele }}</div>
                             </div>
-                            
-                            <div class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">Status mahasiswa</label>
-                                <div class="col-sm-9 offset-1">
-                                    <select disabled id="select-pengurus" class="custom-select custom-select-sm" name="status">
-                                        <option {{ $user->mahasiswa->status == '["anggota"]' ? 'selected' : '' }} value='["anggota"]'>Anggota KMTI</option>
-                                        <option {{ $user->mahasiswa->status == '["anggota", "pengurus"]' ? 'selected' : '' }} value='["anggota", "pengurus"]'>Pengurus KMTI</option>
-                                    </select>
+
+                            @if ($user->mahasiswa->status == '["anggota"]')
+                                <div class="card-header position-relative row form-group"><label class="col-sm-2 col-form-label">Status Mahasiswa</label>
+                                    <div class="col-sm-9 offset-1">Anggota KMTI</div>
                                 </div>
-                            </div>
+                            @endif
+
+                            @if ($user->mahasiswa->status == '["anggota", "pengurus"]')
+                                <div class="card-header position-relative row form-group"><label class="col-sm-2 col-form-label">Status Mahasiswa</label>
+                                    <div class="col-sm-9 offset-1">Pengurus KMTI</div>
+                                </div>
+                            @endif
 
                             @if ($user->mahasiswa->status !== '["anggota"]')
                                 <div style="height: 100px" class="card-header position-relative row form-group"><label for="Telegram" class="col-sm-2 col-form-label">KMTI</label>
