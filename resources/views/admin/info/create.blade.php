@@ -35,6 +35,9 @@
                             <select id="select-pengurus" onchange="selecOptions()" class="custom-select custom-select-sm mr-sm-2" name="status" >
                                 <option value='["anggota"]'>Anggota KMTI</option>
                                 <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                                @foreach ($angkatan as $item)
+                                    <option value="{{ $item->angkatan }}">Angkatan {{ $item->angkatan}}</option>
+                                @endforeach
                             </select>
                             <span class="err__fields">{{ $errors->first('divisi') }}</span>
                         </div>

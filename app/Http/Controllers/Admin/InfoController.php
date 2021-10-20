@@ -41,6 +41,9 @@ class InfoController extends Controller
         }
 
         $data = Info::orderByDesc('created_at')->get();
+
+        $mahasiswa = Mahasiswa::get();
+        $angkatan = $mahasiswa->unique('angkatan');
      
         if ($request->ajax()) {
 
@@ -61,7 +64,7 @@ class InfoController extends Controller
                 ->make(true);
         }
 
-        return view('admin.info.index');
+        return view('admin.info.index', compact('angkatan'));
     }
 
     /**
@@ -71,7 +74,10 @@ class InfoController extends Controller
      */
     public function create()
     {
-        return view('admin.info.create');
+        $mahasiswa = Mahasiswa::get();
+        $angkatan = $mahasiswa->unique('angkatan');
+
+        return view('admin.info.create', compact('angkatan'));
     }
 
     /**
@@ -86,22 +92,37 @@ class InfoController extends Controller
             "subject" => "required",
             "content" => "required",
         ])->validate();
+        // get mhs ketika terkirim ke anggota kmti
+        $mahasiswa = [];
 
         if($request['status'] == '["anggota"]' ){
 
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
-        }else if ($request['divisi'] !== null){
+            
+        }
+        else if ($request['status'] == '["anggota", "pengurus"]' ){
 
-            $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
-                $q->whereIn('divisi_id', [$request['divisi']]);
-            })->get();
-        }else{
+            if ($request['divisi'] !== null) {
+
+                $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
+                    $q->whereIn('divisi_id', [$request['divisi']]);
+                })->get();
+
+            }
 
             \Illuminate\Support\Facades\Validator::make($request->all(), [
                 "divisi" => "required",
             ])->validate();
+
+        }else{
+
+            $mahasiswa = Mahasiswa::where([
+                ['no_wa', '!=', null],
+                ['angkatan', '=', $request['status'] ]
+            ])->get();
+
         }
-        
+
         DB::beginTransaction();
 
         $new_info = new Info();
@@ -147,7 +168,7 @@ class InfoController extends Controller
                     *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
                     
                     *Subject* : " . $request['subject'] . "
-                    *Terkirim Ke* : Anggota KMTI
+                    *Terkirim* : Anggota KMTI
                     *Pemberitahuan* : " . $request['content'] ,
                     'secret' => false, // or true
                     'priority' => false, // or true
@@ -160,7 +181,7 @@ class InfoController extends Controller
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        $this->kirimWablas($payload);
+        // $this->kirimWablas($payload);
 
         DB::commit();
 
