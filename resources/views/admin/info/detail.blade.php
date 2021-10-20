@@ -22,8 +22,8 @@
                 <div class="col-sm-9 offset-1">{{ $info->divisi ? $info->divisi->nama_divisi : 'Anggota KMTI' }}</div>
             </div>
 
-            <div style="height: 220px;" class="position-relative row form-group"><label class="col-sm-2 col-form-label">Daftar kontak terkirim : </label>
-                <div style="height: 200px; overflow-y: auto" class="col-sm-9 offset-1">
+            <div style="height: 320px;" class="position-relative row form-group"><label class="col-sm-2 col-form-label">Daftar kontak terkirim : </label>
+                <div style="height: 300px; overflow-y: auto" class="col-sm-9 offset-1">
 
                     <table class="table table-striped">
                         <thead>
