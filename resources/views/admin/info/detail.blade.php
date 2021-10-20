@@ -30,6 +30,7 @@
                             <th>NO</th>
                             <th>Nama</th>
                             <th>Nim</th>
+                            <th>Angkatan</th>
                             <th>Whatsapp</th>
                         </thead>
                         <tbody>
@@ -39,6 +40,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $item->name}}</td>
                                 <td>{{ $item->nim}}</td>
+                                <td>{{ $item->angkatan}}</td>
                                 <td>{{ $item->no_wa}}</td>
                             </tr>
                             @endforeach

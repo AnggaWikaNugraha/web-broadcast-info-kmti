@@ -98,7 +98,7 @@ class InfoController extends Controller
         if($request['status'] == '["anggota"]' ){
 
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
-            
+
         }
         else if ($request['status'] == '["anggota", "pengurus"]' ){
 
