@@ -139,7 +139,7 @@ class InfoController extends Controller
 
         $isi = [];
         
-        if ($request['divisi'] !== null) {
+        if ($request['status'] == '["anggota", "pengurus"]') {
             
             $divisi = Divisi::findOrFail($request['divisi']);
 
@@ -158,7 +158,7 @@ class InfoController extends Controller
                 ]);
             }
 
-        } else {
+        } else if ($request['status'] == '["anggota"]') {
             
             foreach ($mahasiswa as $value) {
                 array_push($isi, (object)[
@@ -175,13 +175,27 @@ class InfoController extends Controller
                 ]);
             }
 
+        } else {
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+                    "*[INFO KMTI]*
+                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                    
+                    *Subject* : " . $request['subject'] . "
+                    *Terkirim* : Angkatan " . $request['status'] . "
+                    *Pemberitahuan* : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
         }
     
     
         $payload = [ "data" => $isi];
 
-        // dd($payload);
-        // $this->kirimWablas($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 
