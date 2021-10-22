@@ -112,6 +112,7 @@
 
                     <div class="input-group">
                         <input
+                            style="height: calc(2.7rem + 2px)" 
                             id="importExcel" 
                             type="file" 
                             name="file" 

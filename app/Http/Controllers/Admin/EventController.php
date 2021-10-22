@@ -178,6 +178,10 @@ class EventController extends Controller
         }
 
         $event = Event::findOrFail($id);
+        if ($event->status == 'sudah-selesai') {
+            return redirect()->route('compliting.event');
+        }
+
         return view('admin.event.edit', compact('event'));
     }
 
@@ -236,7 +240,7 @@ class EventController extends Controller
 
         DB::commit();
 
-        return redirect()->route('manage-event.index', [$new_event->id])->with('success', 'Event successfully updated');
+        return redirect()->route('manage-event.edit', [$new_event->id])->with('success', 'Event successfully updated');
     }
 
     /**
@@ -261,5 +265,15 @@ class EventController extends Controller
         $data->delete();
 
         return redirect()->route('manage-event.index')->with('success', 'Event successfully deleted');
+    }
+
+    public function complitingEvent()
+    {
+        return view('admin.event.complitingEvent');
+    }
+
+    public function saveComplitingEvent(Request $request)
+    {
+        dd($request);
     }
 }

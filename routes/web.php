@@ -40,6 +40,8 @@ Route::post('/admin/manage-users/excel', function () {
     return back()->with('success', 'sukses import data'); })->name('import.excel');
 
 Route::resource('admin/manage-event', EventController::class);
+Route::get('admin/event/compliting', [EventController::class, 'complitingEvent'])->name('compliting.event');
+Route::post('admin/event/compliting', [EventController::class, 'saveComplitingEvent'])->name('save.compliting.event');
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
 Route::get('ajax/admin/divisi/search', [InfoController::class, 'searchDivisi'])->name('admin.search.divisi');
