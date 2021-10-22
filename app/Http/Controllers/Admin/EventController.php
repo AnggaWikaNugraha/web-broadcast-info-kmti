@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -179,7 +180,14 @@ class EventController extends Controller
 
         $event = Event::findOrFail($id);
         if ($event->status == 'sudah-selesai') {
-            return redirect()->route('compliting.event');
+
+            $filekegiatan = 'app/public/event/' . $event->id . '/laporan-kegiatan.xlsx';
+            $filekeuangan = 'app/public/event/' . $event->id . '/laporan-keuangan.xlsx';
+
+            if ( !file_exists(storage_path($filekegiatan)) && !file_exists(storage_path($filekeuangan)) ) {
+                return view('admin.event.complitingEvent', compact('event'));
+            }
+
         }
 
         return view('admin.event.edit', compact('event'));
@@ -272,8 +280,21 @@ class EventController extends Controller
         return view('admin.event.complitingEvent');
     }
 
-    public function saveComplitingEvent(Request $request)
+    public function saveComplitingEvent(Request $request, $id)
     {
-        dd($request);
+
+        // handle image
+        $laporanKegiatan = $request->file('laporan-kegiatan');
+        if ($laporanKegiatan) {
+            $foto_path = $laporanKegiatan->storeAs('public/event/' . $id, 'laporan-kegiatan.xlsx');
+        }
+
+        $laporanKeuangan = $request->file('laporan-keuangan');
+        if ($laporanKeuangan) {
+            $foto_path = $laporanKeuangan->storeAs('public/event/'. $id, 'laporan-keuangan.xlsx');
+        }
+
+        return redirect()->route('manage-event.index');
+
     }
 }

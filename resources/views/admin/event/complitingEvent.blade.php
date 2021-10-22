@@ -8,8 +8,12 @@
 
                 <div class="card-header pl-0 mb-4">Compliting Event</div>
 
-                <form class="form__create" method="post" action="{{ route('save.compliting.event') }}"
+                <form 
+                    class="form__create" 
+                    method="post" 
+                    action="{{ route('save.compliting.event', $event->id) }}"
                     enctype="multipart/form-data">
+                    @method('PATCH')
                     @csrf
 
                     <div class="form-group row">
