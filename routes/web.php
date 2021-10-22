@@ -43,6 +43,7 @@ Route::resource('admin/manage-event', EventController::class);
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);
 Route::get('ajax/admin/divisi/search', [InfoController::class, 'searchDivisi'])->name('admin.search.divisi');
+Route::get('ajax/admin/angkatan/search', [InfoController::class, 'angkatan'])->name('admin.angkatan');
 
 // mahasiswa
 Route::get('/user/dashboard', [UserMahasiswaController::class, 'index'])->name('user.dashboard');

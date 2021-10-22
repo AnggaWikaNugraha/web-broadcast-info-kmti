@@ -195,7 +195,7 @@ class InfoController extends Controller
     
         $payload = [ "data" => $isi];
 
-        $this->kirimWablas($payload);
+        // $this->kirimWablas($payload);
 
         DB::commit();
 
@@ -283,6 +283,15 @@ class InfoController extends Controller
         $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
        
         return $info;
+    }
+
+    public function angkatan()
+    {
+        // $keyword = $request->get('q');
+        $mahasiswa = Mahasiswa::distinct('angkatan')->pluck('angkatan');
+        // $angkatan = $mahasiswa->unique('angkatan');
+
+        return $mahasiswa;
     }
 
 }
