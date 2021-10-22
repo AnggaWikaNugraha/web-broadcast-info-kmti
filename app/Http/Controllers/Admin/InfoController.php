@@ -92,13 +92,11 @@ class InfoController extends Controller
             "subject" => "required",
             "content" => "required",
         ])->validate();
-        // get mhs ketika terkirim ke anggota kmti
+
+        // get mahasiswa filter
         $mahasiswa = [];
-
         if($request['status'] == '["anggota"]' ){
-
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
-
         }
         else if ($request['status'] == '["anggota", "pengurus"]' ){
 
@@ -108,19 +106,31 @@ class InfoController extends Controller
                     $q->whereIn('divisi_id', [$request['divisi']]);
                 })->get();
 
+            }else{
+
+                // ambil semua pengurus kmti
+                $mahasiswa = Mahasiswa::where([
+                    ['no_wa', '!=', null],
+                    ['status', '=', '["anggota", "pengurus"]' ]
+                ])->get();
+
+            }
+
+        }else if ($request['status'] == 'angkatan'){
+
+            if ($request['status'] != null ) {
+                
+                $mahasiswa = Mahasiswa::where([
+                    ['no_wa', '!=', null],
+                    ['angkatan', '=', $request['angkatan'] ]
+                ])->get();
+
             }
 
             \Illuminate\Support\Facades\Validator::make($request->all(), [
-                "divisi" => "required",
+                "angkatan" => "required",
             ])->validate();
-
-        }else{
-
-            $mahasiswa = Mahasiswa::where([
-                ['no_wa', '!=', null],
-                ['angkatan', '=', $request['status'] ]
-            ])->get();
-
+                        
         }
 
         DB::beginTransaction();
@@ -141,22 +151,45 @@ class InfoController extends Controller
         
         if ($request['status'] == '["anggota", "pengurus"]') {
             
-            $divisi = Divisi::findOrFail($request['divisi']);
+            if ($request['divisi'] !== null) {
+                
+                $divisi = Divisi::findOrFail($request['divisi']);
 
-            foreach ($mahasiswa as $value) {
-                array_push($isi, (object)[
-                    'phone' => $value->no_wa,
-                    'message' => 
-                    "*[INFO KMTI]*
-                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                    
-                    *Subject* : " . $request['subject'] . "
-                    *Terkirim ke* : " . $divisi->nama_divisi . "
-                    *Pemberitahuan* : " . $request['content'] ,
-                    'secret' => false, // or true
-                    'priority' => false, // or true
-                ]);
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+                        "*[INFO KMTI]*
+                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                        
+                        *Subject* : " . $request['subject'] . "
+                        *Terkirim ke* : " . $divisi->nama_divisi . "
+                        *Pemberitahuan* : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
+
+            } else {
+                
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+                        "*[INFO KMTI]*
+                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                        
+                        *Subject* : " . $request['subject'] . "
+                        *Terkirim* : Pengurus KMTI
+                        *Pemberitahuan* : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
+
             }
+            
+            
 
         } else if ($request['status'] == '["anggota"]') {
             
@@ -175,27 +208,34 @@ class InfoController extends Controller
                 ]);
             }
 
-        } else {
-            foreach ($mahasiswa as $value) {
-                array_push($isi, (object)[
-                    'phone' => $value->no_wa,
-                    'message' => 
-                    "*[INFO KMTI]*
-                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                    
-                    *Subject* : " . $request['subject'] . "
-                    *Terkirim* : Angkatan " . $request['status'] . "
-                    *Pemberitahuan* : " . $request['content'] ,
-                    'secret' => false, // or true
-                    'priority' => false, // or true
-                ]);
+        } else if ($request['status'] == 'angkatan') {
+
+            if ($request['status'] != null ) {
+                
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+                        "*[INFO KMTI]*
+                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                        
+                        *Subject* : " . $request['subject'] . "
+                        *Terkirim* : Angkatan " . $request['status'] . "
+                        *Pemberitahuan* : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
+
             }
+
         }
     
     
         $payload = [ "data" => $isi];
 
-        // $this->kirimWablas($payload);
+        // dd($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 
