@@ -181,10 +181,9 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         if ($event->status == 'sudah-selesai') {
 
-            $filekegiatan = 'app/public/event/' . $event->id . '/laporan-kegiatan.xlsx';
-            $filekeuangan = 'app/public/event/' . $event->id . '/laporan-keuangan.xlsx';
+            $path = 'public/event/' . $id . '/files/';
 
-            if ( !file_exists(storage_path($filekegiatan)) && !file_exists(storage_path($filekeuangan)) ) {
+            if ( !Storage::exists($path) ) {
                 return view('admin.event.complitingEvent', compact('event'));
             }
 
@@ -285,13 +284,18 @@ class EventController extends Controller
 
         // handle image
         $laporanKegiatan = $request->file('laporan-kegiatan');
+        $laporanKeuangan = $request->file('laporan-keuangan');
+
+        $path = 'public/event/' . $id . '/files/';
+        if (!Storage::exists($path)) {
+            Storage::makeDirectory($path);
+        }
         if ($laporanKegiatan) {
-            $foto_path = $laporanKegiatan->storeAs('public/event/' . $id, 'laporan-kegiatan.xlsx');
+            Storage::putFileAs($path, $laporanKegiatan, 'laporan-kegiatan.' . pathinfo($_FILES['laporan-kegiatan']['name'], PATHINFO_EXTENSION));
         }
 
-        $laporanKeuangan = $request->file('laporan-keuangan');
         if ($laporanKeuangan) {
-            $foto_path = $laporanKeuangan->storeAs('public/event/'. $id, 'laporan-keuangan.xlsx');
+            Storage::putFileAs($path, $laporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
         }
         
         return redirect()->route('manage-event.edit', $id);
