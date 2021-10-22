@@ -59,12 +59,23 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan keuangan :</label>
-                    <div class="col-sm-10">
-                        <div class="col-sm-9 offset-1">{{ $event->status }}</div>
+                @if ($laporanKegiatan)
+                    <div class="form-group row">
+                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan kegiatan :</label>
+                        <div class="col-sm-10">
+                            <a class="col-sm-9 offset-1" href="{{ Storage::url($laporanKegiatan) }}">Download Laporan kegiatan</a>
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                @if ($laporanKeuangan)
+                    <div class="form-group row">
+                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan keuangan :</label>
+                        <div class="col-sm-10">
+                            <a class="col-sm-9 offset-1" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan keuangan</a>
+                        </div>
+                    </div>
+                @endif
 
                 <a href="{{ route('manage-event.index') }}" class="mt-3 col-sm-2 btn btn-info text-white">Kembali</a>
 

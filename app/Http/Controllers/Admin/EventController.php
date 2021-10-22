@@ -156,9 +156,30 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
+        $path = 'public/event/' . $id . '/files/';
+        $pathDownload = 'event/' . $id . '/files/';
+        $laporanKegiatan = null;
+        $laporanKeuangan = null;
 
-        return view('admin.event.detail', compact('event'));
-    }
+        $extentions = ['.xlsx', '.docx'];
+		foreach ($extentions as $ext) {
+			if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+				$laporanKegiatan = $pathDownload . 'laporan-kegiatan' . $ext;
+				
+			}
+		}
+
+        foreach ($extentions as $ext) {
+			if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+				$laporanKeuangan = $pathDownload . 'laporan-keuangan' . $ext;
+				
+			}
+		}
+
+        return view('admin.event.detail', compact('event',
+        'laporanKegiatan',
+        'laporanKeuangan'
+    ));}
 
     /**
      * Show the form for editing the specified resource.
@@ -179,9 +200,8 @@ class EventController extends Controller
         }
 
         $event = Event::findOrFail($id);
+        $path = 'public/event/' . $id . '/files/';
         if ($event->status == 'sudah-selesai') {
-
-            $path = 'public/event/' . $id . '/files/';
 
             if ( !Storage::exists($path) ) {
                 return view('admin.event.complitingEvent', compact('event'));
