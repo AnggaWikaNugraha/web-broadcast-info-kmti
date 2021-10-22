@@ -293,8 +293,8 @@ class EventController extends Controller
         if ($laporanKeuangan) {
             $foto_path = $laporanKeuangan->storeAs('public/event/'. $id, 'laporan-keuangan.xlsx');
         }
-
-        return redirect()->route('manage-event.index');
+        
+        return redirect()->route('manage-event.edit', $id);
 
     }
 }
