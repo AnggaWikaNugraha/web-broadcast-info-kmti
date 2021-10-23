@@ -16,7 +16,6 @@ class EventController extends Controller
     {
 
         $this->middleware('auth');
-        
     }
     /**
      * Display a listing of the resource.
@@ -30,8 +29,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -47,7 +47,7 @@ class EventController extends Controller
                     return $img;
                 })
                 ->addColumn('statusEvent', function ($row) {
-                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>'  ;
+                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>';
                     return $hasil;
                 })
                 ->addColumn('action', function ($row) {
@@ -66,7 +66,7 @@ class EventController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['foto', 'action','statusEvent'])
+                ->rawColumns(['foto', 'action', 'statusEvent'])
                 ->make(true);
         }
 
@@ -85,8 +85,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -107,8 +108,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -162,24 +164,24 @@ class EventController extends Controller
         $laporanKeuangan = null;
 
         $extentions = ['.xlsx', '.docx'];
-		foreach ($extentions as $ext) {
-			if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
-				$laporanKegiatan = $pathDownload . 'laporan-kegiatan' . $ext;
-				
-			}
-		}
+        foreach ($extentions as $ext) {
+            if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+                $laporanKegiatan = $pathDownload . 'laporan-kegiatan' . $ext;
+            }
+        }
 
         foreach ($extentions as $ext) {
-			if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
-				$laporanKeuangan = $pathDownload . 'laporan-keuangan' . $ext;
-				
-			}
-		}
+            if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+                $laporanKeuangan = $pathDownload . 'laporan-keuangan' . $ext;
+            }
+        }
 
-        return view('admin.event.detail', compact('event',
-        'laporanKegiatan',
-        'laporanKeuangan'
-    ));}
+        return view('admin.event.detail', compact(
+            'event',
+            'laporanKegiatan',
+            'laporanKeuangan'
+        ));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -194,8 +196,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -203,13 +206,33 @@ class EventController extends Controller
         $path = 'public/event/' . $id . '/files/';
         if ($event->status == 'sudah-selesai') {
 
-            if ( !Storage::exists($path) ) {
+            if (!Storage::exists($path)) {
                 return view('admin.event.complitingEvent', compact('event'));
             }
-
         }
 
-        return view('admin.event.edit', compact('event'));
+        $laporanKegiatan = null;
+        $laporanKeuangan = null;
+        $pathDownload = 'event/' . $id . '/files/';
+
+        $extentions = ['.xlsx', '.docx'];
+        foreach ($extentions as $ext) {
+            if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+                $laporanKegiatan = $pathDownload . 'laporan-kegiatan' . $ext;
+            }
+        }
+
+        foreach ($extentions as $ext) {
+            if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+                $laporanKeuangan = $pathDownload . 'laporan-keuangan' . $ext;
+            }
+        }
+
+        return view('admin.event.edit', compact(
+            'event',
+            'laporanKegiatan',
+            'laporanKeuangan'
+        ));
     }
 
     /**
@@ -226,8 +249,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -251,16 +275,48 @@ class EventController extends Controller
         $new_event->keterangan = $request->get('keterangan');
         $new_event->status = $request->get('status');
 
-         // handle image
-         $foto = $request->file('foto');
-         if ($foto) {
+        // handle image and file
+        $foto = $request->file('foto');
+        $NewLaporanKegiatan = $request->file('laporan-kegiatan');
+        $NewLaporanKeuangan = $request->file('laporan-keuangan');
+        $laporanKegiatan = $request->file('laporan-kegiatan');
+        $laporanKeuangan = $request->file('laporan-keuangan');
+        $path = 'public/event/' . $id . '/files/';
 
-            if($new_event->foto && file_exists(storage_path('app/public/' . $new_event->foto))){
-                \Storage::delete('public/'. $new_event->foto);
+        if ($foto) {
+
+            if ($new_event->foto && file_exists(storage_path('app/public/' . $new_event->foto))) {
+                \Storage::delete('public/' . $new_event->foto);
             }
 
             $foto_path = $foto->store('photos', 'public');
             $new_event->foto = $foto_path;
+        }
+
+        $extentions = ['.xlsx', '.docx'];
+        
+        if ($laporanKegiatan) {
+            foreach ($extentions as $ext) {
+                if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+                    $laporanKegiatan = $path . 'laporan-kegiatan' . $ext;
+                    Storage::delete($laporanKegiatan);
+                }
+            }
+        }
+        if ($NewLaporanKegiatan) {
+            Storage::putFileAs($path, $NewLaporanKegiatan, 'laporan-kegiatan.' . pathinfo($_FILES['laporan-kegiatan']['name'], PATHINFO_EXTENSION));
+        }
+
+        if ($laporanKeuangan) {
+            foreach ($extentions as $ext) {
+                if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+                    $laporanKeuangan = $path . 'laporan-keuangan' . $ext;
+                    Storage::delete($laporanKeuangan);
+                }
+            }
+        }
+        if ($NewLaporanKeuangan) {
+            Storage::putFileAs($path, $NewLaporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
         }
 
         $new_event->save();
@@ -283,8 +339,9 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != '["superadmin"]' &&
+            Auth::user()->roles != '["admin"]'
+        ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -317,8 +374,7 @@ class EventController extends Controller
         if ($laporanKeuangan) {
             Storage::putFileAs($path, $laporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
         }
-        
-        return redirect()->route('manage-event.edit', $id);
 
+        return redirect()->route('manage-event.edit', $id);
     }
 }
