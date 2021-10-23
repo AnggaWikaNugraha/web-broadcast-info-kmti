@@ -19,7 +19,9 @@
                     <div class="form-group row">
                         <label for="laporan-kegiatan" class="col-sm-2 col-form-label col-form-label-sm">Laporan Kegiatan Event :</label>
                         <div class="col-sm-10">
-                            <input 
+                            <input
+                                required
+                                accept=".xlsx,.docx" 
                                 style="height: calc(2.25rem + 2px)" 
                                 value="{{ old('laporan-kegiatan') }}" 
                                 type="file" 
@@ -34,7 +36,9 @@
                     <div class="form-group row">
                         <label for="laporan-keuangan" class="col-sm-2 col-form-label col-form-label-sm">Laporan Keuangan Event :</label>
                         <div class="col-sm-10">
-                            <input 
+                            <input
+                                required
+                                accept=".xlsx,.docx"  
                                 style="height: calc(2.25rem + 2px)"
                                 value="{{ old('laporan-keuangan') }}" 
                                 type="file" 

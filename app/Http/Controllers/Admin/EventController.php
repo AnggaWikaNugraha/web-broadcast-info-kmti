@@ -364,9 +364,6 @@ class EventController extends Controller
         $laporanKeuangan = $request->file('laporan-keuangan');
 
         $path = 'public/event/' . $id . '/files/';
-        if (!Storage::exists($path)) {
-            Storage::makeDirectory($path);
-        }
         if ($laporanKegiatan) {
             Storage::putFileAs($path, $laporanKegiatan, 'laporan-kegiatan.' . pathinfo($_FILES['laporan-kegiatan']['name'], PATHINFO_EXTENSION));
         }

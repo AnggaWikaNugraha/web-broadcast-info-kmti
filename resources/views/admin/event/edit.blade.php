@@ -84,38 +84,42 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan kegiatan :</label>
-                        <div class="col-sm-5">
-                            <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-kegiatan') }}" type="file"
-                                class="form-control form-control-sm" id="laporan-kegiatan" name="laporan-kegiatan"
-                                placeholder="Masukan laporan-kegiatan event">
-                            <span class="err__fields">{{ $errors->first('laporan-kegiatan') }}</span>
-                        </div>
-                        @if ($laporanKegiatan)
+                    @if ($event->status == 'sudah-selesai')
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan kegiatan :</label>
                             <div class="col-sm-5">
-                                <a class="col-sm-10" href="{{ Storage::url($laporanKegiatan) }}">Download Laporan
-                                    kegiatan</a>
-
+                                <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-kegiatan') }}" type="file"
+                                    class="form-control form-control-sm" id="laporan-kegiatan" name="laporan-kegiatan"
+                                    placeholder="Masukan laporan-kegiatan event">
+                                <span class="err__fields">{{ $errors->first('laporan-kegiatan') }}</span>
                             </div>
-                        @endif
-                    </div>
+                            @if ($laporanKegiatan)
+                                <div class="col-sm-5">
+                                    <a class="col-sm-10" href="{{ Storage::url($laporanKegiatan) }}">Download Laporan
+                                        kegiatan</a>
 
-                    <div class="form-group row">
-                        <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan keuangan :</label>
-                        <div class="col-sm-5">
-                            <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-keuangan') }}" type="file"
-                                class="form-control form-control-sm" id="laporan-keuangan" name="laporan-keuangan"
-                                placeholder="Masukan laporan-keuangan event">
-                            <span class="err__fields">{{ $errors->first('laporan-keuangan') }}</span>
+                                </div>
+                            @endif
                         </div>
-                        @if ($laporanKeuangan)
+                    @endif
+
+                    @if ($event->status == 'sudah-selesai')
+                        <div class="form-group row">
+                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan keuangan :</label>
                             <div class="col-sm-5">
-                                <a class="col-sm-10" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan
-                                    keuangan</a>
+                                <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-keuangan') }}" type="file"
+                                    class="form-control form-control-sm" id="laporan-keuangan" name="laporan-keuangan"
+                                    placeholder="Masukan laporan-keuangan event">
+                                <span class="err__fields">{{ $errors->first('laporan-keuangan') }}</span>
                             </div>
-                        @endif
-                    </div>
+                            @if ($laporanKeuangan)
+                                <div class="col-sm-5">
+                                    <a class="col-sm-10" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan
+                                        keuangan</a>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
 
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">keterangan Event :</label>
