@@ -95,8 +95,29 @@ class InfoController extends Controller
 
         // get mahasiswa filter
         $mahasiswa = [];
+        $terkirim = null;
+        $isi = [];
+
         if($request['status'] == '["anggota"]' ){
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
+            $terkirim = 'Anggota KMTI';
+           
+            
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' => 
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : " . $terkirim . "
+Pemberitahuan : " . $request['content'] ,
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+
         }
         else if ($request['status'] == '["anggota", "pengurus"]' ){
 
@@ -105,6 +126,25 @@ class InfoController extends Controller
                 $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
                     $q->whereIn('divisi_id', [$request['divisi']]);
                 })->get();
+                $divisi = Divisi::findOrFail($request['divisi']);
+                $terkirim = $divisi->nama_divisi;
+
+                $divisi = Divisi::findOrFail($request['divisi']);
+
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+                        
+Subject : " . $request['subject'] . "
+Terkirim ke : " . $terkirim . "
+Pemberitahuan : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
 
             }else{
 
@@ -113,6 +153,22 @@ class InfoController extends Controller
                     ['no_wa', '!=', null],
                     ['status', '=', '["anggota", "pengurus"]' ]
                 ])->get();
+                $terkirim = 'Pengurus KMTI';
+
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : " . $terkirim . "
+Pemberitahuan : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
 
             }
 
@@ -124,6 +180,22 @@ class InfoController extends Controller
                     ['no_wa', '!=', null],
                     ['angkatan', '=', $request['angkatan'] ]
                 ])->get();
+                $terkirim = 'Angkatan '. $request['angkatan'];
+
+                foreach ($mahasiswa as $value) {
+                    array_push($isi, (object)[
+                        'phone' => $value->no_wa,
+                        'message' => 
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : " . $terkirim . "
+Pemberitahuan : " . $request['content'] ,
+                        'secret' => false, // or true
+                        'priority' => false, // or true
+                    ]);
+                }
 
             }
 
@@ -138,100 +210,14 @@ class InfoController extends Controller
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
+        $new_info->terkirim = $terkirim;
 
         if ($request['divisi'] !== null) {
             $new_info->divisi()->associate($request['divisi']);
         }
 
         $new_info->save();
-
         $new_info->mahasiswa()->attach($mahasiswa);
-
-        $isi = [];
-        
-        if ($request['status'] == '["anggota", "pengurus"]') {
-            
-            if ($request['divisi'] !== null) {
-                
-                $divisi = Divisi::findOrFail($request['divisi']);
-
-                foreach ($mahasiswa as $value) {
-                    array_push($isi, (object)[
-                        'phone' => $value->no_wa,
-                        'message' => 
-"*[INFO KMTI]*
-*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                        
-Subject : " . $request['subject'] . "
-Terkirim ke : " . $divisi->nama_divisi . "
-Pemberitahuan : " . $request['content'] ,
-                        'secret' => false, // or true
-                        'priority' => false, // or true
-                    ]);
-                }
-
-            } else {
-                
-                foreach ($mahasiswa as $value) {
-                    array_push($isi, (object)[
-                        'phone' => $value->no_wa,
-                        'message' => 
-"*[INFO KMTI]*
-*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-
-Subject : " . $request['subject'] . "
-Terkirim : Pengurus KMTI
-Pemberitahuan : " . $request['content'] ,
-                        'secret' => false, // or true
-                        'priority' => false, // or true
-                    ]);
-                }
-
-            }
-            
-            
-
-        } else if ($request['status'] == '["anggota"]') {
-            
-            foreach ($mahasiswa as $value) {
-                array_push($isi, (object)[
-                    'phone' => $value->no_wa,
-                    'message' => 
-"*[INFO KMTI]*
-*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-
-Subject : " . $request['subject'] . "
-Terkirim : Anggota KMTI
-Pemberitahuan : " . $request['content'] ,
-                    'secret' => false, // or true
-                    'priority' => false, // or true
-                ]);
-            }
-
-        } else if ($request['status'] == 'angkatan') {
-
-            if ($request['status'] != null ) {
-                
-                foreach ($mahasiswa as $value) {
-                    array_push($isi, (object)[
-                        'phone' => $value->no_wa,
-                        'message' => 
-"*[INFO KMTI]*
-*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-
-Subject : " . $request['subject'] . "
-Terkirim : Angkatan " . $request['angkatan'] . "
-Pemberitahuan : " . $request['content'] ,
-                        'secret' => false, // or true
-                        'priority' => false, // or true
-                    ]);
-                }
-
-            }
-
-        }
-    
-    
         $payload = [ "data" => $isi];
 
         // dd($payload);

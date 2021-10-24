@@ -57,8 +57,8 @@
                         name: 'subject'
                     },
                     {
-                        data: 'divisi',
-                        name: 'divisi'
+                        data: 'terkirim',
+                        name: 'terkirim'
                     },
                     {
                         data: 'tanggal_kirim',
