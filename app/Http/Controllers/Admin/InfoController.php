@@ -210,6 +210,7 @@ Pemberitahuan : " . $request['content'] ,
         $new_info = new Info();
         $new_info->subject = $request->get('subject');
         $new_info->content = $request->get('content');
+        $new_info->terkirim = $terkirim;
 
         if ($request['divisi'] !== null) {
             $new_info->divisi()->associate($request['divisi']);
@@ -219,8 +220,8 @@ Pemberitahuan : " . $request['content'] ,
         $new_info->mahasiswa()->attach($mahasiswa);
         $payload = [ "data" => $isi];
 
-        dd($payload);
-        // $this->kirimWablas($payload);
+        // dd($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 

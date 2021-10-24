@@ -19,7 +19,7 @@
             </div>
 
             <div class="position-relative row form-group"><label class="col-sm-2 col-form-label">Terkirim ke :</label>
-                <div class="col-sm-9 offset-1">{{ $info->divisi ? $info->divisi->nama_divisi : 'Anggota KMTI' }}</div>
+                <div class="col-sm-9 offset-1">{{ $info->terkirim }}</div>
             </div>
 
             <div style="height: 320px;" class="position-relative row form-group"><label class="col-sm-2 col-form-label">Daftar kontak terkirim : </label>
