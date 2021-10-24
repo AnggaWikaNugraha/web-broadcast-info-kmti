@@ -159,12 +159,12 @@ class InfoController extends Controller
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
                         'message' => 
-                        "*[INFO KMTI]*
-                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
                         
-                        *Subject* : " . $request['subject'] . "
-                        *Terkirim ke* : " . $divisi->nama_divisi . "
-                        *Pemberitahuan* : " . $request['content'] ,
+Subject : " . $request['subject'] . "
+Terkirim ke : " . $divisi->nama_divisi . "
+Pemberitahuan : " . $request['content'] ,
                         'secret' => false, // or true
                         'priority' => false, // or true
                     ]);
@@ -176,12 +176,12 @@ class InfoController extends Controller
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
                         'message' => 
-                        "*[INFO KMTI]*
-                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                        
-                        *Subject* : " . $request['subject'] . "
-                        *Terkirim* : Pengurus KMTI
-                        *Pemberitahuan* : " . $request['content'] ,
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : Pengurus KMTI
+Pemberitahuan : " . $request['content'] ,
                         'secret' => false, // or true
                         'priority' => false, // or true
                     ]);
@@ -197,12 +197,12 @@ class InfoController extends Controller
                 array_push($isi, (object)[
                     'phone' => $value->no_wa,
                     'message' => 
-                    "*[INFO KMTI]*
-                    *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                    
-                    *Subject* : " . $request['subject'] . "
-                    *Terkirim* : Anggota KMTI
-                    *Pemberitahuan* : " . $request['content'] ,
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : Anggota KMTI
+Pemberitahuan : " . $request['content'] ,
                     'secret' => false, // or true
                     'priority' => false, // or true
                 ]);
@@ -216,12 +216,12 @@ class InfoController extends Controller
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
                         'message' => 
-                        "*[INFO KMTI]*
-                        *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                        
-                        *Subject* : " . $request['subject'] . "
-                        *Terkirim* : Angkatan " . $request['status'] . "
-                        *Pemberitahuan* : " . $request['content'] ,
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['subject'] . "
+Terkirim : Angkatan " . $request['angkatan'] . "
+Pemberitahuan : " . $request['content'] ,
                         'secret' => false, // or true
                         'priority' => false, // or true
                     ]);
