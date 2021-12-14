@@ -6,11 +6,11 @@
         <div class="col-md-12">
             <div class="main-card mb-3 card p-4">
 
-                <div class="card-header pl-0">KMTI
+                <div class="card-header pl-0">Keluarga Mahasiswa Teknologi Informasi
                     <div class="btn-actions-pane-right">
                         <div role="group" class="btn-group-sm btn-group">
                             <a href="{{ route('manage-divisi.create') }}">
-                                <button class="btn btn-focus mr-3">Create</button>
+                                <button class="btn btn-focus mr-3">Create List KMTI</button>
                             </a>
                         </div>
                     </div>

@@ -8,23 +8,24 @@
 
                 <div class="card-header pl-0 mb-4">Create User</div>
 
-                @if(count($errors->getMessages()) > 0)
-                <div class="alert alert-danger alert-dismissible" role="alert">
-                    <strong>Validation Errors:</strong>
-                    <ul>
-                        @foreach($errors->getMessages() as $errorMessages)
-                            @foreach($errorMessages as $errorMessage)
-                                <li>
-                                    {{ $errorMessage }}
-                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                </li>
+                @if (count($errors->getMessages()) > 0)
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <strong>Validation Errors:</strong>
+                        <ul>
+                            @foreach ($errors->getMessages() as $errorMessages)
+                                @foreach ($errorMessages as $errorMessage)
+                                    <li>
+                                        {{ $errorMessage }}
+                                        <a href="#" class="close" data-dismiss="alert"
+                                            aria-label="close">&times;</a>
+                                    </li>
+                                @endforeach
                             @endforeach
-                        @endforeach
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
                 @endif
 
-                <form 
+                {{-- <form 
                     class="form__create" 
                     method="post" 
                     action="{{ route('manage-users.store') }}"
@@ -93,7 +94,7 @@
                     <button class="btn btn-info text-white">Submit</button>
                     <a class="text-white ml-2 btn btn-primary" href="{{ route('manage-users.index') }}">Kembali</a>
 
-                </form>
+                </form> --}}
 
             </div>
         </div>
@@ -101,26 +102,18 @@
         <div class="col-12">
             <div class="main-card mb-3 card p-4">
 
-                <a id="btnBatal" style="display: none;" class="col-1 text-white mb-4 btn btn-primary" href="{{ route('manage-users.create') }}">Batal import</a>
+                <a id="btnBatal" style="display: none;" class="col-1 text-white mb-4 btn btn-primary"
+                    href="{{ route('manage-users.create') }}">Batal import</a>
 
-                <form 
-                    action="{{ route('import.excel') }}" 
-                    method="post" 
-                    enctype="multipart/form-data">
+                <form action="{{ route('import.excel') }}" method="post" enctype="multipart/form-data">
 
-                @csrf
+                    @csrf
 
                     <div class="input-group">
-                        <input
-                            style="height: calc(2.7rem + 2px)" 
-                            id="importExcel" 
-                            type="file" 
-                            name="file" 
-                            class="form-control" 
-                            placeholder="Recipient's username"
-                            aria-label="Recipient's username" 
+                        <input style="height: calc(2.7rem + 2px)" id="importExcel" type="file" name="file"
+                            class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
                             aria-describedby="button-addon2">
-                        
+
                         <button class="btn btn-primary" type="submit" id="button-addon2">Import</button>
                     </div>
                 </form>
@@ -130,7 +123,7 @@
 
         <div id="wrapperTable" style="display: none" class="col-12">
             <div class="main-card mb-3 card p-4">
-                <table  id="tableImport" class="table "></table>
+                <table id="tableImport" class="table "></table>
 
             </div>
         </div>
@@ -141,8 +134,7 @@
     <script src="https://unpkg.com/read-excel-file@4.x/bundle/read-excel-file.min.js"></script>
 
     <script type="text/javascript">
-      
-      var input = document.getElementById('importExcel')
+        var input = document.getElementById('importExcel')
         input.addEventListener('change', function() {
 
             document.getElementById('wrapperTable').style.display = 'block'
@@ -151,7 +143,7 @@
             readXlsxFile(input.files[0]).then(function(data) {
                 var i = 0;
                 data.map((row, index) => {
-                    if( i == 0){
+                    if (i == 0) {
                         let table = document.getElementById('tableImport');
                         generateHead(table, row)
                     }
@@ -162,14 +154,13 @@
         function generateHead(table, data) {
             let thead = table.createTHead();
             let row = thead.insertRow();
-            for(let key of data){
+            for (let key of data) {
                 let th = document.createElement('th');
                 let text = document.createTextNode(key);
                 th.appendChild(text);
                 row.appendChild(th)
             }
         }
-
     </script>
 
 @endpush
