@@ -20,7 +20,12 @@ class Divisi extends Model
     ];
 
     public function mahasiswa(){
-        return $this->belongsToMany(Mahasiswa::class);
+        // argument
+        // model class
+        // tabel barunya
+        // id pertama
+        // id kedua
+        return $this->belongsToMany(Mahasiswa::class, 'kmti_mahasiswa', 'kmti_id', 'mahasiswa_id');
     }
 
     /**

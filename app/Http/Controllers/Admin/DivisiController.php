@@ -15,7 +15,7 @@ class DivisiController extends Controller
     {
 
         $this->middleware('auth');
-        
+
     }
     /**
      * Display a listing of the resource.
@@ -30,8 +30,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -55,16 +55,16 @@ class DivisiController extends Controller
 
                     $btn = '<a href="manage-divisi/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
                     $btn .= '
-                    
+
                     <form action="manage-divisi/' . $row->id . '" method="POST" class="wrapper__delete">
                         ' . csrf_field() . '
                         ' . method_field("DELETE") . '
                         <button type="submit" class="btn btn-danger btn__delete"
-                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                            onclick="return confirm(\'apakah yakin ingin menghapus data??\')"
                             style="padding: .0em !important;font-size: xx-small;">Delete</button>
                     </form>';
                     $btn .= '<a href="manage-divisi/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
-                    
+
 
                     return $btn;
                 })
@@ -87,8 +87,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
         return view('admin.divisi.create');
@@ -108,8 +108,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -117,6 +117,7 @@ class DivisiController extends Controller
             "nama_divisi" => "required",
             "fungsi" => "required",
             "keterangan" => "required",
+            "foto" => 'required'
         ])->validate();
 
         DB::beginTransaction();
@@ -137,7 +138,7 @@ class DivisiController extends Controller
         DB::commit();
 
         return redirect()->route('manage-divisi.create')->with('success', ' Divisi successfully created');
-    
+
     }
 
     /**
@@ -165,8 +166,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -188,8 +189,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -221,7 +222,7 @@ class DivisiController extends Controller
         $new_divisi->save();
 
         DB::commit();
-        
+
         return redirect()->route('manage-divisi.edit', [$new_divisi->id])->with('success', 'Divisi successfully updated');
     }
 
@@ -238,8 +239,8 @@ class DivisiController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
