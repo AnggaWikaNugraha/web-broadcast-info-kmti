@@ -9,5 +9,5 @@ class DivisiMahasiswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'divisi_mahasiswa';
+    protected $table = 'kmti_mahasiswa';
 }

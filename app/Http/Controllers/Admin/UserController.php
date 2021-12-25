@@ -31,13 +31,13 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
-        $data = User::where('roles', '["mahasiswa"]')
+        $data = User::where('roles', 'mahasiswa')
             ->orderByDesc('created_at')
             ->get();
 
@@ -49,7 +49,7 @@ class UserController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('rolesMhs', function ($row) {
-                    return $row->roles == '["mahasiswa"]' ? 'Mahasiswa' : '';
+                    return $row->roles == 'mahasiswa' ? 'Mahasiswa' : '';
                 })
                 ->addColumn('name', function ($row) {
                     return $row->mahasiswa->name;
@@ -70,20 +70,20 @@ class UserController extends Controller
                     return $row->mahasiswa->angkatan;
                 })
                 ->addColumn('status', function ($row) {
-                    return $row->mahasiswa->status == '["anggota"]' ? '<div class="badge badge-warning">Anggota KMTI</div>' : '<div class="badge badge-success">Pengurus KMTI</div>';
+                    return $row->mahasiswa->status == 'anggota' ? '<div class="badge badge-warning">Anggota KMTI</div>' : '<div class="badge badge-success">Pengurus KMTI</div>';
                 })
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-users/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
 
-                    if (Auth::user()->roles == '["superadmin"]') {
+                    if (Auth::user()->roles == 'superadmin') {
                         $btn .= '
-                    
+
                         <form action="manage-users/' . $row->id . '" method="POST" class="wrapper__delete">
                             ' . csrf_field() . '
                             ' . method_field("DELETE") . '
                             <button type="submit" class="btn btn-danger btn__delete"
-                                onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                                onclick="return confirm(\'apakah yakin ingin menghapus data?\')"
                                 style="padding: .0em !important;font-size: xx-small;">Delete</button>
                         </form>';
                     }
@@ -112,8 +112,8 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -135,8 +135,8 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -208,7 +208,6 @@ class UserController extends Controller
     {
         $user = User::where('id', $id)->firstOrFail();
         $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
-
         return view('admin.users.detail', compact(
             'user',
             'mhs'
@@ -229,8 +228,8 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -255,8 +254,8 @@ class UserController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -303,7 +302,7 @@ class UserController extends Controller
             return redirect(route('show-change-password'));
         }
 
-        if (Auth::user()->roles != '["superadmin"]') {
+        if (Auth::user()->roles != 'superadmin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 

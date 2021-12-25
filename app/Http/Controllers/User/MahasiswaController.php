@@ -26,12 +26,12 @@ class MahasiswaController extends Controller
 
     public function index()
     {
-        
+
         if (Auth::user()->email_verified_at == null) {
             return redirect(route('show-change-password'));
         }
 
-        if (Auth::user()->roles != '["mahasiswa"]' ) {
+        if (Auth::user()->roles != 'mahasiswa' ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -67,8 +67,8 @@ class MahasiswaController extends Controller
 
         return view('user.dashboard', compact(
             'divisi',
-            'eventsActive', 
-            'info', 
+            'eventsActive',
+            'info',
             'infoMahasiswa',
             'events'));
     }
@@ -81,7 +81,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -125,7 +125,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -136,7 +136,7 @@ class MahasiswaController extends Controller
         $divisi = Divisi::findOrFail($id);
         return view('user.divisi-detail', compact('divisi'));
     }
-    
+
     public function event(Request $request)
     {
         if (Auth::user()->email_verified_at == null) {
@@ -144,7 +144,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -187,7 +187,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -208,7 +208,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -219,7 +219,7 @@ class MahasiswaController extends Controller
         $user = Auth::user();
 
         $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
-        
+
         return view('user.profile' , compact(
             'user',
             'mhs'
@@ -231,7 +231,7 @@ class MahasiswaController extends Controller
 
         $user = Auth::user();
         $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
-        
+
         return view('user.profile-edit' , compact(
             'user',
             'mhs'
@@ -249,7 +249,7 @@ class MahasiswaController extends Controller
         DB::beginTransaction();
 
         try {
-            
+
             $user = User::findOrFail($id);
 
             $user->mahasiswa()->update([
@@ -264,14 +264,14 @@ class MahasiswaController extends Controller
                 $mhs->divisi()->sync($request['divisi']);
             }
 
-            if ($request['status'] == '["anggota"]' ) {
-              
+            if ($request['status'] == 'anggota' ) {
+
                 $user->mahasiswa()->update([
                     'status' => $request['status']
                 ]);
 
                 DivisiMahasiswa::where('mahasiswa_id', $user->mahasiswa->id )->delete() ;
-                
+
             }else{
 
                 $user->mahasiswa()->update([
@@ -286,7 +286,7 @@ class MahasiswaController extends Controller
         }
 
         return redirect()->route('user.profile')->with('success', ' user successfully updated');
-        
+
     }
 
     public function compliting()
@@ -296,12 +296,12 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
         $user = Auth::user();
-        
+
         return view('user.profile-compliting' , compact(
             'user'
         ));
@@ -332,7 +332,7 @@ class MahasiswaController extends Controller
             }
 
             DB::commit();
-            
+
         }catch(\Throwable $th){
             dd($th);
             return false;
@@ -343,9 +343,9 @@ class MahasiswaController extends Controller
 
     public function searchDivisi(Request $request){
         $keyword = $request->get('q');
-       
+
         $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
-       
+
         return $info;
     }
 
@@ -357,7 +357,7 @@ class MahasiswaController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -378,13 +378,13 @@ class MahasiswaController extends Controller
                 ->addColumn('action', function ($row) use($mahasiswa) {
                     // $btn = '<a href="info/' . $row->id . '/detail" class="edit btn btn-primary btn-sm">Lihat info</a>';
                     $btn = '
-                    
+
                     <form action="info/' . $row->id . '/detail" method="POST" class="wrapper__delete" enctype="multipart/form-data">
                         ' . csrf_field() . '
                         ' . method_field("PATCH") . '
                         <button class="btn btn-info text-white">Lihat info</button>
                     </form>
-                    
+
                     ';
 
                     return $btn;
@@ -398,9 +398,9 @@ class MahasiswaController extends Controller
                     return $row->mahasiswa()->findOrFail($mahasiswa->id)->pivot->tanggal_kirim;
                 })
                 ->addColumn('status', function ($row) use($mahasiswa) {
-                    
+
                     $hasil = $row->mahasiswa()->findOrFail($mahasiswa->id)->pivot->status == 'active' ? ' <div class="badge badge-warning">Belum terbaca</div>' : '  <div class="badge badge-success">Sudah terbaca</div>';
-                    
+
                     return $hasil;
                 })
                 ->rawColumns(['action','tanggal_kirim', 'status', 'terkirim'])
@@ -413,13 +413,13 @@ class MahasiswaController extends Controller
 
     public function infoDetail($id)
     {
-        
+
         if (Auth::user()->email_verified_at == null) {
             return redirect(route('show-change-password'));
         }
 
         if (
-            Auth::user()->roles != '["mahasiswa"]') {
+            Auth::user()->roles != 'mahasiswa') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -444,6 +444,6 @@ class MahasiswaController extends Controller
 
 
         return redirect()->route('user.infoDetail', [$id])->with('success', 'Info successfully read');
-  
+
     }
 }
