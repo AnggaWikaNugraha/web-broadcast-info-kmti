@@ -17,7 +17,7 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
 {
 
     use Importable;
-    
+
     /**
     * @param array $row
     *
@@ -25,11 +25,12 @@ class UsersImport implements ToModel, WithHeadingRow, WithValidation
     */
     public function model(array $row)
     {
-      
+        // dd($row[1]);
         $new_users = User::create([
 
             'email'             => $row['email'],
             'password'          => Hash::make($row['nim']),
+            'roles'             => 'mahasiswa'
 
         ]);
         $new_users->mahasiswa()->create([

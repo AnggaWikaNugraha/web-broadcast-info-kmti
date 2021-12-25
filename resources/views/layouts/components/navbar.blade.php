@@ -76,9 +76,9 @@
                                             @else
 
                                             <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                               
-                                                {{ Auth::user()->roles == '["superadmin"]' ? 'login as superadmin' : '' }}
-                                                {{ Auth::user()->roles == '["admin"]' ? 'login as admin' : '' }}
+
+                                                {{ Auth::user()->roles == 'superadmin' ? 'login as superadmin' : '' }}
+                                                {{ Auth::user()->roles == 'admin' ? 'login as admin' : '' }}
 
                                                 <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                             </a>
@@ -88,7 +88,7 @@
                                                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                                             <span >LOGOUT</span>
                                                         </a>
-                                    
+
                                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                                             @csrf
                                                         </form>

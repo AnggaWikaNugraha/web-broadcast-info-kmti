@@ -25,12 +25,12 @@
                     </div>
                 @endif
 
-                {{-- <form 
-                    class="form__create" 
-                    method="post" 
+                {{-- <form
+                    class="form__create"
+                    method="post"
                     action="{{ route('manage-users.store') }}"
                     enctype="multipart/form-data">
-                    
+
                     @csrf
 
                     <div class="form-group row">
@@ -112,7 +112,7 @@
                     <div class="input-group">
                         <input style="height: calc(2.7rem + 2px)" id="importExcel" type="file" name="file"
                             class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-                            aria-describedby="button-addon2">
+                            required aria-describedby="button-addon2">
 
                         <button class="btn btn-primary" type="submit" id="button-addon2">Import</button>
                     </div>
