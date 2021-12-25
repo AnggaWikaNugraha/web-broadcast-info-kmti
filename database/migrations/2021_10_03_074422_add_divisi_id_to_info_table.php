@@ -14,8 +14,8 @@ class AddDivisiIdToInfoTable extends Migration
     public function up()
     {
         Schema::table('info', function (Blueprint $table) {
-            $table->unsignedBigInteger('divisi_id')->nullable();
-            $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('cascade');
+            $table->unsignedBigInteger('kmti_id')->nullable();
+            $table->foreign('kmti_id')->references('id')->on('kmti')->onDelete('cascade');
         });
     }
 
@@ -27,8 +27,8 @@ class AddDivisiIdToInfoTable extends Migration
     public function down()
     {
         Schema::table('info', function (Blueprint $table) {
-            $table->dropForeign('info_divisi_id_foreign');
-            $table->dropColumn('divisi_id');
+            $table->dropForeign('info_kmti_id_foreign');
+            $table->dropColumn('kmti_id');
         });
     }
 }

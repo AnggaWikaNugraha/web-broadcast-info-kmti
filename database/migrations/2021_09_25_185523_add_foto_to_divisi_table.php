@@ -13,7 +13,7 @@ class AddFotoToDivisiTable extends Migration
      */
     public function up()
     {
-        Schema::table('divisi', function (Blueprint $table) {
+        Schema::table('kmti', function (Blueprint $table) {
             $table->string('foto');
             $table->string('fungsi', 1000);
         });
@@ -26,7 +26,7 @@ class AddFotoToDivisiTable extends Migration
      */
     public function down()
     {
-        Schema::table('divisi', function (Blueprint $table) {
+        Schema::table('kmti', function (Blueprint $table) {
             $table->dropColumn('foto');
             $table->dropColumn('fungsi');
         });

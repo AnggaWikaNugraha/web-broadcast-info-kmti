@@ -13,13 +13,13 @@ class CreateDivisiMahasiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('divisi_mahasiswa', function (Blueprint $table) {
+        Schema::create('kmti_mahasiswa', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('divisi_id');
+            $table->unsignedBigInteger('kmti_id');
             $table->unsignedBigInteger('mahasiswa_id');
             $table->timestamps();
 
-            $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('cascade');
+            $table->foreign('kmti_id')->references('id')->on('kmti')->onDelete('cascade');
             $table->foreign('mahasiswa_id')->references('id')->on('mahasiswa')->onDelete('cascade');
         });
     }
@@ -31,6 +31,6 @@ class CreateDivisiMahasiswaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('divisi_mahasiswa');
+        Schema::dropIfExists('kmti_mahasiswa');
     }
 }

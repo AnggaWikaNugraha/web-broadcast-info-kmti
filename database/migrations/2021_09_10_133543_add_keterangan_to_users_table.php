@@ -13,7 +13,7 @@ class AddKeteranganToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('divisi', function (Blueprint $table) {
+        Schema::table('kmti', function (Blueprint $table) {
             $table-> string('keterangan', 25);
         });
     }
@@ -25,7 +25,7 @@ class AddKeteranganToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('divisi', function (Blueprint $table) {
+        Schema::table('kmti', function (Blueprint $table) {
             $table->dropColumn('keterangan');
         });
     }
