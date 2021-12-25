@@ -21,7 +21,7 @@
                                     <div class="offset-1 col-md-10">
                                         <input placeholder="Email" id="email" type="email"
                                             class="form-control @error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                            value="{{ old('email') }}" autocomplete="email" autofocus>
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -36,7 +36,7 @@
                                     <div class="offset-1 col-md-10">
                                         <input placeholder="Password" id="password" type="password"
                                             class="form-control @error('password') is-invalid @enderror" name="password"
-                                            required autocomplete="current-password">
+                                            autocomplete="current-password">
 
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">

@@ -24,13 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if ( Auth::user()->roles == '["superadmin"]' || Auth::user()->roles == '["admin"]' ){
+        if ( Auth::user()->roles == 'superadmin' || Auth::user()->roles == 'admin' ){
             return redirect()->route('dashboard');
         }
 
-        else if ( Auth::user()->roles == '["mahasiswa"]'){
+        else if ( Auth::user()->roles == 'mahasiswa'){
             return redirect()->route('user.dashboard');
         }
-        
+
     }
 }
