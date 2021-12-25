@@ -24,7 +24,7 @@
                                         <div class="offset-1 col-md-10">
                                             <input placeholder="Password" id="password" type="password"
                                                 class="form-control @error('password') is-invalid @enderror" name="password"
-                                                required autocomplete="current-password">
+                                                autocomplete="current-password">
 
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -38,8 +38,8 @@
 
                                         <div class="offset-1 col-md-10">
                                             <input placeholder="Password confirmation" id="password_confirmation"
-                                                type="password" class="form-control @error('password') is-invalid @enderror"
-                                                name="password_confirmation" required
+                                                type="password" class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                name="password_confirmation"
                                                 autocomplete="current-password-confirmation">
 
                                             @error('password_confirmation')

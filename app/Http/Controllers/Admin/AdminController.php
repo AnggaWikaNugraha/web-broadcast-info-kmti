@@ -23,19 +23,19 @@ class AdminController extends Controller
 
     public function index()
     {
-        
+
         if (Auth::user()->email_verified_at == null) {
             return redirect(route('show-change-password'));
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]' ) {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin' ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
         $users = User::where([
-            ['roles', '=', '["mahasiswa"]'],
+            ['roles', '=', 'mahasiswa'],
             ['email_verified_at', '!=', 'null'],
         ])->get()->count();
 
@@ -46,7 +46,7 @@ class AdminController extends Controller
         ])->get()->count();
 
         $usersActive = User::where([
-            ['roles', '=', '["mahasiswa"]'],
+            ['roles', '=', 'mahasiswa'],
             ['email_verified_at', '!=', 'null'],
         ])
         ->orderByDesc('email_verified_at')
@@ -63,9 +63,9 @@ class AdminController extends Controller
         return view('admin.dashboard', compact(
             'users',
             'usersActive',
-            'eventsActive', 
+            'eventsActive',
             'info',
-            'infoMahasiswa', 
+            'infoMahasiswa',
             'events'));
     }
 
@@ -78,12 +78,11 @@ class AdminController extends Controller
 
     public function ChangePassword(Request $request, $id)
     {
-
-
         $user = User::findOrFail($id);
 
         $request->validate([
-            'password' => 'required|confirmed|min:6'
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6'
         ]);
 
         DB::beginTransaction();
