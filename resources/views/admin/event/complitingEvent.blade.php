@@ -8,9 +8,9 @@
 
                 <div class="card-header pl-0 mb-4">Compliting Event</div>
 
-                <form 
-                    class="form__create" 
-                    method="post" 
+                <form
+                    class="form__create"
+                    method="post"
                     action="{{ route('save.compliting.event', $event->id) }}"
                     enctype="multipart/form-data">
                     @method('PATCH')
@@ -20,14 +20,13 @@
                         <label for="laporan-kegiatan" class="col-sm-2 col-form-label col-form-label-sm">Laporan Kegiatan Event :</label>
                         <div class="col-sm-10">
                             <input
-                                required
-                                accept=".xlsx,.docx" 
-                                style="height: calc(2.25rem + 2px)" 
-                                value="{{ old('laporan-kegiatan') }}" 
-                                type="file" 
-                                class="form-control form-control-sm" 
-                                id="laporan-kegiatan" 
-                                name="laporan-kegiatan" 
+                                accept=".xlsx,.docx"
+                                style="height: calc(2.25rem + 2px)"
+                                value="{{ old('laporan-kegiatan') }}"
+                                type="file"
+                                class="form-control form-control-sm"
+                                id="laporan-kegiatan"
+                                name="laporan-kegiatan"
                                 placeholder="Masukan laporan-kegiatan event">
                             <span class="err__fields">{{ $errors->first('laporan-kegiatan') }}</span>
                         </div>
@@ -37,14 +36,13 @@
                         <label for="laporan-keuangan" class="col-sm-2 col-form-label col-form-label-sm">Laporan Keuangan Event :</label>
                         <div class="col-sm-10">
                             <input
-                                required
-                                accept=".xlsx,.docx"  
+                                accept=".xlsx,.docx"
                                 style="height: calc(2.25rem + 2px)"
-                                value="{{ old('laporan-keuangan') }}" 
-                                type="file" 
-                                class="form-control form-control-sm" 
+                                value="{{ old('laporan-keuangan') }}"
+                                type="file"
+                                class="form-control form-control-sm"
                                 id="laporan-keuangan"
-                                name="laporan-keuangan" 
+                                name="laporan-keuangan"
                                 placeholder="Masukan laporan-keuangan event">
                             <span class="err__fields">{{ $errors->first('laporan-keuangan') }}</span>
                         </div>

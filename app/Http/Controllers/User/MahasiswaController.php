@@ -314,9 +314,9 @@ class MahasiswaController extends Controller
             "id_tele" =>  "required"
         ])->validate();
 
-        DB::beginTransaction();
-
         try {
+
+            DB::beginTransaction();
 
             $user = User::findOrFail($id);
 

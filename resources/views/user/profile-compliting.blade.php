@@ -15,7 +15,9 @@
                 <div class="position-relative row form-group"><label for="whatsapp"
                         class="col-sm-2 col-form-label">Whatsapp</label>
                     <div class="col-sm-9 offset-1"><input placeholder="08xxx" name="no_wa"
-                            value="{{ $user->mahasiswa->no_wa }}" id="whatsapp" class="form-control"></div>
+                            value="{{ $user->mahasiswa->no_wa }}" id="whatsapp" class="form-control">
+                            <span class="err__fields">{{ $errors->first('no_wa') }}</span>
+                        </div>
                 </div>
 
                 <div class="position-relative row form-group">
@@ -23,6 +25,7 @@
                     <div class="col-sm-9 offset-1">
                         <input placeholder="@" name="id_tele" value="{{ $user->mahasiswa->id_tele }}" id="Telegram"
                             class="form-control">
+                        <span class="err__fields">{{ $errors->first('id_tele') }}</span>
                     </div>
                 </div>
 

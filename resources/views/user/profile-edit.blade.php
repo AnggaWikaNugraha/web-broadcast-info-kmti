@@ -5,13 +5,13 @@
     <div class="main-card mb-3 card">
         <div class="card-body">
             <h5 class="card-header">Edit Profile</h5>
-            
+
            <form c
-                lass="mt-4" 
-                method="post" 
+                lass="mt-4"
+                method="post"
                 action="{{ route('user.profile.saveedit', $user->id) }}"
                 enctype="multipart/form-data">
-           
+
                 @method('PATCH')
                 @csrf
 
@@ -19,7 +19,7 @@
                     <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                     <div class="col-sm-9 offset-1"><input name="name" value="{{ $user->mahasiswa->name }}" id="nama" class="form-control"></div>
                 </div>
-                
+
                 <div class="position-relative row form-group">
                     <label for="nim" class="col-sm-2 col-form-label">Nim</label>
                     <div class="col-sm-9 offset-1"><input disabled name="nim" value="{{ $user->mahasiswa->nim }}" id="nim" class="form-control"></div>
@@ -54,13 +54,13 @@
                     <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                     <div class="col-sm-9 offset-1">
                         <select id="select-pengurus" class="custom-select custom-select-sm" name="status">
-                            <option {{ $user->mahasiswa->status == '["anggota"]' ? 'selected' : '' }} value='["anggota"]'>Anggota KMTI</option>
-                            <option {{ $user->mahasiswa->status == '["anggota", "pengurus"]' ? 'selected' : '' }} value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                            <option {{ $user->mahasiswa->status == 'anggota' ? 'selected' : '' }} value='anggota'>Anggota KMTI</option>
+                            <option {{ $user->mahasiswa->status == 'pengurus' ? 'selected' : '' }} value='pengurus'>Pengurus KMTI</option>
                         </select>
                     </div>
                 </div>
 
-                @if ($user->mahasiswa->status == '["anggota", "pengurus"]')
+                @if ($user->mahasiswa->status == 'pengurus')
                     <div class="position-relative row form-group">
                         <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
                         <div class="col-sm-9 offset-1">
@@ -72,7 +72,7 @@
                 <input class="btn btn-primary" type="submit" value="Simpan">
                 <a href="{{ route('user.profile') }}" class="btn btn-info">Kembali</a>
            </form>
-            
+
         </div>
     </div>
 

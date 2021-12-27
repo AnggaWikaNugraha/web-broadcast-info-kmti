@@ -62,7 +62,7 @@
                                         class="dropdown-menu dropdown-menu-right mt-3">
 
                                         @foreach (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)
-                                            <form 
+                                            <form
                                                 method="POST"
                                                 action="{{ route('user.infoRead', $item->info->id) }}"
                                                 enctype="multipart/form-data">
@@ -116,7 +116,7 @@
 
                                                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                                     class="p-0 btn">
-                                                    {{ Auth::user()->roles == '["mahasiswa"]' ? Auth::user()->mahasiswa->name : '' }}
+                                                    {{ Auth::user()->roles == 'mahasiswa' ? Auth::user()->mahasiswa->name : '' }}
                                                     <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                                 </a>
                                                 <div tabindex="-1" role="menu" aria-hidden="true"
