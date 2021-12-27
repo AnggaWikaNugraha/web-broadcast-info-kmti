@@ -390,10 +390,6 @@ class MahasiswaController extends Controller
                     return $btn;
 
                 })
-                ->addColumn('terkirim', function ($row) {
-                    $item = $row->divisi !== null?  $row->divisi->nama_divisi : '<div class="badge badge-info">Anggota KMTI</div>';
-                    return $item;
-                })
                 ->addColumn('tanggal_kirim', function ($row) use($mahasiswa) {
                     return $row->mahasiswa()->findOrFail($mahasiswa->id)->pivot->tanggal_kirim;
                 })
