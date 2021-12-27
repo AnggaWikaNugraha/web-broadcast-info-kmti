@@ -29,8 +29,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -54,12 +54,12 @@ class EventController extends Controller
 
                     $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
                     $btn .= '
-                    
+
                     <form action="manage-event/' . $row->id . '" method="POST" class="wrapper__delete">
                         ' . csrf_field() . '
                         ' . method_field("DELETE") . '
                         <button type="submit" class="btn btn-danger btn__delete"
-                            onclick="return confirm(\'Are You Sure Want to Delete?\')"
+                            onclick="return confirm(\'apakah yakin ingin menghapus data?\')"
                             style="padding: .0em !important;font-size: xx-small;">Delete</button>
                     </form>';
                     $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
@@ -85,8 +85,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -108,8 +108,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -196,8 +196,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -249,8 +249,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -294,7 +294,7 @@ class EventController extends Controller
         }
 
         $extentions = ['.xlsx', '.docx'];
-        
+
         if ($laporanKegiatan) {
             foreach ($extentions as $ext) {
                 if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
@@ -339,8 +339,8 @@ class EventController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' &&
-            Auth::user()->roles != '["admin"]'
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin'
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
@@ -358,6 +358,11 @@ class EventController extends Controller
 
     public function saveComplitingEvent(Request $request, $id)
     {
+
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+          "laporan-kegiatan" => "required",
+          "laporan-keuangan" => "required",
+      ])->validate();
 
         // handle image
         $laporanKegiatan = $request->file('laporan-kegiatan');
