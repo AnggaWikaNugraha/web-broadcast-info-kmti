@@ -14,7 +14,7 @@ class AddTerkirimInfoTable extends Migration
     public function up()
     {
         Schema::table('info', function (Blueprint $table) {
-            $table->string('terkirim', 15);
+            $table->string('terkirim', 35);
         });
     }
 

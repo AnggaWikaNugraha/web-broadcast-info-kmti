@@ -35,7 +35,7 @@ class Divisi extends Model
      */
     public function info(): HasOne
     {
-        return $this->hasOne(Info::class);
+        return $this->hasOne(Info::class, 'info_id');
     }
 
 }

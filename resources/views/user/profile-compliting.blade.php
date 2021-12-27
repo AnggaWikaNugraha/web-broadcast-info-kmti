@@ -34,8 +34,8 @@
                     <div class="col-sm-9 offset-1">
                         <select onchange="selecOptions()" id="select-pengurus" class="custom-select custom-select-sm "
                             name="status">
-                            <option value='["anggota"]'>Anggota KMTI</option>
-                            <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                            <option value='anggota'>Anggota KMTI</option>
+                            <option value='pengurus'>Pengurus KMTI</option>
                         </select>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
     <script type="text/javascript">
 
         function selecOptions() {
-            if (document.getElementById('select-pengurus').value === '["anggota", "pengurus"]') {
+            if (document.getElementById('select-pengurus').value === 'pengurus') {
                 document.getElementById('DivisiOptions').style.display = 'flex'
             } else {
                 document.getElementById('DivisiOptions').style.display = 'none'

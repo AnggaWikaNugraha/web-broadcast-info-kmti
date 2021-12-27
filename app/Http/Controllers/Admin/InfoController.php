@@ -20,7 +20,7 @@ class InfoController extends Controller
     {
 
         $this->middleware('auth');
-        
+
     }
 
     /**
@@ -35,8 +35,8 @@ class InfoController extends Controller
         }
 
         if (
-            Auth::user()->roles != '["superadmin"]' && 
-            Auth::user()->roles != '["admin"]') {
+            Auth::user()->roles != 'superadmin' &&
+            Auth::user()->roles != 'admin') {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
@@ -44,7 +44,7 @@ class InfoController extends Controller
 
         $mahasiswa = Mahasiswa::get();
         $angkatan = $mahasiswa->unique('angkatan');
-     
+
         if ($request->ajax()) {
 
             return Datatables::of($data)
@@ -97,16 +97,15 @@ class InfoController extends Controller
         $mahasiswa = [];
         $terkirim = null;
         $isi = [];
-
-        if($request['status'] == '["anggota"]' ){
+        if($request['status'] == 'anggota' ){
             $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
             $terkirim = 'Anggota KMTI';
-           
-            
+
+
             foreach ($mahasiswa as $value) {
                 array_push($isi, (object)[
                     'phone' => $value->no_wa,
-                    'message' => 
+                    'message' =>
 "*[INFO KMTI]*
 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
 
@@ -119,12 +118,12 @@ Pemberitahuan : " . $request['content'] ,
             }
 
         }
-        else if ($request['status'] == '["anggota", "pengurus"]' ){
+        else if ($request['status'] == 'pengurus' ){
 
             if ($request['divisi'] !== null) {
 
                 $mahasiswa = Mahasiswa::whereHas('divisi', function ($q) use($request) {
-                    $q->whereIn('divisi_id', [$request['divisi']]);
+                    $q->whereIn('kmti_id', [$request['divisi']]);
                 })->get();
                 $divisi = Divisi::findOrFail($request['divisi']);
                 $terkirim = $divisi->nama_divisi;
@@ -134,10 +133,10 @@ Pemberitahuan : " . $request['content'] ,
                 foreach ($mahasiswa as $value) {
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
-                        'message' => 
+                        'message' =>
 "*[INFO KMTI]*
 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
-                        
+
 Subject : " . $request['subject'] . "
 Terkirim ke : " . $terkirim . "
 Pemberitahuan : " . $request['content'] ,
@@ -151,14 +150,14 @@ Pemberitahuan : " . $request['content'] ,
                 // ambil semua pengurus kmti
                 $mahasiswa = Mahasiswa::where([
                     ['no_wa', '!=', null],
-                    ['status', '=', '["anggota", "pengurus"]' ]
+                    ['status', '=', 'pengurus' ]
                 ])->get();
                 $terkirim = 'Pengurus KMTI';
 
                 foreach ($mahasiswa as $value) {
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
-                        'message' => 
+                        'message' =>
 "*[INFO KMTI]*
 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
 
@@ -175,7 +174,7 @@ Pemberitahuan : " . $request['content'] ,
         }else if ($request['status'] == 'angkatan'){
 
             if ($request['status'] != null ) {
-                
+
                 $mahasiswa = Mahasiswa::where([
                     ['no_wa', '!=', null],
                     ['angkatan', '=', $request['angkatan'] ]
@@ -185,7 +184,7 @@ Pemberitahuan : " . $request['content'] ,
                 foreach ($mahasiswa as $value) {
                     array_push($isi, (object)[
                         'phone' => $value->no_wa,
-                        'message' => 
+                        'message' =>
 "*[INFO KMTI]*
 *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
 
@@ -202,7 +201,7 @@ Pemberitahuan : " . $request['content'] ,
             \Illuminate\Support\Facades\Validator::make($request->all(), [
                 "angkatan" => "required",
             ])->validate();
-                        
+
         }
 
         DB::beginTransaction();
@@ -221,7 +220,7 @@ Pemberitahuan : " . $request['content'] ,
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        $this->kirimWablas($payload);
+        // $this->kirimWablas($payload);
 
         DB::commit();
 
@@ -229,12 +228,12 @@ Pemberitahuan : " . $request['content'] ,
     }
 
     function kirimWablas($content)
-    {   
+    {
         $payload = $content;
-         
+
         $curl = curl_init();
         $token = env('WABLASS_TOKEN');
- 
+
         curl_setopt($curl, CURLOPT_HTTPHEADER,
             array(
                 "Authorization: $token",
@@ -247,10 +246,10 @@ Pemberitahuan : " . $request['content'] ,
         curl_setopt($curl, CURLOPT_URL, env('WABLASS_BRODCAST'));
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-    
+
         $result = curl_exec($curl);
-        curl_close($curl); 
-        
+        curl_close($curl);
+
         return $result;
     }
 
@@ -277,7 +276,7 @@ Pemberitahuan : " . $request['content'] ,
      */
     public function edit($id)
     {
-      
+
     }
 
     /**
@@ -305,9 +304,9 @@ Pemberitahuan : " . $request['content'] ,
 
     public function searchDivisi(Request $request){
         $keyword = $request->get('q');
-       
+
         $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
-       
+
         return $info;
     }
 

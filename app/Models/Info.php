@@ -29,7 +29,7 @@ class Info extends Model
      */
     public function divisi(): BelongsTo
     {
-        return $this->belongsTo(Divisi::class);
+        return $this->belongsTo(Divisi::class, 'kmti_id');
     }
 
 }

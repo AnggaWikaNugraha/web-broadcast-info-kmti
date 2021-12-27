@@ -34,8 +34,8 @@
                         <div class="col-sm-10">
                             <select id="select-pengurus" onchange="selecOptions()"
                                 class="custom-select custom-select-sm mr-sm-2" name="status">
-                                <option value='["anggota"]'>Anggota KMTI</option>
-                                <option value='["anggota", "pengurus"]'>Pengurus KMTI</option>
+                                <option value='anggota'>Anggota KMTI</option>
+                                <option value='pengurus'>Pengurus KMTI</option>
                                 <option value='angkatan'>Angkatan</option>
                             </select>
                             <span class="err__fields">{{ $errors->first('divisi') }}</span>
@@ -77,7 +77,7 @@
 
     <script type="text/javascript">
         function selecOptions() {
-            if (document.getElementById('select-pengurus').value === '["anggota", "pengurus"]') {
+            if (document.getElementById('select-pengurus').value === 'pengurus') {
                 document.getElementById('AngkatanOptions').style.display = 'none'
                 document.getElementById('SelectAngkatan').value = null
 
