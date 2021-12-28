@@ -1,7 +1,7 @@
 ## tugas-akhir-web-broadcast-info-kmti-pattern-mvc
 
 	Analisa Kebutuhan
-Setelah melakuan wawancara dengan klien terkait dengan user requirement pada penelitian, maka hasis dari analisa kebutuhan yang dilakukan oleh peneliti adalah sebagai berikut:
+##### Setelah melakuan wawancara dengan klien terkait dengan user requirement pada penelitian, maka hasil dari analisa kebutuhan yang dilakukan oleh peneliti adalah sebagai berikut:
 -   Sistem dapat melakukan broadcast melelui perantara pesan WhatsApp.
 -   Sistem dapat menyampaikan atau mengirimkan broadcast secara spesifik kepada audiance yang dituju.
 -   Pesan broadcast dapat tercatat atau tersimpan pada sebuah sistem database.
