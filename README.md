@@ -2,10 +2,10 @@
 
 	Analisa Kebutuhan
 Setelah melakuan wawancara dengan klien terkait dengan user requirement pada penelitian, maka hasis dari analisa kebutuhan yang dilakukan oleh peneliti adalah sebagai berikut:
-a.	Sistem dapat melakukan broadcast melelui perantara pesan WhatsApp.
-b.	Sistem dapat menyampaikan atau mengirimkan broadcast secara spesifik kepada audiance yang dituju.
-c.	Pesan broadcast dapat tercatat atau tersimpan pada sebuah sistem database.
-d.	Laporan kegiatan dan laporan keuangan pada event.
+-   Sistem dapat melakukan broadcast melelui perantara pesan WhatsApp.
+-   Sistem dapat menyampaikan atau mengirimkan broadcast secara spesifik kepada audiance yang dituju.
+-   Pesan broadcast dapat tercatat atau tersimpan pada sebuah sistem database.
+-   Laporan kegiatan dan laporan keuangan pada event.
 
 
 ![image](https://user-images.githubusercontent.com/37723902/147527795-89f8c394-1aea-4ede-8e25-c5fd7f16da14.png)
