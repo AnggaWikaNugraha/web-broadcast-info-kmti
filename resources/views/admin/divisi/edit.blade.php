@@ -44,7 +44,11 @@
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan :</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control form-control-sm" name="keterangan" id="keterangan" >{{ $divisi->keterangan }}</textarea>
+                            {{-- <textarea class="form-control form-control-sm" name="keterangan" id="keterangan" >{{ $divisi->keterangan }}</textarea> --}}
+                            <select name="keterangan" class="form-control" id="exampleFormControlSelect1">
+                                <option {{ $divisi->keterangan == 'Divisi KMTI' ? 'selected' : '' }} value="Divisi KMTI">Divisi KMTI</option>
+                                <option {{ $divisi->keterangan == 'Acara KMTI' ? 'selected' : '' }} value="Acara KMTI">Acara KMTI</option>
+                              </select>
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
                         </div>
                     </div>

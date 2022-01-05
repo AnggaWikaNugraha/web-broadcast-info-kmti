@@ -33,7 +33,7 @@
                         <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi :</label>
                         <div class="col-sm-10">
                             <textarea class="form-control form-control-sm" name="fungsi" id="fungsi"></textarea>
-                           
+
                             <span class="err__fields">{{ $errors->first('fungsi') }}</span>
                         </div>
                     </div>
@@ -41,7 +41,11 @@
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan :</label>
                         <div class="col-sm-10">
-                            <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea>
+                            {{-- <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea> --}}
+                            <select name="keterangan" class="form-control" id="exampleFormControlSelect1">
+                                <option value="Divisi KMTI">Divisi KMTI</option>
+                                <option value="Acara KMTI">Acara KMTI</option>
+                              </select>
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
                         </div>
                     </div>

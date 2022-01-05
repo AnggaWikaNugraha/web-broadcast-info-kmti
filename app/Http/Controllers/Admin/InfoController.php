@@ -220,7 +220,7 @@ Pemberitahuan : " . $request['content'] ,
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        // $this->kirimWablas($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 
