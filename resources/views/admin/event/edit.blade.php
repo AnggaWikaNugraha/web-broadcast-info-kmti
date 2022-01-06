@@ -32,11 +32,11 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal :</label>
+                        <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal mulai :</label>
                         <div class="col-sm-10">
-                            <input value="{{ $event->tanggal }}" type="date" class="form-control form-control-sm"
-                                id="tanggal" name="tanggal" placeholder="Masukan tanggal">
-                            <span class="err__fields">{{ $errors->first('tanggal') }}</span>
+                            <input value="{{ $event->tanggal_mulai }}" type="date" class="form-control form-control-sm"
+                                id="tanggal_mulai" name="tanggal_mulai" placeholder="Masukan tanggal">
+                            <span class="err__fields">{{ $errors->first('tanggal_mulai') }}</span>
                         </div>
                     </div>
 

@@ -117,7 +117,7 @@ class EventController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
             "foto" => "required",
-            "tanggal" => "required",
+            "tanggal_mulai" => "required",
             "jam_mulai" => "required",
             "jam_berakhir" => "required",
             "lokasi" => "required",
@@ -128,7 +128,7 @@ class EventController extends Controller
 
         $new_event = new Event();
         $new_event->nama = $request->get('nama');
-        $new_event->tanggal = $request->get('tanggal');
+        $new_event->tanggal_mulai = $request->get('tanggal_mulai');
         $new_event->jam_mulai = $request->get('jam_mulai');
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
@@ -257,7 +257,7 @@ class EventController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
-            "tanggal" => "required",
+            "tanggal_mulai" => "required",
             "jam_mulai" => "required",
             "jam_berakhir" => "required",
             "lokasi" => "required",
@@ -268,7 +268,7 @@ class EventController extends Controller
 
         $new_event = Event::findOrFail($id);
         $new_event->nama = $request->get('nama');
-        $new_event->tanggal = $request->get('tanggal');
+        $new_event->tanggal_mulai = $request->get('tanggal_mulai');
         $new_event->jam_mulai = $request->get('jam_mulai');
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');

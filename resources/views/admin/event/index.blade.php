@@ -23,7 +23,7 @@
                                 <th>#</th>
                                 <th>Nama</th>
                                 <th>Cover</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal mulai</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Berakhir</th>
                                 <th>Lokasi</th>
@@ -65,8 +65,8 @@
                         name: 'foto'
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal'
+                        data: 'tanggal_mulai',
+                        name: 'tanggal_mulai'
                     },
                     {
                         data: 'jam_mulai',
