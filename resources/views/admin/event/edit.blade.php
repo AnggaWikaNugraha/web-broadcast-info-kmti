@@ -41,6 +41,15 @@
                     </div>
 
                     <div class="form-group row">
+                        <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal berakhir :</label>
+                        <div class="col-sm-10">
+                            <input value="{{ $event->tanggal_berakhir }}" type="date" class="form-control form-control-sm"
+                                id="tanggal_berakhir" name="tanggal_berakhir" placeholder="Masukan tanggal">
+                            <span class="err__fields">{{ $errors->first('tanggal_berakhir') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label for="jam_mulai" class="col-sm-2 col-form-label col-form-label-sm">Jam mulai :</label>
                         <div class="col-sm-10">
                             <input value="{{ $event->jam_mulai }}" type="time" class="form-control form-control-sm"
@@ -128,6 +137,19 @@
                                 name="keterangan"
                                 placeholder="Masukan keterangan event">{{ $event->keterangan }}</textarea>
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="tipe_event" class="col-sm-2 col-form-label col-form-label-sm">Tipe event :</label>
+                        <div class="col-sm-10">
+                            {{-- <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea> --}}
+                            <select name="tipe_event" class="form-control" id="exampleFormControlSelect1">
+                                <option {{ $event->tipe_event == 'Event KMTI' ? 'selected' : '' }} value="Event KMTI">Event KMTI</option>
+                                <option {{ $event->tipe_event == 'Acara KMTI' ? 'selected' : '' }} value="Acara KMTI">Acara KMTI</option>
+                                <option {{ $event->tipe_event == 'Divisi KMTI' ? 'selected' : '' }} value="Divisi KMTI">Divisi KMTI</option>
+                              </select>
+                            <span class="err__fields">{{ $errors->first('tipe_event') }}</span>
                         </div>
                     </div>
 

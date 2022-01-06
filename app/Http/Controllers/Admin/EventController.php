@@ -118,10 +118,12 @@ class EventController extends Controller
             "nama" => "required",
             "foto" => "required",
             "tanggal_mulai" => "required",
+            "tanggal_berakhir" => 'required',
             "jam_mulai" => "required",
             "jam_berakhir" => "required",
             "lokasi" => "required",
             "keterangan" => "required",
+            "tipe_event" => "required",
         ])->validate();
 
         DB::beginTransaction();
@@ -129,11 +131,13 @@ class EventController extends Controller
         $new_event = new Event();
         $new_event->nama = $request->get('nama');
         $new_event->tanggal_mulai = $request->get('tanggal_mulai');
+        $new_event->tanggal_berakhir = $request->get('tanggal_berakhir');
         $new_event->jam_mulai = $request->get('jam_mulai');
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
         $new_event->status = 'belum-mulai';
+        $new_event->tipe_event = $request->get('tipe_event');
 
         // handle image
         $foto = $request->file('foto');
@@ -258,10 +262,13 @@ class EventController extends Controller
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
             "tanggal_mulai" => "required",
+            "tanggal_berakhir" => 'required',
             "jam_mulai" => "required",
             "jam_berakhir" => "required",
             "lokasi" => "required",
             "keterangan" => "required",
+            "tipe_event" => "required",
+
         ])->validate();
 
         DB::beginTransaction();
@@ -269,11 +276,13 @@ class EventController extends Controller
         $new_event = Event::findOrFail($id);
         $new_event->nama = $request->get('nama');
         $new_event->tanggal_mulai = $request->get('tanggal_mulai');
+        $new_event->tanggal_berakhir = $request->get('tanggal_berakhir');
         $new_event->jam_mulai = $request->get('jam_mulai');
         $new_event->jam_berakhir = $request->get('jam_berakhir');
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
         $new_event->status = $request->get('status');
+        $new_event->tipe_event = $request->get('tipe_event');
 
         // handle image and file
         $foto = $request->file('foto');

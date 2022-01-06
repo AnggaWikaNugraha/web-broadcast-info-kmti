@@ -14,11 +14,13 @@ class Event extends Model
     protected $fillable = [
         'nama',
         'foto',
-        'tanggal',
+        'tanggal_mulai',
         'jam_mulai',
         'jam_berakhir',
         'lokasi',
         'keterangan',
-        'status'
+        'status',
+        'tanggal_berakhir',
+        'tipe_event'
     ];
 }
