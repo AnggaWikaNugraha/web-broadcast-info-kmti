@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Mahasiswa;
+use App\Models\Info;
 
 class EventController extends Controller
 {
@@ -54,15 +55,17 @@ class EventController extends Controller
                 ->addColumn('action', function ($row) {
 
                     $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '
+                    if (Auth::user()->roles == 'superadmin') {
+                        $btn .= '
 
-                    <form action="manage-event/' . $row->id . '" method="POST" class="wrapper__delete">
-                        ' . csrf_field() . '
-                        ' . method_field("DELETE") . '
-                        <button type="submit" class="btn btn-danger btn__delete"
-                            onclick="return confirm(\'apakah yakin ingin menghapus data?\')"
-                            style="padding: .0em !important;font-size: xx-small;">Delete</button>
-                    </form>';
+                        <form action="manage-event/' . $row->id . '" method="POST" class="wrapper__delete">
+                            ' . csrf_field() . '
+                            ' . method_field("DELETE") . '
+                            <button type="submit" class="btn btn-danger btn__delete"
+                                onclick="return confirm(\'apakah yakin ingin menghapus data?\')"
+                                style="padding: .0em !important;font-size: xx-small;">Delete</button>
+                        </form>';
+                    }
                     $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
 
                     return $btn;
@@ -176,6 +179,14 @@ keterangan : " . $request['keterangan'],
         }
 
         $new_event->save();
+
+        $new_info = new Info();
+        $new_info->subject = $request->get('nama');
+        $new_info->content = $request->get('keterangan');
+        $new_info->terkirim = $terkirim;
+
+        $new_info->save();
+        $new_info->mahasiswa()->attach($mahasiswa);
         $payload = [ "data" => $isi];
 
         // dd($payload);
