@@ -144,8 +144,11 @@ class EventController extends Controller
 
 Subject : " . $request['nama'] . "
 Terkirim : " . $terkirim . "
-Pemberitahuan : KMTI mendadakan " . $request['nama'] . " yang akan dilaksanakan pada tanggal " . $request['tanggal_mulai'] . " sampai tanggal " . $request['tanggal_berakhir'] . " berlokasi di " . $request['lokasi']
-. " Untuk itu jangan lupa berpartisipasi dan ikut memeriahkan ya.
+Pemberitahuan : KMTI mendadakan " . $request['nama'] . " yang akan dilaksanakan :
+tanggal berlangsung : " . $request['tanggal_mulai'] . "
+tanggal berakhir : " . $request['tanggal_berakhir'] . "
+berlokasi di : " . $request['lokasi']. "
+Untuk itu jangan lupa berpartisipasi dan ikut memeriahkan ya. Tungguin harinya !
 keterangan : " . $request['keterangan'],
                     'secret' => false, // or true
                     'priority' => false, // or true
@@ -175,8 +178,8 @@ keterangan : " . $request['keterangan'],
         $new_event->save();
         $payload = [ "data" => $isi];
 
-        dd($payload);
-        // $this->kirimWablas($payload);
+        // dd($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 

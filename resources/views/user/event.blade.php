@@ -52,8 +52,8 @@
                         name: 'nama'
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal'
+                        data: 'tanggal_mulai',
+                        name: 'tanggal_mulai'
                     },
                     {
                         data: 'jam_mulai',
