@@ -16,8 +16,8 @@ use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 // landing page
-Route::get('/', function () { 
-    $eventsActive = Event::where([ ['status', '=', 'belum-mulai'],])->orderBy('tanggal', 'DESC')->get();
+Route::get('/', function () {
+    $eventsActive = Event::where([ ['status', '=', 'belum-mulai'],])->orderBy('tanggal_mulai', 'DESC')->get();
     $divisi = Divisi::where('keterangan', 'Divisi KMTI')->get();
     return view('welcome', compact('eventsActive','divisi'));
 });
@@ -35,8 +35,8 @@ Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'
 Route::patch('/change-password/{id}', [AdminController::class, 'ChangePassword'])->name('change-password');
 
 Route::resource('admin/manage-users', UserController::class);
-Route::post('/admin/manage-users/excel', function () { 
-        Excel::import( new UsersImport, request()->file('file')); 
+Route::post('/admin/manage-users/excel', function () {
+        Excel::import( new UsersImport, request()->file('file'));
     return back()->with('success', 'sukses import data'); })->name('import.excel');
 
 Route::resource('admin/manage-event', EventController::class);

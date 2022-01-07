@@ -84,7 +84,7 @@
                         </thead>
                         <tbody>
                             @foreach ($infoMahasiswa as $item)
-                               
+
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->subject }}</td>
@@ -93,7 +93,7 @@
                                 </tr>
 
                            @endforeach
-                           
+
                         </tbody>
                     </table>
                 </div>
@@ -120,7 +120,7 @@
                         </thead>
                         <tbody>
                             @foreach ($usersActive as $item)
-                               
+
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->mahasiswa->name}}</td>
@@ -130,7 +130,7 @@
                                 </tr>
 
                            @endforeach
-                           
+
                         </tbody>
                     </table>
                     <div class="d-block text-center card-footer">
@@ -159,18 +159,18 @@
                         </thead>
                         <tbody>
                             @foreach ($eventsActive as $item)
-                               
+
                                 <tr>
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->nama}}</td>
-                                    <td>{{ $item->tanggal}}</td>
+                                    <td>{{ $item->tanggal_mulai}}</td>
                                     <td>{{ $item->jam_mulai}} - {{ $item->jam_berakhir}}</td>
                                     <td>{{ $item->lokasi}}</td>
                                     <td style="text-align: center">{!! $item->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $item->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>' !!}</td>
                                 </tr>
 
                            @endforeach
-                           
+
                         </tbody>
                     </table>
                     <div class="d-block text-center card-footer">
