@@ -29,7 +29,7 @@
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $event->tanggal }}</div>
                     </div>
-                </div> 
+                </div>
 
                 <div class="form-group row">
                     <label for="jam_mulai" class="col-sm-2 col-form-label col-form-label-sm">Jam mulai - Jam berakhir:</label>
@@ -75,6 +75,12 @@
                             <a class="col-sm-9 offset-1" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan keuangan</a>
                         </div>
                     </div>
+                @endif
+
+                @if ($event->status == 'sudah-selesai')
+                    @if (!$laporanKeuangan && !$laporanKegiatan)
+                        <div class=" mt-4 badge badge-danger">!! event belum menlengkapi laporan keuangan dan laporan kegiatan !!</div>
+                    @endif
                 @endif
 
                 <a href="{{ route('manage-event.index') }}" class="mt-3 col-sm-2 btn btn-info text-white">Kembali</a>

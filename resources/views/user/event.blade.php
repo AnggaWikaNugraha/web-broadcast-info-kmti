@@ -14,10 +14,12 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal mulai</th>
+                                <th>Tanggal berakhir</th>
                                 <th>Jam Mulai</th>
                                 <th>Jam Berakhir</th>
                                 <th>Lokasi</th>
+                                <th>Tipe event</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -56,6 +58,10 @@
                         name: 'tanggal_mulai'
                     },
                     {
+                        data: 'tanggal_berakhir',
+                        name: 'tanggal_berakhir'
+                    },
+                    {
                         data: 'jam_mulai',
                         name: 'jam_mulai'
                     },
@@ -66,6 +72,10 @@
                     {
                         data: 'lokasi',
                         name: 'lokasi'
+                    },
+                    {
+                        data: 'tipe_event',
+                        name: 'tipe_event'
                     },
                     {
                         data: 'statusEvent',

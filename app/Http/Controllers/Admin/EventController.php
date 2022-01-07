@@ -241,10 +241,13 @@ keterangan : " . $request['keterangan'],
 
         $event = Event::findOrFail($id);
         $path = 'public/event/' . $id . '/files/';
-        if ($event->status == 'sudah-selesai') {
 
-            if (!Storage::exists($path)) {
-                return view('admin.event.complitingEvent', compact('event'));
+        if ( Auth::user()->roles == 'admin') {
+            if ($event->status == 'sudah-selesai') {
+
+                if (!Storage::exists($path)) {
+                    return view('admin.event.complitingEvent', compact('event'));
+                }
             }
         }
 

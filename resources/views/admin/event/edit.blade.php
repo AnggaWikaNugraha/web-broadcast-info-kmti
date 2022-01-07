@@ -153,6 +153,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+                        @if ($event->status == 'sudah-selesai')
+                            @if (!$laporanKeuangan && !$laporanKegiatan)
+                                <div class=" ml-5 mt-4 mb-4 badge badge-danger">!! event belum menlengkapi laporan keuangan dan laporan kegiatan !!</div>
+                            @endif
+                        @endif
+                    </div>
+
                     <button class="btn btn-info text-white">Submit</button>
 
                 </form>

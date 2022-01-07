@@ -32,6 +32,13 @@
                 </div>
 
                 <div class="card-header form-group row">
+                    <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal berakhir Event :</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-9 offset-1">{{ $event->tanggal_berakhir }}</div>
+                    </div>
+                </div>
+
+                <div class="card-header form-group row">
                     <label for="jam_mulai" class="col-sm-2 col-form-label col-form-label-sm">Jam mulai :</label>
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $event->jam_mulai }}</div>
@@ -49,6 +56,13 @@
                     <label for="lokasi" class="col-sm-2 col-form-label col-form-label-sm">Lokasi Event :</label>
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $event->lokasi }}</div>
+                    </div>
+                </div>
+
+                <div class="card-header form-group row">
+                    <label for="lokasi" class="col-sm-2 col-form-label col-form-label-sm">Tipe Event :</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-9 offset-1">{{ $event->tipe_event }}</div>
                     </div>
                 </div>
 
