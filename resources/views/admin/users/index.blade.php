@@ -16,20 +16,36 @@
                     </div>
                 </div>
 
-                <div class="row mt-4">
-                    <div class="col-3 d-flex align-items-center">
-                        <label class="col-6 pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter
-                            berdasarkan angkatan : </label>
+                <div style="display: flex; width: 100%">
+                    <div style="width: 50%" class="row mt-4">
+                        <div class="d-flex align-items-center">
+                            <label class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter angkatan : </label>
 
-                        <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
-                            <option value="">Pilih angkatan</option>
-                            
-                            @foreach ($angkatan as $item)
-                                <option>{{ $item->angkatan}}</option>
-                            @endforeach
+                            <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
+                                <option value="">Pilih angkatan</option>
 
-                        </select>
-                        <br /> <br />
+                                @foreach ($angkatan as $item)
+                                    <option>{{ $item->angkatan}}</option>
+                                @endforeach
+
+                            </select>
+                            <br /> <br />
+                        </div>
+                    </div>
+
+                    <div style="width: 50%" class="row mt-4">
+                        <div class=" d-flex align-items-center">
+                            <label class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-status">Filter status: </label>
+
+                            <select data-column="1" class="form-control form-select-sm" id="filter-status">
+                                <option value="">Pilih status</option>
+
+                                <option>Anggota KMTI</option>
+                                <option>Pengurus KMTI</option>
+
+                            </select>
+                            <br /> <br />
+                        </div>
                     </div>
                 </div>
 
@@ -118,13 +134,32 @@
 
             //filter Berdasarkan satuan product
             $('#filter-satuan').change(function() {
+                var filter = document.getElementById('filter-satuan')
+                if(filter.value !== ''){
+                    document.getElementById('DataTables_Table_0_filter').style.display = 'none'
+                }else{
+                    document.getElementById('DataTables_Table_0_filter').style.display = 'block'
+                }
 
-            table
-                .search($(this).val())
-                .draw();
+                table
+                    .search($(this).val())
+                    .draw();
 
             });
 
+            $('#filter-status').change(function() {
+                var filter = document.getElementById('filter-status')
+                if(filter.value !== ''){
+                    document.getElementById('DataTables_Table_0_filter').style.display = 'none'
+                }else{
+                    document.getElementById('DataTables_Table_0_filter').style.display = 'block'
+                }
+
+                table
+                    .search($(this).val())
+                    .draw();
+
+            });
         });
     </script>
 
