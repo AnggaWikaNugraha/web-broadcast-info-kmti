@@ -25,7 +25,7 @@
                     </div>
                 @endif
 
-                {{-- <form
+                <form
                     class="form__create"
                     method="post"
                     action="{{ route('manage-users.store') }}"
@@ -80,7 +80,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                         <div class="col-sm-10">
                             <select class="custom-select custom-select-sm mr-sm-2" name="roles">
@@ -89,12 +89,12 @@
                                     <option value=' ["superadmin"]'>Super Admin</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <button class="btn btn-info text-white">Submit</button>
                     <a class="text-white ml-2 btn btn-primary" href="{{ route('manage-users.index') }}">Kembali</a>
 
-                </form> --}}
+                </form>
 
             </div>
         </div>

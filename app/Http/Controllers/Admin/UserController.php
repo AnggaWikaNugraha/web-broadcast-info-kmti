@@ -140,7 +140,7 @@ class UserController extends Controller
         ) {
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
-
+        // dd($request->all());
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "name" => "required",
             // "nim" => "required|min:11|max:12",
@@ -173,6 +173,7 @@ class UserController extends Controller
             $new_user = new \App\Models\User();
             $new_user->email = $request['email'];
             $new_user->password = Hash::make($request['nim']);
+            $new_user->roles = 'mahasiswa';
             $new_user->save();
 
             $new_user->user_id = $new_user->id;
