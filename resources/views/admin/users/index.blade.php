@@ -17,7 +17,7 @@
                 </div>
 
                 <div style="display: flex; width: 100%">
-                    <div style="width: 50%" class="row mt-4">
+                    {{-- <div style="width: 50%" class="row mt-4">
                         <div class="d-flex align-items-center">
                             <label style="width: 75%" class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter angkatan : </label>
 
@@ -31,19 +31,19 @@
                             </select>
                             <br /> <br />
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div style="width: 50%" class="row mt-4">
-                        <div class=" d-flex align-items-center">
-                            <label style="width: 70%" class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-status">Filter status: </label>
+                        <div style="width: 50%" class=" d-flex align-items-center">
+                            <label style="width: 20%" class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-status">Filter status: </label>
 
-                            <select data-column="1" class="form-control form-select-sm" id="filter-status">
+                            <select style="width: 50%" data-column="1" class="form-control form-select-sm" id="filter-status">
                                 <option value="">Pilih status</option>
 
                                 <option>Anggota KMTI</option>
                                 <option>Pengurus KMTI</option>
                                 <option>VERIFIED</option>
-                                <option>Need Registrasi</option>
+                                <option>Need Registration</option>
 
                             </select>
                             <br /> <br />
