@@ -19,7 +19,7 @@
                 <div style="display: flex; width: 100%">
                     <div style="width: 50%" class="row mt-4">
                         <div class="d-flex align-items-center">
-                            <label class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter angkatan : </label>
+                            <label style="width: 75%" class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-satuan">Filter angkatan : </label>
 
                             <select data-column="1" class="form-control form-select-sm" id="filter-satuan">
                                 <option value="">Pilih angkatan</option>
@@ -35,13 +35,15 @@
 
                     <div style="width: 50%" class="row mt-4">
                         <div class=" d-flex align-items-center">
-                            <label class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-status">Filter status: </label>
+                            <label style="width: 70%" class="pl-0 pr-0 mr-1" style="font-size: 12px" for="filter-status">Filter status: </label>
 
                             <select data-column="1" class="form-control form-select-sm" id="filter-status">
                                 <option value="">Pilih status</option>
 
                                 <option>Anggota KMTI</option>
                                 <option>Pengurus KMTI</option>
+                                <option>VERIFIED</option>
+                                <option>Need Registrasi</option>
 
                             </select>
                             <br /> <br />
@@ -58,9 +60,8 @@
                                 <th>nim</th>
                                 <th>angkatan</th>
                                 <th>Email</th>
-                                <th>Whatsapp</th>
-                                <th>Telegram</th>
                                 <th>Status</th>
+                                <th>Akun Verifikasi</th>
                                 <th>Jenis kelamin</th>
                                 <th>Actions</th>
                             </tr>
@@ -108,16 +109,12 @@
                         name: 'email'
                     },
                     {
-                        data: 'whatsapp',
-                        name: 'whatsapp'
-                    },
-                    {
-                        data: 'telegram',
-                        name: 'telegram'
-                    },
-                    {
                         data: 'status',
                         name: 'status'
+                    },
+                    {
+                        data: 'verfikasi',
+                        name: 'verfikasi'
                     },
                     {
                         data: 'jenis_kelamin',

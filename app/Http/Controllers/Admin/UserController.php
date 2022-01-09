@@ -51,6 +51,9 @@ class UserController extends Controller
                 ->addColumn('rolesMhs', function ($row) {
                     return $row->roles == 'mahasiswa' ? 'Mahasiswa' : '';
                 })
+                ->addColumn('verfikasi', function ($row) {
+                    return $row->email_verified_at !== null ? '<div class="badge badge-info">Verified</div>' : '<div class="badge badge-secondary">Need Registrasi</div>';
+                })
                 ->addColumn('name', function ($row) {
                     return $row->mahasiswa->name;
                 })
@@ -92,7 +95,7 @@ class UserController extends Controller
 
                     return $btn;
                 })
-                ->rawColumns(['action', 'nim', 'jenis_kelamin', 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs'])
+                ->rawColumns(['action', 'nim', 'jenis_kelamin', 'whatsapp', 'telegram', 'status', 'angkatan', 'rolesMhs', 'verfikasi'])
                 ->make(true);
         }
 
