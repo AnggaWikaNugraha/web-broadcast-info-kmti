@@ -143,7 +143,7 @@
         <div class="col-md-6">
             <div class="main-card mb-3 card">
 
-                <div class="card-header">Event terdekat</div>
+                <div class="card-header">Event terdekat KMTI</div>
 
                 <div class="table-responsive">
                     <table class="align-middle mb-0 table table-borderless table-striped table-hover">
