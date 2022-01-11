@@ -56,7 +56,7 @@ class MahasiswaController extends Controller
         $eventsActive = Event::where([
             ['status', '=', 'belum-mulai'],
         ])
-        ->orderBy('tanggal', 'DESC')
+        ->orderBy('tanggal_mulai', 'DESC')
         ->paginate(5);
 
         $infoMahasiswa = Info::whereHas('mahasiswa', function($q) use($mahasiswa){
