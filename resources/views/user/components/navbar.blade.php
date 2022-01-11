@@ -44,7 +44,7 @@
                 <div class="widget-content p-0">
                     <div class="widget-content-wrapper">
 
-                        {{-- <div class="widget-content-left">
+                        <div class="widget-content-left">
                             <div class="btn-group" style="position: relative;">
 
                                 @if (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() > 0)
@@ -54,7 +54,7 @@
                                         <i class="fa fa-bell" aria-hidden="true"></i>
 
                                         <span
-                                            style="position: absolute; top: -10px; left: 15px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}+</span>
+                                            style="position: absolute; top: -10px; left: 15px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}</span>
 
 
                                     </a>
@@ -88,7 +88,7 @@
 
 
                             </div>
-                        </div> --}}
+                        </div>
 
                         <div class="widget-content-left  ml-3 header-user-info">
                             <div class="widget-heading">

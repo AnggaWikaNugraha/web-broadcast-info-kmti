@@ -190,7 +190,7 @@ keterangan : " . $request['keterangan'],
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        $this->kirimWablas($payload);
+        // $this->kirimWablas($payload);
 
         DB::commit();
 
