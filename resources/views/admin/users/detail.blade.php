@@ -23,7 +23,7 @@
 
                     </div>
 
-                    @if ($user->mahasiswa->now_wa || $user->mahasiswa->id_tele == null )
+                    @if ($user->mahasiswa->no_wa || $user->mahasiswa->id_tele == null )
                         <div class=" mt-4 badge badge-danger">!! Akun belum teregistrasi !!</div>
                     @endif
 

@@ -21,7 +21,7 @@
                         <thead class="thead__dark">
                             <tr>
                                 <th>#</th>
-                                <th>Nama Divisi</th>
+                                <th>Nama</th>
                                 <th>Fungsi</th>
                                 <th>Keterangan</th>
                                 <th>Actions</th>

@@ -35,6 +35,7 @@ Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'
 Route::patch('/change-password/{id}', [AdminController::class, 'ChangePassword'])->name('change-password');
 
 Route::resource('admin/manage-users', UserController::class);
+Route::get('ajax/admin/divisi/search', [UserMahasiswaController::class, 'searchDivisi'])->name('admin.search.divisi');
 Route::post('/admin/manage-users/excel', function () {
         Excel::import( new UsersImport, request()->file('file'));
     return back()->with('success', 'sukses import data'); })->name('import.excel');

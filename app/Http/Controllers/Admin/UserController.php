@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mahasiswa;
+use App\Models\DivisiMahasiswa;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -238,9 +239,10 @@ class UserController extends Controller
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
 
-        return view('admin.users.edit', [
-            'user' => User::findOrFail($id)
-        ]);
+        $user = User::findOrFail($id);
+        $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+
+        return view('admin.users.edit',compact('user', 'mhs'));
     }
 
     /**
@@ -285,6 +287,26 @@ class UserController extends Controller
 
             ]);
 
+            if($request['divisi']){
+                $mhs = Mahasiswa::where('user_id', $user->id)->firstOrFail();
+                $mhs->divisi()->sync($request['divisi']);
+            }
+
+            if ($request['status'] == 'anggota' ) {
+
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
+
+                DivisiMahasiswa::where('mahasiswa_id', $user->mahasiswa->id )->delete() ;
+
+            }else{
+
+                $user->mahasiswa()->update([
+                    'status' => $request['status']
+                ]);
+            }
+
             DB::commit();
         } catch (\Throwable $th) {
             return false;
@@ -315,4 +337,13 @@ class UserController extends Controller
 
         return redirect()->route('manage-users.index')->with('success', 'User successfully deleted');
     }
+
+    public function searchDivisi(Request $request){
+        $keyword = $request->get('q');
+
+        $info = \App\Models\Divisi::where("nama_divisi", "LIKE", "%$keyword%")->get();
+
+        return $info;
+    }
+
 }

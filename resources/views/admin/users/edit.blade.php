@@ -68,6 +68,27 @@
                         </div>
                     </div>
 
+                    @if ($user->mahasiswa->no_wa)
+                        <div class="position-relative row form-group">
+                            <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Status :</label>
+                            <div class="col-sm-10 ">
+                                <select onchange="selecOptions()" id="select-pengurus" class="custom-select custom-select-sm "
+                                    name="status">
+                                    <option {{ $user->mahasiswa->status == 'anggota' ? 'selected' : '' }} value='anggota'>Anggota KMTI</option>
+                                    <option {{ $user->mahasiswa->status == 'pengurus' ? 'selected' : '' }} value='pengurus'>Pengurus KMTI</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="WrappSelectDivisi" class="position-relative row form-group">
+                                <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
+                                <div class="col-sm-10">
+                                    <select id="SelectDivisi" multiple  class="custom-select custom-select-sm" name="divisi[]"></select>
+                                </div>
+                        </div>
+
+                    @endif
+
                     <button class="btn btn-info text-white">Submit</button>
 
                 </form>
@@ -76,3 +97,54 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+    <script type="text/javascript">
+
+        $('#SelectDivisi').select2({
+            ajax: {
+                url: '{{ route('admin.search.divisi') }}',
+                processResults: function(data) {
+                    return {
+                        results: data.map(function(item) {
+                            return {
+                                id: item.id,
+                                text: item.nama_divisi
+                            }
+                        })
+                    }
+                }
+            }
+        });
+
+        if (document.getElementById('select-pengurus').value === 'pengurus') {
+            document.getElementById('WrappSelectDivisi').style.display = 'flex'
+            document.getElementById("SelectDivisi").setAttribute('required','required');
+        } else {
+            document.getElementById('WrappSelectDivisi').style.display = 'none'
+            document.getElementById("SelectDivisi").required =false;
+        }
+
+        var divisi = {!! $mhs->divisi !!}
+        divisi.forEach(function(category){
+            var option = new Option(category.nama_divisi, category.id, true, true);
+            $('#SelectDivisi').append(option).trigger('change');
+        });
+
+        function selecOptions() {
+            if (document.getElementById('select-pengurus').value === 'pengurus') {
+                document.getElementById('WrappSelectDivisi').style.display = 'flex'
+                document.getElementById("SelectDivisi").setAttribute('required','required');
+            } else {
+                $("#SelectDivisi option[value]").remove();
+                document.getElementById('WrappSelectDivisi').style.display = 'none'
+                document.getElementById("SelectDivisi").required =false;
+            }
+        }
+
+
+    </script>
+
+@endpush
