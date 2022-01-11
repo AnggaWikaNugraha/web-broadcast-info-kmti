@@ -53,21 +53,19 @@
                 <div class="position-relative row form-group">
                     <label for="roles" class="col-sm-2 col-form-label col-form-label-sm">Roles :</label>
                     <div class="col-sm-9 offset-1">
-                        <select id="select-pengurus" class="custom-select custom-select-sm" name="status">
+                        <select onchange="selecOptions()" id="select-pengurus" class="custom-select custom-select-sm" name="status">
                             <option {{ $user->mahasiswa->status == 'anggota' ? 'selected' : '' }} value='anggota'>Anggota KMTI</option>
                             <option {{ $user->mahasiswa->status == 'pengurus' ? 'selected' : '' }} value='pengurus'>Pengurus KMTI</option>
                         </select>
                     </div>
                 </div>
 
-                @if ($user->mahasiswa->status == 'pengurus')
-                    <div class="position-relative row form-group">
+                <div id="WrappSelectDivisi" class="position-relative row form-group">
                         <label for="Telegram" class="col-sm-2 col-form-label">Divisi</label>
                         <div class="col-sm-9 offset-1">
                             <select id="SelectDivisi" multiple  class="custom-select custom-select-sm" name="divisi[]"></select>
                         </div>
-                    </div>
-                @endif
+                </div>
 
                 <input class="btn btn-primary" type="submit" value="Simpan">
                 <a href="{{ route('user.profile') }}" class="btn btn-info">Kembali</a>
@@ -99,12 +97,30 @@
             }
         });
 
-        var divisi = {!! $mhs->divisi !!}
+        if (document.getElementById('select-pengurus').value === 'pengurus') {
+            document.getElementById('WrappSelectDivisi').style.display = 'flex'
+            document.getElementById("SelectDivisi").setAttribute('required','required');
+        } else {
+            document.getElementById('WrappSelectDivisi').style.display = 'none'
+            document.getElementById("SelectDivisi").required =false;
+        }
 
+        var divisi = {!! $mhs->divisi !!}
         divisi.forEach(function(category){
             var option = new Option(category.nama_divisi, category.id, true, true);
             $('#SelectDivisi').append(option).trigger('change');
         });
+
+        function selecOptions() {
+            if (document.getElementById('select-pengurus').value === 'pengurus') {
+                document.getElementById('WrappSelectDivisi').style.display = 'flex'
+                document.getElementById("SelectDivisi").setAttribute('required','required');
+            } else {
+                $("#SelectDivisi option[value]").remove();
+                document.getElementById('WrappSelectDivisi').style.display = 'none'
+                document.getElementById("SelectDivisi").required =false;
+            }
+        }
 
 
     </script>
