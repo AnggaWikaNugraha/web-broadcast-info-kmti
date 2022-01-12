@@ -73,7 +73,14 @@ class EventController extends Controller
                     if (Auth::user()->roles == 'admin') {
                         if ($row->status == 'sudah-selesai') {
                             if (!Storage::exists($path)) {
-                                $btn .= '<a href="/event/compliting/' . $row->id  . '/edit" class="edit ml-1 btn btn-secondary btn-sm">Submit laporan</a>';
+                                $btn .= '<a href="/event/compliting/' . $row->id  . '/submit-laporan" class="edit ml-1 btn btn-success btn-sm">Submit laporan</a>';
+                            }
+                        }
+                    }
+                    if (Auth::user()->roles == 'admin') {
+                        if ($row->status == 'sudah-selesai') {
+                            if (Storage::exists($path)) {
+                                $btn .= '<a href="/event/compliting/' . $row->id  . '/edit-laporan" class="edit ml-1 btn btn-secondary btn-sm">Edit laporan</a>';
                             }
                         }
                     }
@@ -401,6 +408,21 @@ keterangan : " . $request['keterangan'],
         return view('admin.event.complitingEvent');
     }
 
+    function ShowSaveCompliting($id)
+    {
+        $event = Event::findOrFail($id);
+        $path = 'public/event/' . $id . '/files/';
+
+        if ( Auth::user()->roles == 'admin') {
+            if ($event->status == 'sudah-selesai') {
+
+                if (!Storage::exists($path)) {
+                    return view('admin.event.complitingEvent', compact('event'));
+                }
+            }
+        }
+    }
+
     public function saveComplitingEvent(Request $request, $id)
     {
 
@@ -425,7 +447,7 @@ keterangan : " . $request['keterangan'],
         return redirect()->route('manage-event.index');
     }
 
-    function ShowSaveCompliting($id)
+    function ShowEditCompliting($id)
     {
         $event = Event::findOrFail($id);
         $path = 'public/event/' . $id . '/files/';
@@ -433,11 +455,54 @@ keterangan : " . $request['keterangan'],
         if ( Auth::user()->roles == 'admin') {
             if ($event->status == 'sudah-selesai') {
 
-                if (!Storage::exists($path)) {
-                    return view('admin.event.complitingEvent', compact('event'));
+                return view('admin.event.editComplitingEvent', compact('event'));
+            }
+        }
+    }
+
+    public function SaveShowEditCompliting(Request $request, $id)
+    {
+
+        \Illuminate\Support\Facades\Validator::make($request->all(), [
+          "laporan-kegiatan" => "required",
+          "laporan-keuangan" => "required",
+      ])->validate();
+
+        // dd($request);
+
+        $NewLaporanKegiatan = $request->file('laporan-kegiatan');
+        $NewLaporanKeuangan = $request->file('laporan-keuangan');
+        $laporanKegiatan = $request->file('laporan-kegiatan');
+        $laporanKeuangan = $request->file('laporan-keuangan');
+
+        $path = 'public/event/' . $id . '/files/';
+        $extentions = ['.xlsx', '.docx'];
+
+        if ($laporanKegiatan) {
+            foreach ($extentions as $ext) {
+                if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+                    $laporanKegiatan = $path . 'laporan-kegiatan' . $ext;
+                    Storage::delete($laporanKegiatan);
                 }
             }
         }
+        if ($NewLaporanKegiatan) {
+            Storage::putFileAs($path, $NewLaporanKegiatan, 'laporan-kegiatan.' . pathinfo($_FILES['laporan-kegiatan']['name'], PATHINFO_EXTENSION));
+        }
+
+        if ($laporanKeuangan) {
+            foreach ($extentions as $ext) {
+                if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+                    $laporanKeuangan = $path . 'laporan-keuangan' . $ext;
+                    Storage::delete($laporanKeuangan);
+                }
+            }
+        }
+        if ($NewLaporanKeuangan) {
+            Storage::putFileAs($path, $NewLaporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
+        }
+
+        return redirect()->route('manage-event.index');
     }
 
     function kirimWablas($content)
