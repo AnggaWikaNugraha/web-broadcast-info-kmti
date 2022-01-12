@@ -93,43 +93,6 @@
                         </div>
                     </div>
 
-                    @if ($event->status == 'sudah-selesai')
-                        <div class="form-group row">
-                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan kegiatan :</label>
-                            <div class="col-sm-5">
-                                <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-kegiatan') }}" type="file"
-                                    class="form-control form-control-sm" id="laporan-kegiatan" name="laporan-kegiatan"
-                                    placeholder="Masukan laporan-kegiatan event">
-                                <span class="err__fields">{{ $errors->first('laporan-kegiatan') }}</span>
-                            </div>
-                            @if ($laporanKegiatan)
-                                <div class="col-sm-5">
-                                    <a class="col-sm-10" href="{{ Storage::url($laporanKegiatan) }}">Download Laporan
-                                        kegiatan</a>
-
-                                </div>
-                            @endif
-                        </div>
-                    @endif
-
-                    @if ($event->status == 'sudah-selesai')
-                        <div class="form-group row">
-                            <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan keuangan :</label>
-                            <div class="col-sm-5">
-                                <input style="height: calc(2.25rem + 2px)" value="{{ old('laporan-keuangan') }}" type="file"
-                                    class="form-control form-control-sm" id="laporan-keuangan" name="laporan-keuangan"
-                                    placeholder="Masukan laporan-keuangan event">
-                                <span class="err__fields">{{ $errors->first('laporan-keuangan') }}</span>
-                            </div>
-                            @if ($laporanKeuangan)
-                                <div class="col-sm-5">
-                                    <a class="col-sm-10" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan
-                                        keuangan</a>
-                                </div>
-                            @endif
-                        </div>
-                    @endif
-
                     <div class="form-group row">
                         <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">keterangan Event :</label>
                         <div class="col-sm-10">
@@ -139,19 +102,6 @@
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
                         </div>
                     </div>
-
-                    {{-- <div class="form-group row">
-                        <label for="tipe_event" class="col-sm-2 col-form-label col-form-label-sm">Tipe event :</label>
-                        <div class="col-sm-10">
-                            <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea>
-                            <select name="tipe_event" class="form-control" id="exampleFormControlSelect1">
-                                <option {{ $event->tipe_event == 'Event KMTI' ? 'selected' : '' }} value="Event KMTI">Event KMTI</option>
-                                <option {{ $event->tipe_event == 'Acara KMTI' ? 'selected' : '' }} value="Acara KMTI">Acara KMTI</option>
-                                <option {{ $event->tipe_event == 'Divisi KMTI' ? 'selected' : '' }} value="Divisi KMTI">Divisi KMTI</option>
-                              </select>
-                            <span class="err__fields">{{ $errors->first('tipe_event') }}</span>
-                        </div>
-                    </div> --}}
 
                     <div class="form-group row">
                         @if ($event->status == 'sudah-selesai')
@@ -170,3 +120,21 @@
     </div>
 
 @endsection
+@push('script')
+    <script type="text/javascript">
+    var date           = new Date();
+    var day            = date.getDate()
+    var month          = date.getMonth()+1
+    var year           = date.getFullYear()
+    if(day < 10){
+        day  = '0'+ day
+    }
+    if(month < 10){
+        month = '0'+month
+    }
+    var minDate = year +'-'+month+'-'+day
+    document.getElementById('tanggal_mulai').setAttribute("min", minDate);
+    document.getElementById('tanggal_berakhir').setAttribute("min", minDate);
+
+    </script>
+@endpush

@@ -53,8 +53,12 @@ class EventController extends Controller
                     return $hasil;
                 })
                 ->addColumn('action', function ($row) {
-
-                    $btn = '<a href="manage-event/' . $row->id . '/edit" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $path = 'public/event/' . $row->id . '/files/';
+                    $btn = '';
+                    $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
+                    if ($row->status == 'belum-mulai' || $row->status == 'cancel') {
+                        $btn .= '<a href="manage-event/' . $row->id . '/edit" class="edit ml-1 btn btn-primary btn-sm">Edit</a>';
+                    }
                     if (Auth::user()->roles == 'superadmin') {
                         $btn .= '
 
@@ -66,7 +70,13 @@ class EventController extends Controller
                                 style="padding: .0em !important;font-size: xx-small;">Delete</button>
                         </form>';
                     }
-                    $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
+                    if (Auth::user()->roles == 'admin') {
+                        if ($row->status == 'sudah-selesai') {
+                            if (!Storage::exists($path)) {
+                                $btn .= '<a href="/event/compliting/' . $row->id  . '/edit" class="edit ml-1 btn btn-secondary btn-sm">Submit laporan</a>';
+                            }
+                        }
+                    }
 
                     return $btn;
                 })
@@ -177,14 +187,6 @@ keterangan : " . $request['keterangan'],
         }
 
         $new_event->save();
-
-        $new_info = new Info();
-        $new_info->subject = $request->get('nama');
-        $new_info->content = $request->get('keterangan');
-        $new_info->terkirim = $terkirim;
-
-        $new_info->save();
-        $new_info->mahasiswa()->attach($mahasiswa);
         $payload = [ "data" => $isi];
 
         // dd($payload);
@@ -250,15 +252,6 @@ keterangan : " . $request['keterangan'],
 
         $event = Event::findOrFail($id);
         $path = 'public/event/' . $id . '/files/';
-
-        if ( Auth::user()->roles == 'admin') {
-            if ($event->status == 'sudah-selesai') {
-
-                if (!Storage::exists($path)) {
-                    return view('admin.event.complitingEvent', compact('event'));
-                }
-            }
-        }
 
         $laporanKegiatan = null;
         $laporanKeuangan = null;
@@ -429,7 +422,22 @@ keterangan : " . $request['keterangan'],
             Storage::putFileAs($path, $laporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
         }
 
-        return redirect()->route('manage-event.edit', $id);
+        return redirect()->route('manage-event.index');
+    }
+
+    function ShowSaveCompliting($id)
+    {
+        $event = Event::findOrFail($id);
+        $path = 'public/event/' . $id . '/files/';
+
+        if ( Auth::user()->roles == 'admin') {
+            if ($event->status == 'sudah-selesai') {
+
+                if (!Storage::exists($path)) {
+                    return view('admin.event.complitingEvent', compact('event'));
+                }
+            }
+        }
     }
 
     function kirimWablas($content)

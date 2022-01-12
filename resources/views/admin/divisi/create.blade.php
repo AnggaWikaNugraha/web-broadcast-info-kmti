@@ -44,7 +44,7 @@
                             {{-- <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea> --}}
                             <select name="keterangan" class="form-control" id="exampleFormControlSelect1">
                                 <option value="Divisi KMTI">Divisi KMTI</option>
-                                <option value="Acara KMTI">Acara KMTI</option>
+                                <option value="Event KMTI">Event KMTI</option>
                               </select>
                             <span class="err__fields">{{ $errors->first('keterangan') }}</span>
                         </div>

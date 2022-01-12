@@ -41,6 +41,7 @@ Route::post('/admin/manage-users/excel', function () {
     return back()->with('success', 'sukses import data'); })->name('import.excel');
 
 Route::resource('admin/manage-event', EventController::class);
+Route::get('event/compliting/{id}/edit', [EventController::class, 'ShowSaveCompliting'])->name('show.compliting.event');
 Route::patch('admin/event/compliting/{id}', [EventController::class, 'saveComplitingEvent'])->name('save.compliting.event');
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);

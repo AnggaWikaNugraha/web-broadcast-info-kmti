@@ -62,7 +62,7 @@
 
                 <div class="row mb-5 mt-5">
                     <div class="col-12">
-                        <h1 style="color: #932520; font-weight: bold" class="title text-right">Event dan acara KMTI </h1>
+                        <h1 style="color: #932520; font-weight: bold" class="title text-right">Event atau acara KMTI </h1>
                     </div>
                 </div>
             </div>
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="row" style="display: flex; justify-content: center">
-                   
+
                     @foreach ($divisi as $item)
                         <div class="col-4 mb-4">
                            <a style="color: black" href="{{ route('divisi.detail', $item->id) }}">
