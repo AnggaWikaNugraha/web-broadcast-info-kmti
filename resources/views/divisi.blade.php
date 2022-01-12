@@ -40,8 +40,9 @@
                                 <div class="col-6" style="display: flex; flex-direction: column; justify-content: center">
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Nama divisi : {{ $divisi->nama_divisi}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Fungsi divisi : {{ $divisi->fungsi}}</div>
+                                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">jumlah Anggota : {{$CountMhs}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Keterangan : {{ $divisi->keterangan}}</div>
-                                    
+
                                 </div>
                                 <div class="col-6">
                                     <div style="height: 350px" class="view overlay">
@@ -53,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-          
+
                 </div>
                     <div class="row mt-5">
                         <div class="col-12">

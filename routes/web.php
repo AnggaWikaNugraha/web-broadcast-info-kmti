@@ -23,7 +23,11 @@ Route::get('/', function () {
 });
 
 Route::get('/event/{id}', function ($id) { $event = Event::findOrFail($id); return view('event', compact('event'));})->name('event.detail');
-Route::get('/divisi/{id}', function ($id) { $divisi = Divisi::findOrFail($id); return view('divisi', compact('divisi')); })->name('divisi.detail');
+Route::get('/divisi/{id}', function ($id) {
+    $divisi = Divisi::findOrFail($id);
+    $CountMhs = count(collect($divisi->mahasiswa));
+    return view('divisi', compact('divisi', 'CountMhs'));
+})->name('divisi.detail');
 
 Auth::routes();
 
