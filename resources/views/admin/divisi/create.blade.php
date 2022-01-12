@@ -32,7 +32,7 @@
                     <div class="form-group row">
                         <label for="fungsi" class="col-sm-2 col-form-label col-form-label-sm">Fungsi :</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control form-control-sm" name="fungsi" id="fungsi"></textarea>
+                            <textarea rows="4" class="form-control form-control-sm" name="fungsi" id="fungsi"></textarea>
 
                             <span class="err__fields">{{ $errors->first('fungsi') }}</span>
                         </div>

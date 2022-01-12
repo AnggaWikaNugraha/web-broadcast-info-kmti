@@ -60,13 +60,6 @@
                 </div>
 
                 <div class="card-header form-group row">
-                    <label for="lokasi" class="col-sm-2 col-form-label col-form-label-sm">Tipe Event :</label>
-                    <div class="col-sm-10">
-                        <div class="col-sm-9 offset-1">{{ $event->tipe_event }}</div>
-                    </div>
-                </div>
-
-                <div class="card-header form-group row">
                     <label for="keterangan" class="col-sm-2 col-form-label col-form-label-sm">Keterangan Event :</label>
                     <div class="col-sm-10">
                         <div class="col-sm-9 offset-1">{{ $event->keterangan }}</div>

@@ -27,9 +27,9 @@
 
                                         @else
 
-                                        {!! Auth::user()->roles == '["superadmin"]' ? ' <a style="color: white" class="nav-link" href="admin/dashboard">Dashboard</a>' : '' !!}
-                                        {!! Auth::user()->roles == '["admin"]' ? '<a style="color: white" class="nav-link" href="admin/dashboard">Dashboard</a>' : '' !!}
-                                        {!! Auth::user()->roles == '["mahasiswa"]' ? '<a style="color: white" class="nav-link" href="user/dashboard">Dashboard</a>' : '' !!}
+                                        {!! Auth::user()->roles == 'superadmin' ? ' <a style="color: white" class="nav-link" href="admin/dashboard">Dashboard</a>' : '' !!}
+                                        {!! Auth::user()->roles == 'admin' ? '<a style="color: white" class="nav-link" href="admin/dashboard">Dashboard</a>' : '' !!}
+                                        {!! Auth::user()->roles == 'mahasiswa' ? '<a style="color: white" class="nav-link" href="user/dashboard">Dashboard</a>' : '' !!}
 
                                         @endguest
 

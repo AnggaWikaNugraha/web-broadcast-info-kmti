@@ -55,7 +55,7 @@
                     </a>
                 </li>
 
-                <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
+                {{-- <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
 
                 <li>
                     <a href="{{ route('user.event') }}"
@@ -64,10 +64,10 @@
                         Event
                     </a>
 
-                </li>
+                </li> --}}
 
                 <li style=" border-bottom: 2px solid rgba(0, 0, 0, 0.125); "></li>
-                
+
                 <li>
                     <a  href="{{ route('user.info') }}"
                         class="{{ Request::routeIs('user.info') ||  Request::routeIs('user.infoDetail') ? 'mm-active' : '' }}" >
