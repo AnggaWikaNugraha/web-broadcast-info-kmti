@@ -2,15 +2,20 @@
 
 @section('body')
     <main class="page__login">
-        <div class="container">
+        <div class="app-header header-shadow" style="background-color: #004029">
+                <img class="logo__mobile ml-5" style="width: 80px" src="{{ asset('img/KMTI.png') }}" alt="">
 
+                <div class="ml-2" style="font-weight: bold; color: white">
+                    KELUARGA MAHASISWA TEKNOLOGI INFORMASI
+                </div>
+        </div>
+        <div class="container">
             {{-- content --}}
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card">
 
                         <div class="card-body">
-
                             <h2 class="text-center font-weight-bold mt-4 mb-3" style="color: gray">LOGIN</h2>
 
                             <form method="POST" action="{{ route('login') }}">
