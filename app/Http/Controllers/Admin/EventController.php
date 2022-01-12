@@ -137,7 +137,6 @@ class EventController extends Controller
 
         \Illuminate\Support\Facades\Validator::make($request->all(), [
             "nama" => "required",
-            "foto" => "required",
             "tanggal_mulai" => "required",
             "tanggal_berakhir" => 'required',
             "jam_mulai" => "required",
@@ -188,6 +187,7 @@ keterangan : " . $request['keterangan'],
 
         // handle image
         $foto = $request->file('foto');
+        // $defaultPhoto = ;
         if ($foto) {
             $foto_path = $foto->store('photos', 'public');
             $new_event->foto = $foto_path;

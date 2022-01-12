@@ -69,37 +69,31 @@
 
             <div class="container text-center my-3">
 
-                <div class="row mx-auto my-auto">
-                    <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
-                        <div class="carousel-inner w-100" role="listbox">
+                <div class="row" style="display: flex; justify-content: center">
 
-                            @forelse ($eventsActive as $item)
-                            <div class="carousel-item active mb-4">
-                                <div class="col-md-4">
-                                    <div style="border-radius: 5px" class="card card-body">
-                                        <a style="color: black" href="{{ route('event.detail', $item->id) }}">
-                                            <div style="width: 300px">
-                                                <img class="img-fluid" src="https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg">
-                                            </div>
-                                            <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event: {{ $item->nama }}</h6>
-                                            <div style="font-size: 12px" class="mt-2 text-left" class="text-left">Lokasi : {{ $item->lokasi }}</div>
-                                            <div style="font-size: 12px" class="text-left">Tanggal : <span class="badge badge-warning">{{ $item->tanggal }}</span> mulai : {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
-                                        </a>
-                                    </div>
+                    @forelse ($eventsActive as $item)
+                    <div class="col-4 mb-4">
+                        <div style="border-radius: 5px" class="card card-body">
+                            <a style="color: black" href="{{ route('event.detail', $item->id) }}">
+                                <div style="width: 300px; min-height: 171px">
+                                    <img class="img-fluid" src="{{ $item->foto !== null ? asset('storage/' . $item->foto) : 'https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg' }}">
                                 </div>
-                            </div>
-                            @empty
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="content text-right">
-                                        <p>Tidak ada event KMTI </p>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforelse
-
+                                <h6 style="font-weight: bold; text-align: left; margin-top: 5px">Event: {{ $item->nama }}</h6>
+                                <div style="font-size: 12px" class="mt-2 text-left" class="text-left">Lokasi : {{ $item->lokasi }}</div>
+                                <div style="font-size: 12px" class="text-left">Tanggal : <span class="badge badge-warning">{{ $item->tanggal }}</span> mulai : {{ $item->jam_mulai }} - {{ $item->jam_berakhir }} WIB</div>
+                            </a>
                         </div>
                     </div>
+                    @empty
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <div class="content text-right">
+                                <p>Tidak ada event KMTI </p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforelse
+
                 </div>
 
                 <div class="row mt-5">
@@ -184,7 +178,7 @@
 
 @push('script')
 
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         $('#recipeCarousel').carousel({
             interval: 10000
         })
@@ -206,6 +200,6 @@
                 next.children(':first-child').clone().appendTo($(this));
             }
         });
-    </script>
+    </script> --}}
 
 @endpush

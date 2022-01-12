@@ -37,16 +37,16 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body" style="display: flex">
-                                <div class="col-6" style="display: flex; flex-direction: column; justify-content: center">
+                                <div class="col-5" style="display: flex; flex-direction: column; justify-content: center">
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Nama event : {{ $event->nama}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Tanggal event : <div style="color: white; font-size: 16px" class="badge badge-warning">{{ $event->tanggal}}</div> , {{ $event->jam_mulai}}-{{ $event->jam_berakhir}} WIB</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Lokasi event : {{ $event->lokasi}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Status event : {{ $event->status}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Keterangan : {{ $event->keterangan}}</div>
                                 </div>
-                                <div class="col-6">
-                                    <div style="height: 350px" class="view overlay">
-                                        <img style="height: 100%; width: auto" class="card-img-top" src="{{ $event->foto !== null ? asset('storage/' . $event->foto) : '' }}" alt="Card image cap">
+                                <div class="col-7">
+                                    <div style="height: 350px; width: 100%" class="view overlay">
+                                        <img style="height: 100%;" class="card-img-top" src="{{ $event->foto !== null ? asset('storage/' . $event->foto) : 'https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg' }}" alt="Card image cap">
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                 </div>
-          
+
                 </div>
                     <div class="row mt-5">
                         <div class="col-12">

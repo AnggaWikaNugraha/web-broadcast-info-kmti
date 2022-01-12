@@ -23,9 +23,9 @@
                     <div class="form-group row">
                         <label for="foto" class="col-sm-2 col-form-label col-form-label-sm">Foto :</label>
                         <div class="col-sm-10">
-                            @if ($event->foto)
-                                <img src="{{ asset('storage/' . $event->foto) }}" width="250px" />
-                            @endif
+
+                                <img src="{{ $event->foto !== null ? asset('storage/' . $event->foto) : 'https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg' }}" width="250px" />
+
                             <input style="margin-top: 10px" name="foto" type="file" class="form-control-file">
                             <span class="err__fields">{{ $errors->first('foto') }}</span>
                         </div>

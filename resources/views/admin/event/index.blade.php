@@ -22,7 +22,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nama</th>
-                                <th>Cover</th>
                                 <th>Tanggal mulai</th>
                                 <th>Tanggal berakhir</th>
                                 <th>Jam Mulai</th>
@@ -60,10 +59,6 @@
                     {
                         data: 'nama',
                         name: 'nama'
-                    },
-                    {
-                        data: 'foto',
-                        name: 'foto'
                     },
                     {
                         data: 'tanggal_mulai',

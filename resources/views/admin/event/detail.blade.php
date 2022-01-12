@@ -15,19 +15,24 @@
                     </div>
                 </div>
 
-                @if ($event->foto)
                     <div class="form-group row">
                         <label for="foto" class="col-sm-2 col-form-label col-form-label-sm">Foto :</label>
                         <div class="col-sm-10">
-                            <img style="margin-left: 10%" src="{{asset('storage/' . $event->foto)}}" width="250px"/>
+                            <img style="margin-left: 10%" src="{{ $event->foto !== null ? asset('storage/' . $event->foto) : 'https://ti.umy.ac.id/wp-content/uploads/2020/02/Untitled-111.jpg' }}" width="250px"/>
                         </div>
                     </div>
-                @endif
 
                 <div class="form-group row">
-                    <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal Event :</label>
+                    <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal Mulai Event :</label>
                     <div class="col-sm-10">
-                        <div class="col-sm-9 offset-1">{{ $event->tanggal }}</div>
+                        <div class="col-sm-9 offset-1">{{ $event->tanggal_mulai }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="tanggal" class="col-sm-2 col-form-label col-form-label-sm">Tanggal Berakhir Event :</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-9 offset-1">{{ $event->tanggal_berakhir }}</div>
                     </div>
                 </div>
 
