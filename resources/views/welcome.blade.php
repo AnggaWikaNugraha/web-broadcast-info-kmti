@@ -73,7 +73,7 @@
                     <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
                         <div class="carousel-inner w-100" role="listbox">
 
-                            @foreach ($eventsActive as $item)
+                            @forelse ($eventsActive as $item)
                             <div class="carousel-item active mb-4">
                                 <div class="col-md-4">
                                     <div style="border-radius: 5px" class="card card-body">
@@ -88,7 +88,15 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="content text-right">
+                                        <p>Tidak ada event KMTI </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforelse
 
                         </div>
                     </div>
