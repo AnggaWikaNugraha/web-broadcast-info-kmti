@@ -4,6 +4,13 @@
     <div id="app">
 
         <main class="page__login">
+            <div class="app-header header-shadow" style="background-color: #004029">
+                <img class="logo__mobile ml-5" style="width: 80px" src="{{ asset('img/KMTI.png') }}" alt="">
+
+                <div class="ml-2" style="font-weight: bold; color: white">
+                    KELUARGA MAHASISWA TEKNOLOGI INFORMASI
+                </div>
+            </div>
             <div class="container">
 
                 {{-- content --}}

@@ -310,7 +310,7 @@ class MahasiswaController extends Controller
     public function savecompliting(Request $request, $id)
     {
         \Illuminate\Support\Facades\Validator::make($request->all(), [
-            "no_wa" => "required",
+            "no_wa" => "required||regex:/^([0-9\s\-\+\(\)]*)$/|min:10",
             "id_tele" =>  "required"
         ])->validate();
 

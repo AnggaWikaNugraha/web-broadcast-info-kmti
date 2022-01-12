@@ -49,7 +49,18 @@ class EventController extends Controller
                     return $img;
                 })
                 ->addColumn('statusEvent', function ($row) {
-                    $hasil = $row->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $row->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>';
+                    if ($row->status == 'belum-mulai') {
+                        $hasil = '<div class="badge badge-warning">belum-mulai</div>';
+                    }
+                    if ($row->status == 'mulai') {
+                        $hasil = '<div class="badge badge-primary">mulai</div>';
+                    }
+                    if ($row->status == 'sudah-selesai') {
+                        $hasil = '<div class="badge badge-success">sudah-selesai</div>';
+                    }
+                    if ($row->status == 'cancel') {
+                        $hasil = '<div class="badge badge-danger">Cancel</div>';
+                    }
                     return $hasil;
                 })
                 ->addColumn('action', function ($row) {
@@ -162,7 +173,7 @@ class EventController extends Controller
 
 Subject : " . $request['nama'] . "
 Terkirim : " . $terkirim . "
-Pemberitahuan : KMTI mendadakan " . $request['nama'] . " yang akan dilaksanakan :
+Pemberitahuan : KMTI mengadakan " . $request['nama'] . " yang akan dilaksanakan :
 tanggal berlangsung : " . $request['tanggal_mulai'] . "
 tanggal berakhir : " . $request['tanggal_berakhir'] . "
 berlokasi di : " . $request['lokasi']. "
@@ -197,7 +208,7 @@ keterangan : " . $request['keterangan'],
         $payload = [ "data" => $isi];
 
         // dd($payload);
-        // $this->kirimWablas($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 

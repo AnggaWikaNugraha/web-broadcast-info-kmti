@@ -83,6 +83,10 @@
                                 id="status_belum_mulai" name="status" value="belum-mulai" />
                             <label for="status_belum_mulai">belum mulai</label><br>
 
+                            <input {{ $event->status == 'mulai' ? 'checked' : '' }} type="radio"
+                                id="mulai" name="status" value="mulai" />
+                            <label for="status_mulai">mulai</label><br>
+
                             <input {{ $event->status == 'sudah-selesai' ? 'checked' : '' }} type="radio"
                                 id="status_sudah_selesai" name="status" value="sudah-selesai" />
                             <label for="status_sudah_selesai">sudah selesai</label><br>

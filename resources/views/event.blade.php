@@ -39,9 +39,9 @@
                             <div class="card-body" style="display: flex">
                                 <div class="col-5" style="display: flex; flex-direction: column; justify-content: center">
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Nama event : {{ $event->nama}}</div>
-                                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Tanggal event : <div style="color: white; font-size: 16px" class="badge badge-warning">{{ $event->tanggal}}</div> , {{ $event->jam_mulai}}-{{ $event->jam_berakhir}} WIB</div>
+                                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Tanggal mulai event : <div style="color: white; font-size: 16px" class="badge badge-warning">{{ $event->tanggal_mulai}}</div> </div>
+                                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Tanggal berakhir event : {{ $event->tanggal_berakhir}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Lokasi event : {{ $event->lokasi}}</div>
-                                    <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Status event : {{ $event->status}}</div>
                                     <div style="font-size: 18px; font-weight: bold; margin-bottom: 10px">Keterangan : {{ $event->keterangan}}</div>
                                 </div>
                                 <div class="col-7">
