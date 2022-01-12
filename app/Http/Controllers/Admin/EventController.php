@@ -127,7 +127,6 @@ class EventController extends Controller
             "jam_berakhir" => "required",
             "lokasi" => "required",
             "keterangan" => "required",
-            "tipe_event" => "required",
         ])->validate();
 
         $mahasiswa = [];
@@ -169,7 +168,6 @@ keterangan : " . $request['keterangan'],
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
         $new_event->status = 'belum-mulai';
-        $new_event->tipe_event = $request->get('tipe_event');
 
         // handle image
         $foto = $request->file('foto');
@@ -314,7 +312,6 @@ keterangan : " . $request['keterangan'],
             "jam_berakhir" => "required",
             "lokasi" => "required",
             "keterangan" => "required",
-            "tipe_event" => "required",
 
         ])->validate();
 
@@ -329,7 +326,6 @@ keterangan : " . $request['keterangan'],
         $new_event->lokasi = $request->get('lokasi');
         $new_event->keterangan = $request->get('keterangan');
         $new_event->status = $request->get('status');
-        $new_event->tipe_event = $request->get('tipe_event');
 
         // handle image and file
         $foto = $request->file('foto');

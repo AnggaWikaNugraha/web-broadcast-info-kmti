@@ -28,7 +28,6 @@
                                 <th>Jam Mulai</th>
                                 <th>Jam Berakhir</th>
                                 <th>Lokasi</th>
-                                <th>Tipe event</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -85,10 +84,6 @@
                     {
                         data: 'lokasi',
                         name: 'lokasi'
-                    },
-                    {
-                        data: 'tipe_event',
-                        name: 'tipe_event'
                     },
                     {
                         data: 'statusEvent',

@@ -82,10 +82,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="tipe_event" class="col-sm-2 col-form-label col-form-label-sm">Tipe event :</label>
                         <div class="col-sm-10">
-                            {{-- <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea> --}}
+                            <input placeholder="Divisi KMTI/IT Spekta/Kampung IT/etc" value="{{ old('keterangan') }}" class="form-control form-control-sm" name="keterangan"></textarea>
                             <select name="tipe_event" class="form-control" id="exampleFormControlSelect1">
                                 <option value="Event KMTI">Event KMTI</option>
                                 <option value="Acara KMTI">Acara KMTI</option>
@@ -93,7 +93,7 @@
                               </select>
                             <span class="err__fields">{{ $errors->first('tipe_event') }}</span>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <button class="btn btn-info text-white">Submit</button>
 
