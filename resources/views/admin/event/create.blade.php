@@ -24,8 +24,7 @@
                     <div class="form-group row">
                         <label for="tanggal_mulai" class="col-sm-2 col-form-label col-form-label-sm">Tanggal mulai :</label>
                         <div class="col-sm-10">
-                            <input value="{{ old('tanggal_mulai') }}" type="date" class="form-control form-control-sm"
-                                id="tanggal" name="tanggal_mulai" placeholder="Masukan tanggal">
+                            <input onchange="tanggalMulai()" value="{{ old('tanggal_mulai') }}" type="date" class="form-control form-control-sm" id="tanggal_mulai" name="tanggal_mulai" placeholder="Masukan tanggal">
                             <span class="err__fields">{{ $errors->first('tanggal_mulai') }}</span>
                         </div>
                     </div>
@@ -104,3 +103,29 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script type="text/javascript">
+    var date           = new Date();
+    var day            = date.getDate()
+    var month          = date.getMonth()+1
+    var year           = date.getFullYear()
+    if(day < 10){
+        day  = '0'+ day
+    }
+    if(month < 10){
+        month = '0'+month
+    }
+    var minDate = year +'-'+month+'-'+day
+    document.getElementById('tanggal_mulai').setAttribute("min", minDate);
+    document.getElementById('tanggal_berakhir').disabled  = true;
+
+    function tanggalMulai(){
+        document.getElementById('tanggal_berakhir').disabled  = false;
+        var valueDateMulai = document.getElementById('tanggal_mulai').value;
+        document.getElementById('tanggal_berakhir').setAttribute("min", valueDateMulai);
+    }
+
+    </script>
+@endpush
+
