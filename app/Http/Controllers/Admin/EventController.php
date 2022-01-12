@@ -67,7 +67,7 @@ class EventController extends Controller
                     $path = 'public/event/' . $row->id . '/files/';
                     $btn = '';
                     $btn .= '<a href="manage-event/' . $row->id . '" class="edit ml-1 btn btn-primary btn-sm">Detail</a>';
-                    if ($row->status == 'belum-mulai' || $row->status == 'cancel') {
+                    if ($row->status == 'belum-mulai' || $row->status == 'cancel' || $row->status == 'mulai') {
                         $btn .= '<a href="manage-event/' . $row->id . '/edit" class="edit ml-1 btn btn-primary btn-sm">Edit</a>';
                     }
                     if (Auth::user()->roles == 'superadmin') {
@@ -382,7 +382,72 @@ keterangan : " . $request['keterangan'],
             Storage::putFileAs($path, $NewLaporanKeuangan, 'laporan-keuangan.' . pathinfo($_FILES['laporan-keuangan']['name'], PATHINFO_EXTENSION));
         }
 
+        $mahasiswa = [];
+        $terkirim = null;
+        $isi = [];
+
+        $mahasiswa = Mahasiswa::whereNotNull('no_wa')->get();
+        $terkirim = 'Anggota KMTI';
+
+        if ($request->get('status') === 'mulai') {
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' =>
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['nama'] . "
+Terkirim : " . $terkirim . "
+Pemberitahuan : Halo semua ! Event " . $request['nama'] . " sudah mulai hari ini sampai tanggal " . $request['tanggal_berakhir'] . " berlokasi di " . $request['lokasi']. " Untuk itu jangan lupa datang untuk memeriahkan ya!.
+keterangan : " . $request['keterangan'],
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+        }
+
+//         if ($request->get('status') === 'sudah-selesai') {
+//             foreach ($mahasiswa as $value) {
+//                 array_push($isi, (object)[
+//                     'phone' => $value->no_wa,
+//                     'message' =>
+// "*[INFO KMTI]*
+// *Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+// Subject : " . $request['nama'] . "
+// Terkirim : " . $terkirim . "
+// Pemberitahuan : Halo semua ! Event " . $request['nama'] . " sudah selesai.
+// Terimakasih untuk semua yang telah memeriahkan event kami!.",
+//                     'secret' => false, // or true
+//                     'priority' => false, // or true
+//                 ]);
+//             }
+//         }
+
+        if ($request->get('status') === 'cancel') {
+            foreach ($mahasiswa as $value) {
+                array_push($isi, (object)[
+                    'phone' => $value->no_wa,
+                    'message' =>
+"*[INFO KMTI]*
+*Ini adalah pesan otomatis yang dikirim melalui sistem KMTI, diharapkan untuk tidak membalas pesan di nomor ini.*
+
+Subject : " . $request['nama'] . "
+Terkirim : " . $terkirim . "
+Pemberitahuan : Halo semua ! Event " . $request['nama'] . " cancel/batal.
+Mohon maaf untuk ketidaknyamanan kami, terimakasih!.",
+                    'secret' => false, // or true
+                    'priority' => false, // or true
+                ]);
+            }
+        }
+
         $new_event->save();
+        $payload = [ "data" => $isi];
+
+        // dd($payload);
+        $this->kirimWablas($payload);
 
         DB::commit();
 
