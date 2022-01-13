@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                @if ($laporanKegiatan)
+                {{-- @if ($laporanKegiatan)
                     <div class="form-group row">
                         <label for="status" class="col-sm-2 col-form-label col-form-label-sm">Laporan kegiatan :</label>
                         <div class="col-sm-10">
@@ -80,7 +80,7 @@
                             <a class="col-sm-9 offset-1" href="{{ Storage::url($laporanKeuangan) }}">Download Laporan keuangan</a>
                         </div>
                     </div>
-                @endif
+                @endif --}}
 
                 @if ($event->status == 'sudah-selesai')
                     @if (!$laporanKeuangan && !$laporanKegiatan)

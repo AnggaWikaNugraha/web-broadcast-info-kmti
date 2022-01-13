@@ -151,7 +151,8 @@
                             <tr>
                                 <th class="text-center">#</th>
                                 <th>Name</th>
-                                <th>Tanggal</th>
+                                <th>Tanggal mulai</th>
+                                <th>Tanggal berakhir</th>
                                 <th>Jam</th>
                                 <th>lokasi</th>
                                 <th style="text-align: center">status</th>
@@ -164,6 +165,7 @@
                                     <td style="text-align: center">{{ $loop->index  + 1}}</td>
                                     <td>{{ $item->nama}}</td>
                                     <td>{{ $item->tanggal_mulai}}</td>
+                                    <td>{{ $item->tanggal_berakhir}}</td>
                                     <td>{{ $item->jam_mulai}} - {{ $item->jam_berakhir}}</td>
                                     <td>{{ $item->lokasi}}</td>
                                     <td style="text-align: center">{!! $item->status == 'belum-mulai' ? '<div class="badge badge-warning">belum-mulai</div>' : $hasil = $item->status == 'sudah-selesai' ? ' <div class="badge badge-success">sudah-selesai</div>' : '<div class="badge badge-danger">Cancel</div>' !!}</td>

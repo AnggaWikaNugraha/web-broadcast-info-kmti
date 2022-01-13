@@ -91,8 +91,11 @@
                         </div>
                     </div> --}}
 
-                    <button class="btn btn-info text-white">Submit</button>
-                    <a class="text-white ml-2 btn btn-primary" href="{{ route('manage-users.index') }}">Kembali</a>
+                    <div style="display: flex; justify-content: flex-end; width: 100%">
+
+                        <a class="text-white btn btn-info" href="{{ route('manage-users.index') }}">Kembali</a>
+                        <button class="btn ml-2 btn-primary text-white">Submit</button>
+                    </div>
 
                 </form>
 
