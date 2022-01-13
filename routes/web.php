@@ -48,6 +48,7 @@ Route::resource('admin/manage-event', EventController::class);
 Route::get('event/compliting/{id}/submit-laporan', [EventController::class, 'ShowSaveCompliting'])->name('show.compliting.event');
 Route::patch('admin/event/compliting/{id}', [EventController::class, 'saveComplitingEvent'])->name('save.compliting.event');
 Route::get('event/compliting/{id}/edit-laporan', [EventController::class, 'ShowEditCompliting'])->name('show.edit.compliting.event');
+Route::get('event/compliting/{id}/download-laporan', [EventController::class, 'downloadLaporan'])->name('download.laporan.event');
 Route::patch('event/compliting/{id}', [EventController::class, 'SaveShowEditCompliting'])->name('update.compliting.event');
 Route::resource('admin/manage-divisi', DivisiController::class);
 Route::resource('admin/manage-info', InfoController::class);

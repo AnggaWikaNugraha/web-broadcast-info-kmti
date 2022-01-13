@@ -95,6 +95,16 @@ class EventController extends Controller
                             }
                         }
                     }
+                    if (Auth::user()->roles == 'superadmin') {
+                        if ($row->status == 'sudah-selesai') {
+                            if (Storage::exists($path)) {
+                                $btn .= '<a href="/event/compliting/' . $row->id  . '/download-laporan" class="edit ml-1 btn btn-secondary btn-sm">laporan <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                              </svg></a>';
+                            }
+                        }
+                    }
 
                     return $btn;
                 })
@@ -579,6 +589,43 @@ Mohon maaf untuk ketidaknyamanan kami, terimakasih!.",
         }
 
         return redirect()->route('manage-event.index');
+    }
+
+    public function downloadLaporan($id)
+    {
+        if (Auth::user()->email_verified_at == null) {
+            return redirect(route('show-change-password'));
+        }
+
+        if (
+            Auth::user()->roles != 'superadmin'
+        ) {
+            abort(403, 'Anda tidak memiliki cukup hak akses');
+        }
+
+        $path = 'public/event/' . $id . '/files/';
+
+        $laporanKegiatan = null;
+        $laporanKeuangan = null;
+        $pathDownload = 'event/' . $id . '/files/';
+
+        $extentions = ['.xlsx', '.docx'];
+        foreach ($extentions as $ext) {
+            if (Storage::exists($path . 'laporan-kegiatan' . $ext)) {
+                $laporanKegiatan = $pathDownload . 'laporan-kegiatan' . $ext;
+            }
+        }
+
+        foreach ($extentions as $ext) {
+            if (Storage::exists($path . 'laporan-keuangan' . $ext)) {
+                $laporanKeuangan = $pathDownload . 'laporan-keuangan' . $ext;
+            }
+        }
+
+        return view('admin.event.downloadLaporanEvent', compact(
+            'laporanKegiatan',
+            'laporanKeuangan'
+        ));
     }
 
     function kirimWablas($content)

@@ -38,11 +38,13 @@ class UserController extends Controller
             abort(403, 'Anda tidak memiliki cukup hak akses');
         }
         $data = User::where('roles', '=', 'mahasiswa')
-            ->orderByDesc('created_at')
-            ->get();
+            ->get()
+            ->sortByDesc(function($product) {
+                return $product->mahasiswa->angkatan;
+           });
             // $data = User::whereHas('mahasiswa', function ($query){
-            //     return $query->where('status', '=', 'pengurus');
-            // });
+        //         return $query->where('angkatan', '=', 'mahasiswa');
+        // });
         $mahasiswa = Mahasiswa::get();
         $angkatan = $mahasiswa->unique('angkatan');
         if ($request->ajax()) {
