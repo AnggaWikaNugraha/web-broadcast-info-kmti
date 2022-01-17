@@ -21,7 +21,7 @@
                 <div class="container">
                     <h1 style="color: white; font-weight: 700" class="display-4">Progam Studi Teknologi <br>Informasi
                         (S1)</h1>
-                    <p style="color: white" class="lead">Keluarga Mahasiswa Teknologi Informasi</p>
+                    <p style="color: white" class="lead">Keluarga Mahasiswa Teknologi Informasi.</p>
                 </div>
             </div>
 
