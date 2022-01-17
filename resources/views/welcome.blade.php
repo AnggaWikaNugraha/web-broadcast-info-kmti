@@ -62,7 +62,7 @@
 
                 <div class="row mb-5 mt-5">
                     <div class="col-12">
-                        <h1 style="color: #932520; font-weight: bold" class="title text-right">Event atau acara KMTI </h1>
+                        <h1 style="color: #932520; font-weight: bold" class="title text-right">Event atau acara KMTI.</h1>
                     </div>
                 </div>
             </div>
