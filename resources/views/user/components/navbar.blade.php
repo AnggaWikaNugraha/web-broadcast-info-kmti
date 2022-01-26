@@ -47,21 +47,21 @@
                         <div class="widget-content-left">
                             <div class="btn-group" style="position: relative;">
 
-                                @if (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() > 0)
+                                @if (Auth::user()->notifs()->where('broadcast.status', 'active')->count() > 0)
 
                                     <a style="color: #3ac47d; font-size: 18px" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="false" class="p-0 btn">
                                         <i class="fa fa-bell" aria-hidden="true"></i>
 
                                         <span
-                                            style="position: absolute; top: -10px; left: 15px;">{{ Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->count() }}</span>
+                                            style="position: absolute; top: -10px; left: 15px;">{{ Auth::user()->notifs()->where('broadcast.status', 'active')->count() }}</span>
 
 
                                     </a>
                                     <div style="width: 300px" tabindex="-1" role="menu" aria-hidden="true"
                                         class="dropdown-menu dropdown-menu-right mt-3">
 
-                                        @foreach (Auth::user()->notifs()->where('info_mahasiswa.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)
+                                        @foreach (Auth::user()->notifs()->where('broadcast.status', 'active')->orderBy('id', 'DESC')->paginate(5) as $item)
                                             <form
                                                 method="POST"
                                                 action="{{ route('user.infoRead', $item->info->id) }}"

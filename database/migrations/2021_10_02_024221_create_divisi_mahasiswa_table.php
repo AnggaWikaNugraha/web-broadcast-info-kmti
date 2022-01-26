@@ -13,7 +13,7 @@ class CreateDivisiMahasiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kmti_mahasiswa', function (Blueprint $table) {
+        Schema::create('pengurus', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('kmti_id');
             $table->unsignedBigInteger('mahasiswa_id');
@@ -31,6 +31,6 @@ class CreateDivisiMahasiswaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kmti_mahasiswa');
+        Schema::dropIfExists('pengurus');
     }
 }

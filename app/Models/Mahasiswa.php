@@ -32,7 +32,7 @@ class Mahasiswa extends Model
     }
 
     public function divisi(){
-        return $this->belongsToMany(Divisi::class, 'kmti_mahasiswa', 'mahasiswa_id', 'kmti_id');
+        return $this->belongsToMany(Divisi::class, 'pengurus', 'mahasiswa_id', 'kmti_id');
     }
 
     /**

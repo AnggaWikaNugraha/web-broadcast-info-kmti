@@ -10,7 +10,7 @@ class InfoMahasiswa extends Model
 {
     use HasFactory;
 
-    protected $table = 'info_mahasiswa';
+    protected $table = 'broadcast';
 
     /**
      * Get the mahasiswa that owns the InfoMahasiswa

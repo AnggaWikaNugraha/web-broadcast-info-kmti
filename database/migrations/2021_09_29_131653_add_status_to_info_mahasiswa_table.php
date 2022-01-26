@@ -13,7 +13,7 @@ class AddStatusToInfoMahasiswaTable extends Migration
      */
     public function up()
     {
-        Schema::table('info_mahasiswa', function (Blueprint $table) {
+        Schema::table('broadcast', function (Blueprint $table) {
             $table->string('status', 9)->default('active');
         });
     }
@@ -25,7 +25,7 @@ class AddStatusToInfoMahasiswaTable extends Migration
      */
     public function down()
     {
-        Schema::table('info_mahasiswa', function (Blueprint $table) {
+        Schema::table('broadcast', function (Blueprint $table) {
             $table->dropColumn('status');
         });
     }

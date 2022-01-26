@@ -13,7 +13,7 @@ class CreateInfoMahasiswaTable extends Migration
      */
     public function up()
     {
-        Schema::create('info_mahasiswa', function (Blueprint $table) {
+        Schema::create('broadcast', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('info_id')->nullable();
             $table->unsignedBigInteger('mahasiswa_id')->nullable();
@@ -32,6 +32,6 @@ class CreateInfoMahasiswaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('info_mahasiswa');
+        Schema::dropIfExists('broadcast');
     }
 }

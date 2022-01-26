@@ -25,7 +25,7 @@ class Divisi extends Model
         // tabel barunya
         // id pertama
         // id kedua
-        return $this->belongsToMany(Mahasiswa::class, 'kmti_mahasiswa', 'kmti_id', 'mahasiswa_id');
+        return $this->belongsToMany(Mahasiswa::class, 'pengurus', 'kmti_id', 'mahasiswa_id');
     }
 
     /**
