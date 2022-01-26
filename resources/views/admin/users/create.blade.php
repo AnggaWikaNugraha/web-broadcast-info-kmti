@@ -105,6 +105,10 @@
         <div class="col-12">
             <div class="main-card mb-3 card p-4">
 
+                <div class="mb-2 mt-1">
+                    <a href="{{ Storage::url('template/users.xlsx') }}">Download Template</a>
+                </div>
+
                 <a id="btnBatal" style="display: none;" class="col-1 text-white mb-4 btn btn-primary"
                     href="{{ route('manage-users.create') }}">Batal import</a>
 

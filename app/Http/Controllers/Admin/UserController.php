@@ -294,10 +294,10 @@ class UserController extends Controller
                 $mhs->divisi()->sync($request['divisi']);
             }
 
-            if ($request['status'] == 'anggota' ) {
-
+            if ($request['status'] == 'anggota' || $request['status'] == null ) {
+                $anggota = 'anggota';
                 $user->mahasiswa()->update([
-                    'status' => $request['status']
+                    'status' => $anggota
                 ]);
 
                 DivisiMahasiswa::where('mahasiswa_id', $user->mahasiswa->id )->delete() ;
@@ -311,6 +311,7 @@ class UserController extends Controller
 
             DB::commit();
         } catch (\Throwable $th) {
+            dd($th);
             return false;
         }
 

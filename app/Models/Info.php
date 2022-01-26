@@ -19,7 +19,7 @@ class Info extends Model
     ];
 
     public function mahasiswa(){
-        return $this->belongsToMany(Mahasiswa::class)->withPivot('tanggal_kirim', 'status', 'id' );
+        return $this->belongsToMany(Mahasiswa::class, 'broadcast', 'info_id', 'mahasiswa_id')->withPivot('tanggal_kirim', 'status', 'id' );
     }
 
     /**

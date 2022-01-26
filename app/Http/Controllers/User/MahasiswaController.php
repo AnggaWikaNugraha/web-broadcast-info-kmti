@@ -264,8 +264,8 @@ class MahasiswaController extends Controller
                 $mhs->divisi()->sync($request['divisi']);
             }
 
-            if ($request['status'] == 'anggota' ) {
-
+            if ($request['status'] == 'anggota' || $request['status'] == null ) {
+                $anggota = 'anggota';
                 $user->mahasiswa()->update([
                     'status' => $request['status']
                 ]);
